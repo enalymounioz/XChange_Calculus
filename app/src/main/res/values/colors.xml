@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--Theme Splash Screen-->
+    <color name="colorPrimary">#2196F3</color>
+    <color name="colorPrimaryDark">#FF1D73E4</color>
+    <color name="colorAccent">#F48120</color>
+
+    <color name="colorTransparent">#00FFFFFF</color>
+    <color name="darkWhite">#FFDAD2D2</color>
+    <color name="white">#FFFF</color>
+
+
+    <!--Theme Gradient Animation-->
+    <color name="colorGradientStart">#D6E5F1</color>
+    <color name="colorGradientCenter">#B6D1E2</color>
+    <color name="colorGradientEnd">#005E9C</color>
+</resources>

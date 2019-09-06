@@ -1,0 +1,23 @@
+<resources>
+
+    <!--App strings-->
+    <string name="app_name">Skywalker New App</string>
+    <string name="welcome_message">Welcome Message</string>
+    <string name="logo">Logo</string>
+    <string name="home_screen">Home Screen</string>
+    <!--App strings-->
+
+
+    <!--User strings-->
+    <string name="login">Login</string>
+    <string name="email">Email</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="login_now">Login Now</string>
+    <string name="sign_up_now">Sign Up Now</string>
+    <string name="forgot_password">Forgot Password</string>
+    <string name="facebooklogo">facebookLogo</string>
+    <string name="googlelogo">googlelogo</string>
+    <!--User strings-->
+
+</resources>
