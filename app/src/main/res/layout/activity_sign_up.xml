@@ -400,24 +400,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/linlay4"
-                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
                 android:paddingTop="10dp">
 
-                <TextView
-                    android:id="@+id/question1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif"
-                    android:text="@string/already_have_an_account"
-                    android:textColor="@color/white"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif"
-                    android:text="@string/login"
-                    android:layout_marginStart="10dp"
-                    android:textColor="@color/colorAccent" />
 
                 <RadioButton
                     android:layout_width="wrap_content"
@@ -425,9 +410,8 @@
                     android:text="@string/i_agree_to_the_terms_and_conditions"
                     android:fontFamily="sans-serif"
                     android:textColor="@color/black"
-                    android:shadowRadius="20sp"
                     android:textSize="10sp"
-                    android:textStyle="italic" />
+                    android:textStyle="italic"                    />
 
             </LinearLayout>
 

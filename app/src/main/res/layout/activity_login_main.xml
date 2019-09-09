@@ -205,7 +205,8 @@
             android:background="@color/colorTransparent"
             android:fontFamily="sans-serif"
             android:text="@string/sign_up_now"
-            android:textColor="@color/colorAccent" />
+            android:textColor="@color/colorAccent"
+            android:onClick="btn_signup"/>
 
         <Button
             android:layout_width="wrap_content"
@@ -215,7 +216,7 @@
             android:fontFamily="sans-serif"
             android:text="@string/forgot_password"
             android:textAllCaps="true"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"/>
 
     </RelativeLayout>
 

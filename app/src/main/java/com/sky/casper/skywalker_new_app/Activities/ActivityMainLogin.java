@@ -1,6 +1,8 @@
 package com.sky.casper.skywalker_new_app.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.View;
@@ -31,7 +33,11 @@ public class ActivityMainLogin extends AppCompatActivity {
         animationDrawable.start();
         /*Start Background Animation*/
 
-
-
        }
+
+    public void btn_signup(View view) {
+        startActivity(new Intent(getApplicationContext(),ActivitySignUp.class));
+    }
+
+
 }
