@@ -26,9 +26,5 @@ public class ActivityMainLogin extends AppCompatActivity {
         animationDrawable.start();
         /*Start Background Animation*/
 
-        /*Make Activity full screen*/
-        View decorView = getWindow().getDecorView();
-        decorView.setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
        }
 }

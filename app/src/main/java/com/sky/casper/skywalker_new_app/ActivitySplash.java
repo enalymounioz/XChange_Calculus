@@ -16,15 +16,14 @@ import com.sky.casper.skywalker_new_app.Activities.ActivityMainLogin;
 public class ActivitySplash extends AppCompatActivity {
 
     //Manual duration of Splash Screen
-    private static int timeout=1000;
+    private static int timeout=5000;
 
-   /*Variables for background animation*/
-    RelativeLayout relativeLayout;
-    AnimationDrawable animationDrawable;
+    //Animation declaration
 
-    /*Variables for logo animation*/
-    TextView text;
+    Animation logoanimation;
     ImageView image;
+    TextView text;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,26 +33,7 @@ public class ActivitySplash extends AppCompatActivity {
         /*Make Activity full screen and hide navigation bar*/
         View decorView = getWindow().getDecorView();
         decorView.setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                        // Hide the nav bar and status bar
-                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
-
-        relativeLayout =findViewById(R.id.root_layout);
-        /*Start Background Animation*/
-        animationDrawable = (AnimationDrawable)relativeLayout.getBackground();
-        animationDrawable.setEnterFadeDuration(10);
-        animationDrawable.setExitFadeDuration(3000);
-        animationDrawable.start();
-        /*Start Background Animation*/
-
-
-        text= findViewById(R.id.text);
-        image=findViewById(R.id.image);
-        /*Start Logo Animation*/
-        Animation animation = AnimationUtils.loadAnimation(ActivitySplash.this,R.anim.logoanimation);
-        image.startAnimation(animation);
-        text.startAnimation(animation);
-
+                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
 
         /*Move from Splash Screen to Main Screen*/
         Handler handler = new Handler();
@@ -65,6 +45,13 @@ public class ActivitySplash extends AppCompatActivity {
             }
         },timeout);
         /*Move from Splash Screen to Main Screen*/
+
+        //Start Animation form small to big logo
+        logoanimation = AnimationUtils.loadAnimation(this,R.anim.logoanimation);
+        image = findViewById(R.id.image);
+        image.startAnimation(logoanimation);
+        text = findViewById(R.id.text);
+        text.startAnimation(logoanimation);
 
     }
 }
