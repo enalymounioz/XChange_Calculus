@@ -64,6 +64,7 @@
                         android:textSize="15sp" />
 
                     <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/edit_text_username"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:hintAnimationEnabled="false"
@@ -103,6 +104,7 @@
                         android:textSize="15sp" />
 
                     <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/edit_text_password"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:hintAnimationEnabled="false"
@@ -131,6 +133,7 @@
             </LinearLayout>
 
             <Button
+                android:id="@+id/button_confirm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/linlay1"
@@ -143,7 +146,8 @@
                 android:text="@string/login_now"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:enabled="false"/>
 
         </RelativeLayout>
 
@@ -192,12 +196,6 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/don_t_have_an_account"
-            android:textColor="@color/white"
-            android:layout_marginBottom="10dp"/>
 
         <Button
             android:layout_width="wrap_content"
