@@ -9,15 +9,34 @@
 
 
     <!--User strings-->
-    <string name="login">Login</string>
+    <string name="login">Log in</string>
     <string name="email">Email</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="login_now">Login Now</string>
     <string name="sign_up_now">Sign Up Now</string>
     <string name="forgot_password">Forgot Password</string>
+
+    <string name="sign_up">Sign up</string>
+    <string name="name">Name</string>
+    <string name="first_name">First Name</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="retype_password">Retype Password</string>
+    <string name="surname">Surname</string>
+    <string name="last_name">Last Name</string>
+    <string name="address">Address</string>
+    <string name="physical_address">Physical Address</string>
+    <string name="postal_code">Postal Code</string>
+
+
     <string name="facebooklogo">facebookLogo</string>
     <string name="googlelogo">googlelogo</string>
-    <!--User strings-->
+
+
+    <string name="i_agree_to_the_terms_and_conditions">I Agree to the Terms and Conditions</string>
+    <string name="or_sign_up_using_social_media">Or Register using Social Media?</string>
+    <string name="already_have_an_account">Already have an Account?</string>
+    <string name="don_t_have_an_account">Don\'t have an Account?</string>
+
 
 </resources>

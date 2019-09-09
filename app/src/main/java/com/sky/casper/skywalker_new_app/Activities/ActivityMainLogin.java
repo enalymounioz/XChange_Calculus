@@ -18,6 +18,11 @@ public class ActivityMainLogin extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_main);
 
+        /*Make Activity full screen and hide navigation bar*/
+        View decorView = getWindow().getDecorView();
+        decorView.setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+
         relativeLayout =findViewById(R.id.activity_main_login);
         /*Start Background Animation*/
         animationDrawable = (AnimationDrawable)relativeLayout.getBackground();
@@ -25,6 +30,8 @@ public class ActivityMainLogin extends AppCompatActivity {
         animationDrawable.setExitFadeDuration(3000);
         animationDrawable.start();
         /*Start Background Animation*/
+
+
 
        }
 }

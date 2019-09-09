@@ -9,10 +9,11 @@
     <color name="colorTransparent">#00FFFFFF</color>
     <color name="darkWhite">#FFDAD2D2</color>
     <color name="white">#FFFF</color>
+    <color name="black">#000000</color>
 
 
     <!--Theme Gradient Animation-->
-    <color name="colorGradientStart">#D6E5F1</color>
-    <color name="colorGradientCenter">#B6D1E2</color>
+    <color name="colorGradientStart">#A3D3EB</color>
+    <color name="colorGradientCenter">#82BDD6</color>
     <color name="colorGradientEnd">#005E9C</color>
 </resources>
