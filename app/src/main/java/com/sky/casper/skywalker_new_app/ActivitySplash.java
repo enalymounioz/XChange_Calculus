@@ -2,21 +2,19 @@ package com.sky.casper.skywalker_new_app;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
-import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.sky.casper.skywalker_new_app.Activities.ActivityMainLogin;
 
 public class ActivitySplash extends AppCompatActivity {
 
     //Manual duration of Splash Screen
-    private static int timeout=5000;
+    private static int timeout=3000;
 
     //Animation declaration
 

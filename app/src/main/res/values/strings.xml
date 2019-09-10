@@ -2,41 +2,49 @@
 
     <!--App strings-->
     <string name="app_name">Skywalker New App</string>
-    <string name="welcome_message">Welcome Message</string>
+    <string name="welcome_message">Find your dream job</string>
     <string name="logo">Logo</string>
     <string name="home_screen">Home Screen</string>
     <!--App strings-->
 
 
     <!--User strings-->
-    <string name="login">Log in</string>
+
     <string name="email">Email</string>
     <string name="username">Username</string>
-    <string name="password">Password</string>
+    <string name="password1">Password</string>
     <string name="login_now">Login Now</string>
-    <string name="sign_up_now">Sign Up Now</string>
-    <string name="forgot_password">Forgot Password</string>
-
-    <string name="sign_up">Sign up</string>
-    <string name="name">Name</string>
-    <string name="first_name">First Name</string>
-    <string name="confirm_password">Confirm Password</string>
-    <string name="retype_password">Retype Password</string>
-    <string name="surname">Surname</string>
-    <string name="last_name">Last Name</string>
+    <string name="sign_up_now">Join Now</string>
+    <string name="forgot_password">Forgot Password?</string>
     <string name="address">Address</string>
-    <string name="physical_address">Physical Address</string>
-    <string name="postal_code">Postal Code</string>
+    <string name="sign_up">Create my account</string>
+    <string name="name">Name</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="surname">Surname</string>
+    <string name="post_code">Postal Code</string>
+
+
+
+
+    <string name="first_name">Type your name</string>
+    <string name="physical_address">Type your street address</string>
+    <string name="postal_code">Type your postal code</string>
+    <string name="email_address">Type your email address</string>
+    <string name="last_name">Type your last name</string>
+    <string name="password">Type your password</string>
+    <string name="retype_password">Retype Password</string>
 
 
     <string name="facebooklogo">facebookLogo</string>
     <string name="googlelogo">googlelogo</string>
 
 
-    <string name="i_agree_to_the_terms_and_conditions">I Agree to the Terms and Conditions</string>
+    <string name="i_agree_to_the_terms_and_conditions">I Agree to the Terms &amp; Conditions and Privacy Policy</string>
     <string name="or_sign_up_using_social_media">Or Register using Social Media?</string>
     <string name="already_have_an_account">Already have an Account?</string>
     <string name="don_t_have_an_account">Don\'t have an Account?</string>
+    <string name="new_user_register_now">New user? Join now</string>
+    <string name="or_use_social_media">Sign up with</string>
 
 
 </resources>
