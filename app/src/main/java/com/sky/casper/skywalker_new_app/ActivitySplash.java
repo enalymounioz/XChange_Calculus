@@ -10,6 +10,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.sky.casper.skywalker_new_app.Activities.ActivityMainLogin;
+import com.sky.casper.skywalker_new_app.Helpers.DatabaseHelper;
 
 public class ActivitySplash extends AppCompatActivity {
 
@@ -21,7 +22,7 @@ public class ActivitySplash extends AppCompatActivity {
     Animation logoanimation;
     ImageView image;
     TextView text;
-
+    DatabaseHelper db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +39,7 @@ public class ActivitySplash extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
+                db = new DatabaseHelper(ActivitySplash.this); /// create database before moving to the main screen
                 Intent intent=new Intent(ActivitySplash.this,ActivityMainLogin.class);
                 startActivity(intent);
             }
