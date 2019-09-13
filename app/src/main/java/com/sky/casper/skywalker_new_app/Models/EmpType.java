@@ -13,7 +13,7 @@ public class EmpType extends Type {
 
 
     @Override
-    public String toString() {
-        return Settings.EMPLOYE.JSON_EMPTYPE_TYPE+" [id="+id+" type="+ type +" title="+title+"]";
+    public String toString() { /* Needs for passing to another activity */
+        return "EmpType"+" [id="+id+" type="+ type +" title="+title+"]";
     }
 }

@@ -14,6 +14,7 @@ public class Settings {
 
 
 
+/* All existing urls for communication with the server */
 
     public static class URLS {
         public static final String YOUTUBE_WATCH = "https://www.youtube.com/watch?v=";
@@ -89,112 +90,5 @@ public class Settings {
 
     }
 
-    public static class JOB_CATEGORIES {
-        public static final String CATEGORY_TYPE = "categories";
-        public static final String SUBCATEGORY_TYPE = "subcategories";
-        public static final String JOBPOSITION_TYPE = "jobpositions";
-//        public static final String SELECT_CATEGORY = Skywalker.getContext().getResources().getString(R.string.category);
-//        public static final String SELECT_SUBCATEGORY = Skywalker.getContext().getResources().getString(R.string.subcategory);
-//        public static final String SELECT_JOBPOSITION = Skywalker.getContext().getResources().getString(R.string.job_position);
-        public static final String JSON_CATEGORY_TYPE = "Category";
-        public static final String JSON_SUBCATEOGORY_TYPE = "SubCategory";
-        public static final String JSON_JOBPOSITION_TYPE = "JobPosition";
-        public static final String KEYWORDS_TYPE = "keywords";
-        public static final String SELECT_KEYWORDS = "Select keywords";
-    }
 
-    public static class FRIENDS{
-        public static final String SHOW_PROFILE = "show";
-        public static final String REQUEST_FRIENDSHIP = "request";
-        public static final String MESSAGES = "availability";
-    }
-
-    // regions
-    public static class REGIONS {
-//        public static final String SELECT_COUNTRY = Skywalker.getContext().getResources().getString(R.string.country);
-//        public static final String SELECT_GEO_DEP = Skywalker.getContext().getResources().getString(R.string.gdepartment);
-//        public static final String SELECT_STATE = Skywalker.getContext().getResources().getString(R.string.state);
-//        public static final String SELECT_CITY = Skywalker.getContext().getResources().getString(R.string.city);
-//        public static final String SELECT_MUNICIPALITY = Skywalker.getContext().getResources().getString(R.string.municipality);
-        public static final String COUNTRY_TYPE = "countries";
-        public static final String GEO_DEP_TYPE = "departments";
-        public static final String STATE_TYPE = "states";
-        public static final String CITY_TYPE = "cities";
-        public static final String MUNICIPALITY_TYPE = "municipalities";
-        public static final String All_REGIONS = "all";
-        public static final String REGION = "region";
-        public static final String JSON_COUNTRY_TYPE = "Country";
-        public static final String JSON_GEO_DEP_TYPE = "GeoDepartment";
-        public static final String JSON_STATE_TYPE = "State";
-        public static final String JSON_CITY_TYPE = "City";
-        public static final String JSON_MUNICIPALITY_TYPE = "Municipality";
-    }
-
-    public static class EVENT{
-        public static final String TITLE = "Title";
-        public static final String FROM = "From";
-        public static final String TO = "To";
-        public static final String SITE = "Site";
-    }
-
-    public static class CERTIFICATE{
-        public static final String TITLE = "Title";
-        public static final String FROM = "From";
-        public static final String TO = "To";
-        public static final String SITE = "Site";
-        public static final String ACTION = "Action";
-    }
-
-
-    //employee type
-    public static class EMPLOYE {
-//        public static final String SELECT_EMPTYPE = Skywalker.getContext().getResources().getString(R.string.emplyee_type);
-        public static final String EMPLOYEE_TYPE = "emptype";
-        public static final String JSON_EMPTYPE_TYPE = "EmpType";
-    }
-
-    public static class UNIVERSITY{
-//        public static final String SELECT_UNIVERSITY = Skywalker.getContext().getResources().getString(R.string.university);
-        public static final String UNIVERSITY_TYPE = "university";
-        public static final String JSON_UNIVERSITY_TYPE = "University";
-    }
-
-    public static class EDUCATION{
-//        public static final String SELECT_EDUTYPE = Skywalker.getContext().getResources().getString(R.string.education);
-        public static final String EDUCATION_TYPE = "edutype";
-        public static final String JSON_EDUCATION_TYPE = "EduType";
-    }
-
-    public static class FOREIGN_LANG{
-//        public static final String SELECT_LANGUAGE = Skywalker.getContext().getResources().getString(R.string.language);
-        public static final String FOREIGN_LANG_TYPE = "foreignlang";
-        public static final String JSON_FOREIGN_LANG_TYPE = "ForeignLang";
-        public static final String POST_FOREIGN_LABG = "languages";
-    }
-
-    public static class CERTIFICATION_LANG{
-//        public static final String SELECT_CERTIFICATION = Skywalker.getContext().getResources().getString(R.string.certification);
-        public static final String CERTIFICATION_TYPE = "certificationlang";
-        public static final String JSON_CERTIFICATION_LANG_TYPE = "ForeignLangCert";
-    }
-
-    public static class IT_CATEGORY{
-//        public static final String SELECT_ITCATEGORY = Skywalker.getContext().getResources().getString(R.string.it_category);
-        public static final String ITCATEGORY_TYPE = "itcategory";
-        public static final String JSON_ITCATEGORY_TYPE = "ItCategory";
-    }
-
-    public static class IT_SKILL{
-//        public static final String SELECT_ITSKILL = Skywalker.getContext().getResources().getString(R.string.it_title_software);
-        public static final String ITSKILL_TYPE = "itskill";
-        public static final String JSON_ITSKILL_TYPE = "ItSkill";
-    }
-
-
-    static final String  getDateTime() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat(
-                "yyyy-MM-dd", Locale.getDefault());
-        Date date = new Date();
-        return dateFormat.format(date);
-    }
 }
