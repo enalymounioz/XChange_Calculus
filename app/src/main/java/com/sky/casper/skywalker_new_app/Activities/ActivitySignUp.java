@@ -2,23 +2,22 @@ package com.sky.casper.skywalker_new_app.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 import android.widget.Toast;
 
 import com.sky.casper.skywalker_new_app.R;
 
 public class ActivitySignUp extends AppCompatActivity {
 
-    /*Variables for background animation*/
-    RelativeLayout relativeLayout;
-    AnimationDrawable animationDrawable;
-    /*Variables for background animation*/
 
+
+    RelativeLayout relativeLayout;//Variables for background animation
+    AnimationDrawable animationDrawable;
     /*Variable for check box and a Toast Message*/
     CheckBox checkBox;
 
@@ -27,6 +26,7 @@ public class ActivitySignUp extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
+
 
         /*Make Activity full screen and hide navigation bar*/
         View decorView = getWindow().getDecorView();
@@ -42,8 +42,7 @@ public class ActivitySignUp extends AppCompatActivity {
         animationDrawable.start();
         /*Start Background Animation*/
 
-
-        /*On click Listener for the check box and a Toast Message Terms & Conditions*/
+         /*On click Listener for the check box and a Toast Message Terms & Conditions*/
         checkBox = findViewById(R.id.checkboxTermsConditions);
 
         checkBox.setOnClickListener(new View.OnClickListener() {

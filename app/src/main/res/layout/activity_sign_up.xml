@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradient_animation"
-    tools:context=".Activities.ActivityMainLogin">
+    tools:context=".Activities.ActivityLogin">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -53,13 +53,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/linlay1"
-                    android:layout_marginTop="10dp"
                     android:orientation="vertical">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
                         android:orientation="vertical">
 
                         <TextView
@@ -370,22 +368,31 @@
                     android:paddingTop="10dp">
 
                     <ImageView
-                        android:id="@+id/imageView2"
+                        android:id="@+id/imageFacebook"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_margin="8dp"
                         android:layout_weight="1"
-                        android:contentDescription="@string/facebooklogo"
-                        app:srcCompat="@drawable/fb" />
+                        android:contentDescription="@string/facebook_logo"
+                        app:srcCompat="@drawable/facebook_logo" />
 
                     <ImageView
-                        android:id="@+id/imageView3"
+                        android:id="@+id/imageGoogle"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_margin="8dp"
                         android:layout_weight="1"
-                        android:contentDescription="@string/googlelogo"
-                        app:srcCompat="@drawable/google" />
+                        android:contentDescription="@string/google_logo"
+                        app:srcCompat="@drawable/google_logo" />
+
+                    <ImageView
+                        android:id="@+id/imageLinkedin"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_margin="8dp"
+                        android:layout_weight="1"
+                        android:contentDescription="@string/linkedin"
+                        app:srcCompat="@drawable/linkedin_logo" />
 
                 </LinearLayout>
 

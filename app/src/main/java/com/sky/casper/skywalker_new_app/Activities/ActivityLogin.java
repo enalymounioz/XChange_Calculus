@@ -11,25 +11,20 @@ import android.widget.RelativeLayout;
 
 import com.sky.casper.skywalker_new_app.R;
 
-public class ActivityMainLogin extends AppCompatActivity {
+public class ActivityLogin extends AppCompatActivity {
 
     Button button;//Variable for the Forgot Password Button
-
-
-    /*Variables for background animation*/
-    RelativeLayout relativeLayout;
+    RelativeLayout relativeLayout;//Variables for background animation
     AnimationDrawable animationDrawable;
-    /*Variables for background animation*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login_main);
+        setContentView(R.layout.activity_login);
 
         /*Make Activity full screen and hide navigation bar*/
         View decorView = getWindow().getDecorView();
-        decorView.setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+        decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         /*Make Activity full screen and hide navigation bar*/
 
         /*Start Background Animation*/
@@ -53,8 +48,11 @@ public class ActivityMainLogin extends AppCompatActivity {
     }
 
     /*Sign up button to sign up activity*/
-    public void btn_signup(View view) {
+    public void buttonSignup(View view) {
         startActivity(new Intent(getApplicationContext(), ActivitySignUp.class));
+    }
+
+    public void buttonSkip(View view) {
     }
     /*Sign up button to sign up activity*/
 

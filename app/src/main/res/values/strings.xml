@@ -24,8 +24,6 @@
     <string name="post_code">Postal Code</string>
 
 
-
-
     <string name="first_name">Type your name</string>
     <string name="physical_address">Type your street address</string>
     <string name="postal_code">Type your postal code</string>
@@ -35,16 +33,20 @@
     <string name="retype_password">Retype Password</string>
 
 
-    <string name="facebooklogo">facebookLogo</string>
-    <string name="googlelogo">googlelogo</string>
+    <string name="facebook_logo">Facebook Logo</string>
+    <string name="google_logo">Google Logo</string>
+    <string name="linkedin">LinkedIn Logo</string>
 
 
     <string name="i_agree_to_the_terms_and_conditions">I Agree to the Terms &amp; Conditions and Privacy Policy</string>
     <string name="or_sign_up_using_social_media">Or Register using Social Media?</string>
     <string name="already_have_an_account">Already have an Account?</string>
     <string name="don_t_have_an_account">Don\'t have an Account?</string>
-    <string name="new_user_register_now">New user? Join now</string>
+    <string name="new_user_register_now">Join now</string>
     <string name="or_use_social_media">Sign up with</string>
+    <string name="linkedin_logo">Linkedin Logo</string>
+    <string name="new_user">New user?</string>
+    <string name="skip">Skip</string>
 
 
 </resources>
