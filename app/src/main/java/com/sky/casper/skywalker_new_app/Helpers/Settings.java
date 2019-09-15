@@ -103,13 +103,13 @@ public class Settings {
         public static String JSON = "JSON";
     }
 
-    public static class  ERROR_MSG{
+    public static class  ERROR_MSG{ /// error types giving the appropriate answer to the user (check handleAnswer)
         public static String ERROR_SRVR = "error_server";
         public static String NO_INTERNET = "no_internet";
     }
 
 
-    public static boolean checkInternetAccess(Context c) {
+    public static boolean checkInternetAccess(Context c) { /// checks internet connection
         ConnectivityManager connectivityManager = (ConnectivityManager) c.getSystemService(Context.CONNECTIVITY_SERVICE);
         if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
                 connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {

@@ -21,7 +21,7 @@ import javax.net.ssl.HttpsURLConnection;
 
 public class ServerRequest extends AsyncTask<String, String, String> {
 
-    public interface AsyncResponse {
+    public interface AsyncResponse { // interface which is implemented by the activity in order to handle the server answer
         void handleAnswer(String answer);
     }
 
@@ -33,25 +33,27 @@ public class ServerRequest extends AsyncTask<String, String, String> {
         this.context = ctx;
     }
 
-    public ServerRequest(Context ctx, AsyncResponse r){
+    public ServerRequest(Context ctx, AsyncResponse r){ // get context and where to handle the response
         this.context = ctx;
         this.response = r;
     }
 
     @Override
-    protected String doInBackground(String... data) {
-        if(Settings.checkInternetAccess(context)){
-            connectionType = data[0];
+    protected String doInBackground(String... data) { // execute the request to server
+        if(Settings.checkInternetAccess(context)){ // check internet connection
+            connectionType = data[0];               // request type (simple get or post request or handling file )
             if(connectionType.equals(Settings.CONNECTION_TYPES.FILE)){
+                // not constructed yet
+                // maybe we'll use deffirent types for download upload etc.
                 return null;
             }
             else{
-                String url = data[data.length-1];
-                HashMap<String,String> paramsValues = new HashMap<>();
+                String url = data[data.length-1];        /// get url
+                HashMap<String,String> paramsValues = new HashMap<>(); /// parameter name : value
                 for(int i=1; i<data.length-1; i+=2){
-                    paramsValues.put(data[i],data[i+1]);
+                    paramsValues.put(data[i],data[i+1]); /// put name : value
                 }
-                return performRequest(paramsValues,url);
+                return performRequest(paramsValues,url); /// do the request
             }
         }
         else{
@@ -60,22 +62,33 @@ public class ServerRequest extends AsyncTask<String, String, String> {
     }
 
     @Override
-    protected void onPreExecute() {
+    protected void onPreExecute() { /// do things before execute the request such as showing dialog for loading
         super.onPreExecute();
     }
 
     @Override
-    protected void onPostExecute(String s) {
+    protected void onPostExecute(String s) { // do things after the execution such as dismiss dialog
         response.handleAnswer(s);
     }
 
+    /*   convert the parameters and values into string  in order to pass them in the output stream of the connection */
     private String getPostDataString(Map<String, String> postValues) throws UnsupportedEncodingException {
         StringBuilder result = new StringBuilder();
+        boolean firstAppend = true;
 
         for (Map.Entry<String,String> entry : postValues.entrySet()){
+
+            if(firstAppend){
+                firstAppend = false;
+            }
+            else{
+                result.append("&");
+            }
+
             result.append(URLEncoder.encode(entry.getKey(), "UTF-8"));
             result.append("=");
             result.append(URLEncoder.encode(entry.getValue(), "UTF-8"));
+
         }
 
         return result.toString();
@@ -88,29 +101,29 @@ public class ServerRequest extends AsyncTask<String, String, String> {
 
         try{
 
-            requestURL = requestURL.replaceAll(" ","%20").trim();
+            requestURL = requestURL.replaceAll(" ","%20").trim(); // clean the url string
             Log.e("URL",requestURL);
-            url = new URL(requestURL);
-            conn = (HttpURLConnection) url.openConnection();
+            url = new URL(requestURL);   // initialise url
+            conn = (HttpURLConnection) url.openConnection(); // open connection with server
             conn.setReadTimeout(15000);
             conn.setConnectTimeout(15000);
-            if(connectionType.equals(Settings.CONNECTION_TYPES.POST)){
+            if(connectionType.equals(Settings.CONNECTION_TYPES.POST)){ /// if the method is post
                 conn.setRequestMethod("POST");
                 conn.setDoInput(true);
                 conn.setDoOutput(true);
-                OutputStream os = conn.getOutputStream();
+                OutputStream os = conn.getOutputStream(); /// open output stream
 
                 if(requestValues != null) {
                     BufferedWriter writer = new BufferedWriter(
                             new OutputStreamWriter(os, "UTF-8"));
-                    writer.write(getPostDataString(requestValues));
+                    writer.write(getPostDataString(requestValues)); /// pass the data to the stream
 
                     writer.flush();
                     writer.close();
                     os.close();
                 }
             }
-            else{
+            else{ /// if the method is get
                 conn.setRequestMethod("GET");
                 conn.setRequestProperty("Accept-Charset", "UTF-8");
             }
@@ -120,11 +133,11 @@ public class ServerRequest extends AsyncTask<String, String, String> {
 
             int responseCode=conn.getResponseCode();
 
-            if (responseCode == HttpsURLConnection.HTTP_OK) {
+            if (responseCode == HttpsURLConnection.HTTP_OK) { // if the server does not throw exception
                 String line;
 
                 BufferedReader br=new BufferedReader(new InputStreamReader(conn.getInputStream()));
-                while ((line=br.readLine()) != null) {
+                while ((line=br.readLine()) != null) { /// take the answer
                     response+=line;
 
                 }

@@ -46,5 +46,11 @@
     <string name="new_user_register_now">New user? Join now</string>
     <string name="or_use_social_media">Sign up with</string>
 
+    <!--Toast messages-->
+    <string name="server_error">Server is down, please try again later</string>
+    <string name="no_internet">No internet access, please connect to the network!</string>
+    <string name="fill_username_password">You must fill in the email and password!</string>
+
+
 
 </resources>
