@@ -48,5 +48,11 @@
     <string name="new_user">New user?</string>
     <string name="skip">Skip</string>
 
+    <!--Toast messages-->
+    <string name="server_error">Server is down, please try again later</string>
+    <string name="no_internet">No internet access, please connect to the network!</string>
+    <string name="fill_username_password">You must fill in the email and password!</string>
+
+
 
 </resources>
