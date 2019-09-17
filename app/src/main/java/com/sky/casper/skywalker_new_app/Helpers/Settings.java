@@ -1,9 +1,23 @@
 package com.sky.casper.skywalker_new_app.Helpers;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+
+import com.sky.casper.skywalker_new_app.R;
+import com.sky.casper.skywalker_new_app.Skywalker;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 public class Settings {
 
+    private  Context ctx;
 
-
+    public Settings(){
+        this.ctx = Skywalker.getContext();
+    }
 
 /* All existing urls for communication with the server */
 
@@ -78,6 +92,31 @@ public class Settings {
         public static final String URL_TOKEN = MyServer + "elGR/mobile-api/get-token";
         public static final String GOOGLE_SERVER = "https://drive.google.com/";
         public static final String GOOLE_DRIVE_OPEN = GOOGLE_SERVER+"open?id=";
+
+    }
+
+
+    public static class CONNECTION_TYPES{
+        public static String FILE = "FILE";
+        public static String POST = "POST";
+        public static String GET = "GET";
+        public static String JSON = "JSON";
+    }
+
+    public static class  ERROR_MSG{ /// error types giving the appropriate answer to the user (check handleAnswer)
+        public static String ERROR_SRVR = "error_server";
+        public static String NO_INTERNET = "no_internet";
+    }
+
+
+    public static boolean checkInternetAccess(Context c) { /// checks internet connection
+        ConnectivityManager connectivityManager = (ConnectivityManager) c.getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
+            //we are connected to a network
+            return true;
+        } else
+            return false;
 
     }
 

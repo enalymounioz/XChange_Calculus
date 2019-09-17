@@ -176,8 +176,7 @@
                     android:text="@string/login_now"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
-                    android:textSize="16sp"
-                    android:onClick="btn_login"/>
+                    android:textSize="16sp"/>
 
                 <LinearLayout
                     android:id="@+id/linlay3"
