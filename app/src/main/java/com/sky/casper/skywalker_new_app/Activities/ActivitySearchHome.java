@@ -1,10 +1,12 @@
-package com.sky.casper.skywalker_new_app;
+package com.sky.casper.skywalker_new_app.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class ActivirySearchHome extends AppCompatActivity {
+import com.sky.casper.skywalker_new_app.R;
+
+public class ActivitySearchHome extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

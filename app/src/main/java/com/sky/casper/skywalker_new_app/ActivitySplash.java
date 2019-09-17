@@ -9,7 +9,8 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.sky.casper.skywalker_new_app.Activities.ActivityMainLogin;
+
+import com.sky.casper.skywalker_new_app.Activities.ActivityLogin;
 import com.sky.casper.skywalker_new_app.Helpers.DatabaseHelper;
 
 public class ActivitySplash extends AppCompatActivity {
@@ -40,7 +41,7 @@ public class ActivitySplash extends AppCompatActivity {
             @Override
             public void run() {
                 db = new DatabaseHelper(ActivitySplash.this); /// create database before moving to the main screen
-                Intent intent=new Intent(ActivitySplash.this,ActivityMainLogin.class);
+                Intent intent=new Intent(ActivitySplash.this, ActivityLogin.class);
                 startActivity(intent);
             }
         },timeout);

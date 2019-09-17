@@ -11,7 +11,7 @@ import android.widget.RelativeLayout;
 
 import com.sky.casper.skywalker_new_app.R;
 
-public class ActivityMainLogin extends AppCompatActivity {
+public class ActivityLogin extends AppCompatActivity {
 
     Button button;//Variable for the Forgot Password Button
 
@@ -24,7 +24,7 @@ public class ActivityMainLogin extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login_main);
+        setContentView(R.layout.activity_login);
 
         /*Make Activity full screen and hide navigation bar*/
         View decorView = getWindow().getDecorView();

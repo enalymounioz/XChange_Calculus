@@ -1,43 +1,23 @@
 package com.sky.casper.skywalker_new_app.Helpers;
 
-import android.content.ContentValues;
+
 import android.content.Context;
-import android.database.Cursor;
+
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import com.sky.casper.skywalker_new_app.Models.Advert;
-import com.sky.casper.skywalker_new_app.Models.Category;
-import com.sky.casper.skywalker_new_app.Models.CertificationForeignLang;
-import com.sky.casper.skywalker_new_app.Models.City;
-import com.sky.casper.skywalker_new_app.Models.Country;
-import com.sky.casper.skywalker_new_app.Models.EduType;
-import com.sky.casper.skywalker_new_app.Models.EmpType;
-import com.sky.casper.skywalker_new_app.Models.ForeignLang;
-import com.sky.casper.skywalker_new_app.Models.GeoDepartment;
-import com.sky.casper.skywalker_new_app.Models.ItCategory;
-import com.sky.casper.skywalker_new_app.Models.ItSkill;
-import com.sky.casper.skywalker_new_app.Models.JobPosition;
-import com.sky.casper.skywalker_new_app.Models.Municipality;
-import com.sky.casper.skywalker_new_app.Models.State;
-import com.sky.casper.skywalker_new_app.Models.SubCategory;
-import com.sky.casper.skywalker_new_app.Models.Type;
-import com.sky.casper.skywalker_new_app.Models.University;
-
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Locale;
+
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     private SQLiteDatabase myDataBase;
-    private static final int DATABSE_VERSION=9;
+    private static final int DATABSE_VERSION = 9;
     private static String DEFAULT_DB_PATH = "";
 
     private static final String DATABASE_NAME = "Skywalker.db";
@@ -47,10 +27,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String TABLE_CATEGORIES = "categories";
     private static final String CATEGORY_ID = "ID_CATEGORY";
-    private static final String CATEGORY_TITLE="TITLE_CATEGORY";
+    private static final String CATEGORY_TITLE = "TITLE_CATEGORY";
     private static final String CREATE_CATEGORIES_TABLE = "CREATE TABLE "
-            + TABLE_CATEGORIES +" ("
-            + CATEGORY_ID +" TEXT PRIMARY KEY, "
+            + TABLE_CATEGORIES + " ("
+            + CATEGORY_ID + " TEXT PRIMARY KEY, "
             + CATEGORY_TITLE + " TEXT)";
 
     private static final String TABLE_SUBCATEGORIES = "subcategories";
@@ -60,9 +40,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String CREATE_SUBCATEGORIES_TABLE = "CREATE TABLE "
             + TABLE_SUBCATEGORIES + " ("
             + SUBCATEGORY_ID + " TEXT PRIMARY KEY, "
-            + SUBCATEGORY_TITLE +" TEXT, "
-            + SUBCATEGORY_PARENT_CATEGORY +" TEXT, "
-            +"FOREIGN KEY("+ SUBCATEGORY_PARENT_CATEGORY +") REFERENCES "+TABLE_CATEGORIES +"( "+CATEGORY_ID+" ))";
+            + SUBCATEGORY_TITLE + " TEXT, "
+            + SUBCATEGORY_PARENT_CATEGORY + " TEXT, "
+            + "FOREIGN KEY(" + SUBCATEGORY_PARENT_CATEGORY + ") REFERENCES " + TABLE_CATEGORIES + "( " + CATEGORY_ID + " ))";
 
     private static final String TABLE_JOBPOSITIONS = "jobpositions";
     private static final String JOBPOSITION_ID = "ID_JOBPOSITION";
@@ -71,9 +51,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String CREATE_JOBPOSITIONS_TABLE = "CREATE TABLE "
             + TABLE_JOBPOSITIONS + " ("
             + JOBPOSITION_ID + " TEXT PRIMARY KEY, "
-            + JOBPOSITION_TITLE +" TEXT, "
-            + JOBPOSITION_PARENT_SUBCATEGORY +" TEXT, "
-            +"FOREIGN KEY("+JOBPOSITION_PARENT_SUBCATEGORY+") REFERENCES "+TABLE_SUBCATEGORIES+"( "+SUBCATEGORY_ID+" ))";
+            + JOBPOSITION_TITLE + " TEXT, "
+            + JOBPOSITION_PARENT_SUBCATEGORY + " TEXT, "
+            + "FOREIGN KEY(" + JOBPOSITION_PARENT_SUBCATEGORY + ") REFERENCES " + TABLE_SUBCATEGORIES + "( " + SUBCATEGORY_ID + " ))";
 
     private static final String TABLE_COUNTRIES = "countries";
     private static final String COUNTRY_ID = "ID_COUNTRY";
@@ -81,7 +61,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String CREATE_COUNTRIES_TABLE = "CREATE TABLE "
             + TABLE_COUNTRIES + "("
             + COUNTRY_ID + " TEXT PRIMARY KEY, "
-            + COUNTRY_TITLE +" TEXT)";
+            + COUNTRY_TITLE + " TEXT)";
 
     private static final String TABLE_GEODEPARTMENT = "geographicaldepartment";
     private static final String GEO_ID = "ID_GEO";
@@ -92,7 +72,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             + GEO_ID + " TEXT PRIMARY KEY, "
             + GEO_TITLE + " TEXT, "
             + GEO_PARENT_COUNTRY + " TEXT, "
-            +"FOREIGN KEY("+GEO_PARENT_COUNTRY+") REFERENCES "+TABLE_COUNTRIES+"( "+COUNTRY_ID+" ))";
+            + "FOREIGN KEY(" + GEO_PARENT_COUNTRY + ") REFERENCES " + TABLE_COUNTRIES + "( " + COUNTRY_ID + " ))";
 
     private static final String TABLE_STATES = "states";
     private static final String STATE_ID = "ID_STATE";
@@ -101,9 +81,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String CREATE_STATES_TABLE = "CREATE TABLE "
             + TABLE_STATES + " ("
             + STATE_ID + " TEXT PRIMARY KEY, "
-            + STATE_TITLE +" TEXT, "
+            + STATE_TITLE + " TEXT, "
             + STATE_PARENT_GEODEPARTMENT + " TEXT, "
-            + "FOREIGN KEY("+STATE_PARENT_GEODEPARTMENT+") REFERENCES "+TABLE_GEODEPARTMENT+"( "+GEO_ID+" ))";
+            + "FOREIGN KEY(" + STATE_PARENT_GEODEPARTMENT + ") REFERENCES " + TABLE_GEODEPARTMENT + "( " + GEO_ID + " ))";
 
     private static final String TABLE_CITIES = "cities";
     private static final String CITY_ID = "ID_CITY";
@@ -114,7 +94,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             + CITY_ID + " TEXT PRIMARY KEY, "
             + CITY_TITLE + " TEXT, "
             + CITY_PARENT_STATE + " TEXT, "
-            + "FOREIGN KEY("+CITY_PARENT_STATE+") REFERENCES "+TABLE_STATES+"( "+STATE_ID+" ))";
+            + "FOREIGN KEY(" + CITY_PARENT_STATE + ") REFERENCES " + TABLE_STATES + "( " + STATE_ID + " ))";
 
     private static final String TABLE_MUNICIPALITIES = "municipalities";
     private static final String MUNICIPALITY_ID = "ID_MUNICIPALITY";
@@ -125,7 +105,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             + MUNICIPALITY_ID + " TEXT PRIMARY KEY, "
             + MUNICIPALITY_TITLE + " TEXT, "
             + MUNICIPALITY_PARENT_CITY + " TEXT, "
-            + "FOREIGN KEY("+MUNICIPALITY_PARENT_CITY+") REFERENCES "+TABLE_CITIES+"( "+CITY_ID+" ))";
+            + "FOREIGN KEY(" + MUNICIPALITY_PARENT_CITY + ") REFERENCES " + TABLE_CITIES + "( " + CITY_ID + " ))";
 
     private static final String TABLE_EMPTYPE = "emptype";
     private static final String EMPTYPE_ID = "ID_EMPTYPE";
@@ -166,7 +146,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String CERT_TITLE = "TITLE_CERTIFICATION";
     private static final String LANGUAGE = "LANGUAGE_ID";
     private static final String CREATE_CERTIFICATION_TABLE = "CREATE TABLE "
-            + TABLE_LANG_CERTIFICATION +" ("
+            + TABLE_LANG_CERTIFICATION + " ("
             + CERT_ID + " TEXT PRIMARY KEY, "
             + CERT_TITLE + " TEXT, "
             + LANGUAGE + " TEXT)";
@@ -236,35 +216,30 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             + SEND_CV_ID + " TEXT PRIMARY KEY, "
             + SEND_CV_TITLE + " TEXT, "
             + SEND_CV_PUBLISH_DATE + " TEXT, "
-            + SEND_CV_TEXT +" TEXT, "
+            + SEND_CV_TEXT + " TEXT, "
             + SEND_CV_EMP_TYPE + " TEXT, "
             + SEND_CV_IS_ANONYMOUS + " TEXT, "
             + SEND_CV_REGION + " TEXT, "
             + SEND_CV_CLIENT + " TEXT, "
             + SEND_CV_IMAGE + " TEXT, "
             + SEND_CV_ADCODE + " TEXT, "
-            + SEND_CV_URL +" TEXT, "
+            + SEND_CV_URL + " TEXT, "
             + SEND_CV_DATE + " DATETIME DEFAULT CURRENT_TIMESTAMP)";
-
-
-
 
 
     private static final String TABLE_SETTINGS = "settings";
     private static final String USER_ID = "ID_LOGIN";
     private static final String CREATE_SETTINGS_TABLE = "CREATE TABLE "
-            + TABLE_SETTINGS +" ("
-            + USER_ID +" TEXT PRIMARY KEY)";
+            + TABLE_SETTINGS + " ("
+            + USER_ID + " TEXT PRIMARY KEY)";
 
 
     /* construct the app's database */
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABSE_VERSION);
-        if(android.os.Build.VERSION.SDK_INT >= 17){
+        if (android.os.Build.VERSION.SDK_INT >= 17) {
             DEFAULT_DB_PATH = context.getApplicationInfo().dataDir + "/databases/";
-        }
-        else
-        {
+        } else {
             DEFAULT_DB_PATH = "/data/data/" + context.getPackageName() + "/databases/";
         }
         mContext = context;
@@ -273,7 +248,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             openDataBase();
         } catch (IOException e) {
             e.printStackTrace();
-            Log.e("DB","Not copying db");
+            Log.e("DB", "Not copying db");
         }
 
     }
@@ -287,17 +262,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void createDataBase() throws IOException {
 
         boolean dbExist = checkDataBase();
-        Log.e("DB exist","returns exist "+dbExist);
+        Log.e("DB exist", "returns exist " + dbExist);
 
-        if(dbExist){
+        if (dbExist) {
             //do nothing - database already exist
-        }else{
+        } else {
 
             //By calling this method and empty database will be created into the default system path
             //of your application so we are gonna be able to overwrite that database with our database.
-            try{
+            try {
                 this.getReadableDatabase();
-
 
 
                 copyDataBase();
@@ -306,31 +280,30 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             } catch (IOException e) {
 
                 e.printStackTrace();
-                Log.e("DB Erroor","No copy");
+                Log.e("DB Erroor", "No copy");
 
-            } catch (Exception e1){
-                Log.e("Error","Other database error");
+            } catch (Exception e1) {
+                Log.e("Error", "Other database error");
             }
         }
 
     }
 
     /* finds the if the database exist in the device space*/
-    private boolean checkDataBase()
-    {
+    private boolean checkDataBase() {
         SQLiteDatabase checkDB = null;
 
-        try{
+        try {
             String myPath = DEFAULT_DB_PATH + DATABASE_NAME;
             checkDB = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
 
-        }catch(SQLiteException e){
+        } catch (SQLiteException e) {
 
             //database does't exist yet.
 
         }
 
-        if(checkDB != null){
+        if (checkDB != null) {
 
             checkDB.close();
 
@@ -339,7 +312,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return checkDB != null ? true : false;
     }
 
-    private void copyDataBase() throws Exception{
+    private void copyDataBase() throws Exception {
 
         //Open your local db as the input stream
         InputStream myInput = mContext.getAssets().open(DATABASE_NAME);
@@ -356,7 +329,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         int length;
         while ((length = myInput.read(buffer)) > 0) {
             myOutput.write(buffer, 0, length);
-            Log.e("CP","copy db2 "+length);
+            Log.e("CP", "copy db2 " + length);
         }
 
         //Close the streams
@@ -377,57 +350,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     /* Create Tables */
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-//        sqLiteDatabase.execSQL(CREATE_CATEGORIES_TABLE);
-//        sqLiteDatabase.execSQL(CREATE_SUBCATEGORIES_TABLE);
-//        sqLiteDatabase.execSQL(CREATE_JOBPOSITIONS_TABLE);
-//        sqLiteDatabase.execSQL(CREATE_SETTINGS_TABLE);
-//        sqLiteDatabase.execSQL(CREATE_COUNTRIES_TABLE);
-//        sqLiteDatabase.execSQL(CREATE_GEODEPARTMENT_TABLE);
-//        sqLiteDatabase.execSQL(CREATE_STATES_TABLE);
-//        sqLiteDatabase.execSQL(CREATE_CITY_TABLE);
-//        sqLiteDatabase.execSQL(CREATE_MUNICIPALITY_TABLE);
-//        sqLiteDatabase.execSQL(CREATE_EMPTYPE_TABLE);
-//        sqLiteDatabase.execSQL(CREATE_UNIVERSITY_TABLE);
-//        sqLiteDatabase.execSQL(CREATE_EDUTYPE_TABLE);
-//        sqLiteDatabase.execSQL(CREATE_LANGUAGE_TABLE);
-//        sqLiteDatabase.execSQL(CREATE_CERTIFICATION_TABLE);
-//        sqLiteDatabase.execSQL(CREATE_ITCATEGORY_TABLE);
-//        sqLiteDatabase.execSQL(CREATE_ITSKILL_TABLE);
-//        sqLiteDatabase.execSQL(CREATE_SAVED_ADS_TABLE);
-//        sqLiteDatabase.execSQL(CREATE_SEND_CV_ADS);
     }
 
 
     /* Deletes Tables if exist */
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
-//        db.execSQL("DROP TABLE IF EXISTS "+TABLE_CATEGORIES);
-//        db.execSQL("DROP TABLE IF EXISTS "+TABLE_SUBCATEGORIES);
-//        db.execSQL("DROP TABLE IF EXISTS "+TABLE_JOBPOSITIONS);
-//        db.execSQL("DROP TABLE IF EXISTS "+TABLE_SETTINGS);
-//        db.execSQL("DROP TABLE IF EXISTS "+TABLE_COUNTRIES);
-//        db.execSQL("DROP TABLE IF EXISTS "+TABLE_GEODEPARTMENT);
-//        db.execSQL("DROP TABLE IF EXISTS "+TABLE_STATES);
-//        db.execSQL("DROP TABLE IF EXISTS "+TABLE_CITIES);
-//        db.execSQL("DROP TABLE IF EXISTS "+TABLE_MUNICIPALITIES);
-//        db.execSQL("DROP TABLE IF EXISTS "+TABLE_EMPTYPE);
-//        db.execSQL("DROP TABLE IF EXISTS "+TABLE_UNIVERSITY);
-//        db.execSQL("DROP TABLE IF EXISTS "+TABLE_EDUTYPE);
-//        db.execSQL("DROP TABLE IF EXISTS "+TABLE_LANGUAGE);
-//        db.execSQL("DROP TABLE IF EXISTS "+TABLE_LANG_CERTIFICATION);
-//        db.execSQL("DROP TABLE IF EXISTS "+TABLE_IT_CATEGORY);
-//        db.execSQL("DROP TABLE IF EXISTS "+TABLE_IT_SKILL);
-//        db.execSQL("DROP TABLE IF EXISTS "+TABLE_SAVED_ADS);
-//        db.execSQL("DROP TABLE IF EXISTS "+TABLE_SEND_CV_ADS);
-//        onCreate(db);
     }
-
 
 
     @Override
     public synchronized void close() {
 
-        if(myDataBase != null)
+        if (myDataBase != null)
             myDataBase.close();
 
         super.close();
