@@ -176,7 +176,8 @@
                     android:text="@string/login_now"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
-                    android:textSize="16sp"/>
+                    android:textSize="16sp"
+                    android:onClick="btn_login"/>
 
                 <LinearLayout
                     android:id="@+id/linlay3"
@@ -198,7 +199,7 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/btn_trans"
                         android:fontFamily="sans-serif-medium"
-                        android:onClick="buttonSignup"
+                        android:onClick="btn_signup"
                         android:text="@string/new_user_register_now"
                         android:textColor="@color/white"
                         android:textAllCaps="false"

@@ -280,7 +280,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             } catch (IOException e) {
 
                 e.printStackTrace();
-                Log.e("DB Erroor", "No copy");
+                Log.e("DB Error", "No copy");
 
             } catch (Exception e1) {
                 Log.e("Error", "Other database error");

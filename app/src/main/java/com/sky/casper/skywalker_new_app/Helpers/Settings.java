@@ -20,7 +20,6 @@ public class Settings {
     }
 
 /* All existing urls for communication with the server */
-
     public static class URLS {
         public static final String YOUTUBE_WATCH = "https://www.youtube.com/watch?v=";
         public static final String SICP = "https://sicp.gr/";

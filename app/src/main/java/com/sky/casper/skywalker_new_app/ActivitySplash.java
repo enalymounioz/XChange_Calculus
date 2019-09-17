@@ -53,6 +53,5 @@ public class ActivitySplash extends AppCompatActivity {
         image.startAnimation(logoanimation);
         text = findViewById(R.id.text);
         text.startAnimation(logoanimation);
-
     }
 }

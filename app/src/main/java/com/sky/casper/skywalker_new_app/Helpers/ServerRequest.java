@@ -152,7 +152,6 @@ public class ServerRequest extends AsyncTask<String, String, String> {
             e.printStackTrace();
         }
 
-
         return response;
     }
 

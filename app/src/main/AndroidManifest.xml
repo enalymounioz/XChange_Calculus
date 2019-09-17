@@ -20,7 +20,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".Activities.ActivityMainLogin"
+        <activity android:name=".Activities.ActivityLogin"
             android:configChanges="keyboardHidden"
             android:windowSoftInputMode="stateHidden">
             <intent-filter>
@@ -34,7 +34,7 @@
             android:windowSoftInputMode="stateHidden">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activities.ActivityMainLogin" />
+                android:value=".Activities.ActivityLogin" />
             <intent-filter>
 
                 <category android:name="android.intent.category.LAUNCHER" />
