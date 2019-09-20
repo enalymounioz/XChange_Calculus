@@ -53,7 +53,7 @@
     <string name="server_error">Server is down, please try again later</string>
     <string name="no_internet">No internet access, please connect to the network!</string>
     <string name="fill_username_password">You must fill in the email and password!</string>
-
+    <string name="general_error">Something wrong happened, please try again later!</string>
 
 
 

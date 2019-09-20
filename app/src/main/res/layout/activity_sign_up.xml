@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradient_animation"
-    tools:context=".Activities.ActivityLogin">
+    tools:context=".Activities.ActivitySignUp">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -76,6 +76,7 @@
                             app:hintEnabled="false">
 
                             <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/edit_text_name"
                                 android:layout_width="match_parent"
                                 android:layout_height="40dp"
                                 android:background="@drawable/edit_text_box"
@@ -114,6 +115,7 @@
                             app:hintEnabled="false">
 
                             <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/edit_text_surname"
                                 android:layout_width="match_parent"
                                 android:layout_height="40dp"
                                 android:background="@drawable/edit_text_box"
@@ -152,6 +154,7 @@
                             app:hintEnabled="false">
 
                             <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/edit_text_email"
                                 android:layout_width="match_parent"
                                 android:layout_height="40dp"
                                 android:background="@drawable/edit_text_box"
@@ -190,6 +193,7 @@
                             app:hintEnabled="false">
 
                             <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/edit_text_address"
                                 android:layout_width="match_parent"
                                 android:layout_height="40dp"
                                 android:background="@drawable/edit_text_box"
@@ -228,6 +232,7 @@
                             app:hintEnabled="false">
 
                             <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/edit_text_postcode"
                                 android:layout_width="match_parent"
                                 android:layout_height="40dp"
                                 android:background="@drawable/edit_text_box"
@@ -268,6 +273,7 @@
                             app:passwordToggleTint="@color/white">
 
                             <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/edit_text_password"
                                 android:layout_width="match_parent"
                                 android:layout_height="40dp"
                                 android:background="@drawable/edit_text_box"
@@ -308,6 +314,7 @@
                             app:passwordToggleTint="@color/white">
 
                             <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/edit_text_confirm_password"
                                 android:layout_width="match_parent"
                                 android:layout_height="40dp"
                                 android:background="@drawable/edit_text_box"
@@ -341,7 +348,8 @@
                     android:text="@string/sign_up"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:onClick="btnSignUp"/>
 
                 <LinearLayout
                     android:layout_below="@+id/button_signup"

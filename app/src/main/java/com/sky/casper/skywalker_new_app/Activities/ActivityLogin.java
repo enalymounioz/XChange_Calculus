@@ -14,9 +14,12 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.sky.casper.skywalker_new_app.Helpers.JsonHelper;
 import com.sky.casper.skywalker_new_app.Helpers.ServerRequest;
 import com.sky.casper.skywalker_new_app.Helpers.Settings;
 import com.sky.casper.skywalker_new_app.R;
+
+import org.json.JSONException;
 
 public class ActivityLogin extends AppCompatActivity implements ServerRequest.AsyncResponse {
 
@@ -105,13 +108,27 @@ public class ActivityLogin extends AppCompatActivity implements ServerRequest.As
     public void handleAnswer(String answer) { // TODO Needs to handle failure due to user fills wrong username or password
         Log.e("AnswerLogin",answer);
         if(answer.equals(Settings.ERROR_MSG.ERROR_SRVR)){ // server exception or general server problem
-            Toast.makeText(this,getResources().getString(R.string.server_error),Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,getResources().getString(R.string.server_error),Toast.LENGTH_LONG).show();
         }
         else if(answer.equals(Settings.ERROR_MSG.NO_INTERNET)){ // device is not connecting to the network
-            Toast.makeText(this, getResources().getString(R.string.no_internet),Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getResources().getString(R.string.no_internet),Toast.LENGTH_LONG).show();
         }
         else{ // success or user error (password, email)
-            Toast.makeText(this, answer, Toast.LENGTH_SHORT).show();
+            JsonHelper jsonHelper;
+            try {
+                 jsonHelper = new JsonHelper(answer);
+                 if(jsonHelper.getStatus().toLowerCase().equals("success")){
+                    /// Go to profile activity
+                    Toast.makeText(this,answer,Toast.LENGTH_SHORT).show();
+                 }
+                 else{
+                     String message = jsonHelper.getMessage();
+                     Toast.makeText(this,message,Toast.LENGTH_LONG).show();
+                 }
+            } catch (JSONException e) {
+                Toast.makeText(this, getResources().getString(R.string.general_error), Toast.LENGTH_LONG).show();
+                e.printStackTrace();
+            }
         }
         /// restart the server request because asynchronous tasks can only be executed one time
         serverRequest.cancel(true);
