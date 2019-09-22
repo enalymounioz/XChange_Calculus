@@ -52,8 +52,22 @@
     <!--Toast messages-->
     <string name="server_error">Server is down, please try again later</string>
     <string name="no_internet">No internet access, please connect to the network!</string>
-    <string name="fill_username_password">You must fill in the email and password!</string>
     <string name="general_error">Something wrong happened, please try again later!</string>
+
+    <!--Toast messages Log in-->
+    <string name="fill_username_password">You must fill in, the email and password!</string>
+
+    <!--Toast messages Sign Up-->
+    <string name="fill_name">You did not enter a name!</string>
+    <string name="fill_surname">You did not enter a surname!</string>
+    <string name="fill_email">You did not enter an email!</string>
+    <string name="fill_address">You did not enter an address!</string>
+    <string name="fill_postcode">You did not enter a postal code!</string>
+    <string name="fill_password">You did not enter a password!</string>
+    <string name="fill_confirmation">You did not enter the password\'s confirmation!</string>
+    <string name="check_terms_conditions">You must accept the terms &amp; conditions and privacy policy!</string>
+    <string name="wrong_repassword">Password\'s confirmation is not the same with password!</string>
+
 
 
 

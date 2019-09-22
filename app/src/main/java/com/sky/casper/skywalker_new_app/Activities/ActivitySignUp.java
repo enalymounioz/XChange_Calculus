@@ -5,15 +5,18 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.sky.casper.skywalker_new_app.Helpers.ServerRequest;
+import com.sky.casper.skywalker_new_app.Helpers.Settings;
 import com.sky.casper.skywalker_new_app.R;
 
-public class ActivitySignUp extends AppCompatActivity {
+public class ActivitySignUp extends AppCompatActivity implements ServerRequest.AsyncResponse {
 
 
 
@@ -24,6 +27,8 @@ public class ActivitySignUp extends AppCompatActivity {
 
     /*user personal information*/
     private TextInputEditText user_name,user_surname,user_postcode,user_password,user_confirm,user_email,user_address;
+
+    private ServerRequest serverRequest;
 
 
 
@@ -84,5 +89,59 @@ public class ActivitySignUp extends AppCompatActivity {
     /*sign up button listener*/
     public void btnSignUp(View v){
 
+        if(user_name.getText().toString().trim().isEmpty()){
+            Toast.makeText(this, getResources().getString(R.string.fill_name), Toast.LENGTH_SHORT).show();
+        }
+        else if(user_surname.getText().toString().trim().isEmpty()){
+            Toast.makeText(this, getResources().getString(R.string.fill_surname), Toast.LENGTH_SHORT).show();
+        }
+        else if(user_email.getText().toString().trim().isEmpty()){
+            Toast.makeText(this, getResources().getString(R.string.fill_email), Toast.LENGTH_SHORT).show();
+        }
+        else if(user_address.getText().toString().trim().isEmpty()){
+            Toast.makeText(this, getResources().getString(R.string.fill_address), Toast.LENGTH_SHORT).show();
+        }
+        else if(user_postcode.getText().toString().trim().isEmpty()){
+            Toast.makeText(this, getResources().getString(R.string.fill_postcode), Toast.LENGTH_SHORT).show();
+        }
+        else if(user_password.getText().toString().trim().isEmpty()){
+            Toast.makeText(this, getResources().getString(R.string.fill_password), Toast.LENGTH_SHORT).show();
+        }
+        else if(user_confirm.getText().toString().trim().isEmpty()){
+            Toast.makeText(this, getResources().getString(R.string.fill_confirmation), Toast.LENGTH_SHORT).show();
+        }
+        else if(!termsConditions.isChecked()){
+            Toast.makeText(this, getResources().getString(R.string.check_terms_conditions), Toast.LENGTH_SHORT).show();
+        }
+        else{
+            String password = user_password.getText().toString();
+            String repassword = user_confirm.getText().toString();
+
+            if(!password.equals(repassword)){
+                Toast.makeText(this, getResources().getString(R.string.wrong_repassword), Toast.LENGTH_SHORT).show();
+            }
+            else{
+                serverRequest = new ServerRequest(ActivitySignUp.this,ActivitySignUp.this);
+                serverRequest.execute(Settings.CONNECTION_TYPES.POST,"name",user_name.getText().toString(),"surname",user_surname.getText().toString(),
+                        "mail",user_email.getText().toString(),"address",user_address.getText().toString(),"postcode",user_postcode.getText().toString(),"repassword",repassword,Settings.URLS.REGISTER_URL);
+            }
+        }
+    }
+
+    @Override
+    public void handleAnswer(String answer) {
+        Log.e("AnswerSignUp",answer);
+        if(answer.equals(Settings.ERROR_MSG.ERROR_SRVR)){ // server exception or general server problem
+            Toast.makeText(this,getResources().getString(R.string.server_error),Toast.LENGTH_LONG).show();
+        }
+        else if(answer.equals(Settings.ERROR_MSG.NO_INTERNET)){ // device is not connecting to the network
+            Toast.makeText(this, getResources().getString(R.string.no_internet),Toast.LENGTH_LONG).show();
+        }
+        else{
+            Toast.makeText(this, answer, Toast.LENGTH_LONG).show();
+        }
+        /// restart the server request because asynchronous tasks can only be executed one time
+        serverRequest.cancel(true);
+        serverRequest = new ServerRequest(this,this);
     }
 }

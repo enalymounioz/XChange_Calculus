@@ -105,7 +105,7 @@ public class ActivityLogin extends AppCompatActivity implements ServerRequest.As
 
 
     @Override /* handle the server answer */
-    public void handleAnswer(String answer) { // TODO Needs to handle failure due to user fills wrong username or password
+    public void handleAnswer(String answer) {
         Log.e("AnswerLogin",answer);
         if(answer.equals(Settings.ERROR_MSG.ERROR_SRVR)){ // server exception or general server problem
             Toast.makeText(this,getResources().getString(R.string.server_error),Toast.LENGTH_LONG).show();
