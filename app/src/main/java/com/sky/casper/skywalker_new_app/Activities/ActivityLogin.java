@@ -123,7 +123,12 @@ public class ActivityLogin extends AppCompatActivity implements ServerRequest.As
                  }
                  else{
                      String message = jsonHelper.getMessage();
-                     Toast.makeText(this,message,Toast.LENGTH_LONG).show();
+                     if(message.toLowerCase().contains("wrong")){
+                         Toast.makeText(this, getResources().getString(R.string.wrong_username_password), Toast.LENGTH_LONG).show();
+                     }
+                     else {
+                         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+                     }
                  }
             } catch (JSONException e) {
                 Toast.makeText(this, getResources().getString(R.string.general_error), Toast.LENGTH_LONG).show();

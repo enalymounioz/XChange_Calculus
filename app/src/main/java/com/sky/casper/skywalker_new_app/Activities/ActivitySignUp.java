@@ -12,9 +12,12 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.sky.casper.skywalker_new_app.Helpers.JsonHelper;
 import com.sky.casper.skywalker_new_app.Helpers.ServerRequest;
 import com.sky.casper.skywalker_new_app.Helpers.Settings;
 import com.sky.casper.skywalker_new_app.R;
+
+import org.json.JSONException;
 
 public class ActivitySignUp extends AppCompatActivity implements ServerRequest.AsyncResponse {
 
@@ -138,7 +141,26 @@ public class ActivitySignUp extends AppCompatActivity implements ServerRequest.A
             Toast.makeText(this, getResources().getString(R.string.no_internet),Toast.LENGTH_LONG).show();
         }
         else{
-            Toast.makeText(this, answer, Toast.LENGTH_LONG).show();
+            JsonHelper jsonHelper;
+            try{
+                jsonHelper = new JsonHelper(answer);
+                if(jsonHelper.getStatus().toLowerCase().equals("success")){
+                    Toast.makeText(this,getResources().getString(R.string.success_registration),Toast.LENGTH_LONG).show();
+                }
+                else{
+                    String message = jsonHelper.getMessage();
+                    if(message.toLowerCase().contains("email")){
+                        Toast.makeText(this, getResources().getString(R.string.email_exist), Toast.LENGTH_LONG).show();
+                    }
+                    else {
+                        Toast.makeText(this, getResources().getString(R.string.fail_registration), Toast.LENGTH_LONG).show();
+                    }
+                }
+
+            }catch (JSONException e){
+                Toast.makeText(this, getResources().getString(R.string.general_error), Toast.LENGTH_LONG).show();
+                e.printStackTrace();
+            }
         }
         /// restart the server request because asynchronous tasks can only be executed one time
         serverRequest.cancel(true);

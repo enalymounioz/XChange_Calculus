@@ -56,6 +56,7 @@
 
     <!--Toast messages Log in-->
     <string name="fill_username_password">You must fill in, the email and password!</string>
+    <string name="wrong_username_password">Wrong email or password!</string>
 
     <!--Toast messages Sign Up-->
     <string name="fill_name">You did not enter a name!</string>
@@ -67,6 +68,9 @@
     <string name="fill_confirmation">You did not enter the password\'s confirmation!</string>
     <string name="check_terms_conditions">You must accept the terms &amp; conditions and privacy policy!</string>
     <string name="wrong_repassword">Password\'s confirmation is not the same with password!</string>
+    <string name="success_registration">Successful registration! Please go to your email account in order to activate the skywalker account!</string>
+    <string name="fail_registration">Something wrong happened during registration, please try again later!</string>
+    <string name="email_exist">Email is already in use!</string>
 
 
 
