@@ -44,7 +44,7 @@ public class ServerRequest extends AsyncTask<String, String, String> {
             connectionType = data[0];               // request type (simple get or post request or handling file )
             if(connectionType.equals(Settings.CONNECTION_TYPES.FILE)){
                 // not constructed yet
-                // maybe we'll use deffirent types for download upload etc.
+                // maybe we'll use different types for download upload etc.
                 return null;
             }
             else{
