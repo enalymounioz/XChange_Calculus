@@ -1,4 +1,4 @@
-package com.sky.casper.skywalker_new_app.Activities;
+package com.sky.casper.skywalker_new_app.Fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

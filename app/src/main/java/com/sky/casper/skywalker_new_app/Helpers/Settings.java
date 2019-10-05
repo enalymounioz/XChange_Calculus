@@ -51,7 +51,7 @@ public class Settings {
         public static final String BIOS_URL = MyServer + "elGR/mobile-api/get-bios";
         public static final String UPLOAD_BIO_URL_CONN = MyServer + "elGR/mobile-api/upload-bio-connected";
         public static final String SEND_BIO_CONN_URL = MyServer + "elGR/mobile-api/send-bio-to-ad";
-        public static final String REGISTER_URL = MyServer + "elGR/mobile-api/nikos-test";    /// TODO we must change the url name
+        public static final String REGISTER_URL = MyServer + "elGR/mobile-api/register-candidate-v2";    /// TODO we must change the url name
         public static final String URL_SMALL_ADS = MyServer + "elGR/mobile-api/get-small-ads";
         public static final String URL_LINKEDIN = "https://api.linkedin.com/v1/people/~:(email-address,formatted-name,)";
         public static final String CDM_URL = "https://cdnsimg.scdn3.secure.raxcdn.com/";

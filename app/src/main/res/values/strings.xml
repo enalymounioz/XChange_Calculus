@@ -67,6 +67,10 @@
     <string name="fill_confirmation">You did not enter the password\'s confirmation!</string>
     <string name="check_terms_conditions">You must accept the terms &amp; conditions and privacy policy!</string>
     <string name="wrong_repassword">Password\'s confirmation is not the same with password!</string>
+    <string name="wrong_username_password">Wrong username or password!</string>
+    <string name="success_registration">Your registration completed successfully, please check your email account in order to confirm your email!</string>
+    <string name="email_exist">The email exists in our system, please fill in another email!</string>
+    <string name="fail_registration">Something wrong happened during the registrtion procedure, please try again later!</string>
     <string name="menu">menu</string>
     <string name="test">Test</string>
     <string name="settings">settings</string>
