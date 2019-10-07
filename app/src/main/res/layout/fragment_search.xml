@@ -11,6 +11,7 @@
         android:fontFamily="sans-serif-medium"
         android:textColor="@color/white"
         android:textSize="25sp"
+        android:gravity="center"
         android:layout_centerInParent="true"/>
 
 </RelativeLayout>

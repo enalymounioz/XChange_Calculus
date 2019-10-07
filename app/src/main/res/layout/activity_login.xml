@@ -11,7 +11,8 @@ tools:context=".Activities.ActivityLogin">
 <ScrollView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_centerVertical="true">
+    android:layout_centerVertical="true"
+    tools:ignore="UselessParent">
 
     <RelativeLayout
         android:id="@+id/mainrellay"
@@ -36,12 +37,12 @@ tools:context=".Activities.ActivityLogin">
             android:layout_height="wrap_content"
             android:background="@drawable/btn_trans"
             android:fontFamily="sans-serif-condensed-light"
-            android:onClick="button_skip"
             android:text="@string/skip"
             android:textColor="@color/white"
             android:textAllCaps="false"
             android:textStyle="bold"
-            android:layout_alignParentEnd="true"/>
+            android:layout_alignParentEnd="true"
+            tools:ignore="RelativeOverlap" />
 
         <RelativeLayout
             android:id="@+id/rellay1"

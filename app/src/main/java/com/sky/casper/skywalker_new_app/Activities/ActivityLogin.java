@@ -109,7 +109,7 @@ public class ActivityLogin extends AppCompatActivity implements ServerRequest.As
     public void btn_login(View v){
         // checks if the user fill in the email and password
         if(email.getText().toString().trim().replaceAll("\\s+","").equals("") || password.getText().toString().trim().replaceAll("\\s+","").equals("")){
-            Toast.makeText(ActivityLogin.this,ActivityLogin.this.getResources().getString(R.string.fill_username_password),Toast.LENGTH_LONG).show();
+            Toast.makeText(ActivityLogin.this, ActivityLogin.this.getResources().getString(R.string.fill_username_password),Toast.LENGTH_LONG).show();
         }
         else {
             serverRequest.execute(Settings.CONNECTION_TYPES.POST, "Username", email.getText().toString(), "Password", password.getText().toString(), Settings.URLS.LOGIN_CANDIDATE);
@@ -137,7 +137,7 @@ public class ActivityLogin extends AppCompatActivity implements ServerRequest.As
                  else{
                      String message = jsonHelper.getMessage();
                      if(message.toLowerCase().contains("wrong")){
-                         Toast.makeText(this, getResources().getString(R.string.wrong_username_password), Toast.LENGTH_LONG).show();
+                         Toast.makeText(this, getResources().getString(R.string.username_or_password_incorrect), Toast.LENGTH_LONG).show();
                      }
                      else {
                          Toast.makeText(this, message, Toast.LENGTH_LONG).show();

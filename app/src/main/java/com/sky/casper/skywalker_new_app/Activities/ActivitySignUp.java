@@ -121,10 +121,10 @@ public class ActivitySignUp extends AppCompatActivity implements ServerRequest.A
             String repassword = user_confirm.getText().toString();
 
             if(!password.equals(repassword)){
-                Toast.makeText(this, getResources().getString(R.string.wrong_repassword), Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getResources().getString(R.string.wrong_password), Toast.LENGTH_SHORT).show();
             }
             else{
-                serverRequest = new ServerRequest(ActivitySignUp.this,ActivitySignUp.this);
+                serverRequest = new ServerRequest(ActivitySignUp.this, ActivitySignUp.this);
                 serverRequest.execute(Settings.CONNECTION_TYPES.POST,"name",user_name.getText().toString(),"surname",user_surname.getText().toString(),
                         "mail",user_email.getText().toString(),"address",user_address.getText().toString(),"postcode",user_postcode.getText().toString(),"repassword",repassword,Settings.URLS.REGISTER_URL);
             }

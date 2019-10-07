@@ -11,11 +11,22 @@ import androidx.fragment.app.Fragment;
 
 import com.sky.casper.skywalker_new_app.R;
 
-public class FragmentHome extends Fragment {
+public class FragmentSearch extends Fragment {
+
+    View rootView;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        rootView= inflater.inflate(R.layout.fragment_search, container,false);
+        initUI();
+        return rootView;
+
     }
+
+    private void initUI() {
+
+    }
+
+
 }

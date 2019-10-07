@@ -9,14 +9,19 @@ import android.widget.RelativeLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.sdsmdg.harjot.vectormaster.VectorMasterView;
 import com.sdsmdg.harjot.vectormaster.models.PathModel;
 import com.sky.casper.skywalker_new_app.CurvedBottomNavigationView;
+import com.sky.casper.skywalker_new_app.Fragments.FragmentFavorites;
+import com.sky.casper.skywalker_new_app.Fragments.FragmentMenu;
+import com.sky.casper.skywalker_new_app.Fragments.FragmentSearch;
 import com.sky.casper.skywalker_new_app.R;
 
-public class ActivityHome extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
+public class ActivityHome extends AppCompatActivity
+        implements BottomNavigationView.OnNavigationItemSelectedListener {
 
     private CurvedBottomNavigationView mView;
     private VectorMasterView heartVector;
@@ -48,12 +53,29 @@ public class ActivityHome extends AppCompatActivity implements BottomNavigationV
         decorView.setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         /*Make Activity full screen and hide navigation bar*/
+
+        /*Start Fragment Transaction*/
+        loadFragment(new FragmentSearch());
     }
 
+    /*Load Fragment management*/
+    private boolean loadFragment (Fragment fragment){
+        if (fragment!=null){
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,fragment)
+                    .commit();
+
+            return true;
+        }
+        return false;
+    }
+
+   /*Switch between menu items and fragments*/
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        Fragment fragment=null;
         switch (item.getItemId()) {
             case R.id.action_menu:
+                fragment=new FragmentMenu();
                 tet(6);
                 // find the correct path using name
                 mlinId.setX(mView.firstCurveControlPoint1.x );
@@ -63,6 +85,7 @@ public class ActivityHome extends AppCompatActivity implements BottomNavigationV
                 selectAnimation(heartVector);
                 break;
             case R.id.action_search:
+                fragment=new FragmentSearch();
                 tet(2);
                 mlinId.setX(mView.firstCurveControlPoint1.x );
                 heartVector.setVisibility(View.GONE);
@@ -72,6 +95,7 @@ public class ActivityHome extends AppCompatActivity implements BottomNavigationV
                 selectAnimation(heartVector1);
                 break;
             case R.id.action_favorite:
+                fragment=new FragmentFavorites();
                 tet();
                 mlinId.setX(mView.firstCurveControlPoint1.x ) ;
                 heartVector.setVisibility(View.GONE);
@@ -82,8 +106,9 @@ public class ActivityHome extends AppCompatActivity implements BottomNavigationV
                 break;
         }
 
-        return true;
+        return loadFragment(fragment);
     }
+
 
     private void selectAnimation(final VectorMasterView heartVector) {
 
@@ -108,8 +133,6 @@ public class ActivityHome extends AppCompatActivity implements BottomNavigationV
 
         // get width and height of navigation bar
         // Navigation bar bounds (width & height)
-        //mNavigationBarHeight = getHeight();
-        //navigationBarWidth = getWidth();
         // the coordinates (x,y) of the start point before curve
         mView.firstCurveStartPoint.set((mView.navigationBarWidth / i) - (mView.CURVE_CIRCLE_RADIUS * 2) - (mView.CURVE_CIRCLE_RADIUS / 3), 0);
         // the coordinates (x,y) of the end point after curve
@@ -134,8 +157,6 @@ public class ActivityHome extends AppCompatActivity implements BottomNavigationV
 
         // get width and height of navigation bar
         // Navigation bar bounds (width & height)
-        //mNavigationBarHeight = getHeight();
-        //navigationBarWidth = getWidth();
         // the coordinates (x,y) of the start point before curve
         mView.firstCurveStartPoint.set((mView.navigationBarWidth * 10/12) - (mView.CURVE_CIRCLE_RADIUS * 2) - (mView.CURVE_CIRCLE_RADIUS / 3), 0);
         // the coordinates (x,y) of the end point after curve
