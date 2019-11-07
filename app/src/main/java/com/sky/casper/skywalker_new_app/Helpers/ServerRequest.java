@@ -29,18 +29,18 @@ public class ServerRequest extends AsyncTask<String, String, String> {
     private Context context;
     private AsyncResponse response;
 
-    public ServerRequest(Context ctx) {
-        this.context = ctx;
+    public ServerRequest(Context context) {
+        this.context = context;
     }
 
-    public ServerRequest(Context ctx, AsyncResponse r){ // get context and where to handle the response
-        this.context = ctx;
+    public ServerRequest(Context context, AsyncResponse r){ // get context and where to handle the response
+        this.context = context;
         this.response = r;
     }
 
     @Override
     protected String doInBackground(String... data) { // execute the request to server
-        if(Settings.checkInternetAccess(context)){ // check internet connection
+        if(Settings.isNetworkConnected(context)){ // check internet connection
             connectionType = data[0];               // request type (simple get or post request or handling file )
             if(connectionType.equals(Settings.CONNECTION_TYPES.FILE)){
                 // not constructed yet

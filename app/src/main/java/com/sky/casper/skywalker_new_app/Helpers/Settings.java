@@ -2,7 +2,10 @@ package com.sky.casper.skywalker_new_app.Helpers;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
+import android.os.Build;
 
 import com.sky.casper.skywalker_new_app.R;
 import com.sky.casper.skywalker_new_app.Skywalker;
@@ -13,10 +16,10 @@ import java.util.Locale;
 
 public class Settings {
 
-    private  Context ctx;
+    private  Context context;
 
     public Settings(){
-        this.ctx = Skywalker.getContext();
+        this.context = Skywalker.getContext();
     }
 
 /* All existing urls for communication with the server */
@@ -109,7 +112,55 @@ public class Settings {
     }
 
 
-    public static boolean checkInternetAccess(Context c) { /// checks internet connection
+    public static boolean isNetworkConnected(Context context) {
+        boolean result = false;
+        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (connectivityManager != null) {
+                NetworkCapabilities capabilities = connectivityManager.getNetworkCapabilities(connectivityManager.getActiveNetwork());
+                if (capabilities != null) {
+                    if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
+                        result = true;
+                    } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
+                        result = true;
+                    }
+                }
+            }
+        } else {
+            if (connectivityManager != null) {
+                NetworkInfo activeNetwork = connectivityManager.getActiveNetworkInfo();
+                if (activeNetwork != null) {
+                    // connected to the internet
+                    if (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI) {
+                        result = true;
+                    } else if (activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE) {
+                        result = true;
+                    }
+                }
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Checking whether network is connected
+     * @param context Context to get {@link ConnectivityManager}
+     * @return true if Network is connected, else false
+     */
+    public static boolean isConnected(Context context){
+        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = connectivityManager.getActiveNetworkInfo();
+        if (activeNetwork != null && activeNetwork.isConnected()) {
+            int networkType = activeNetwork.getType();
+            return networkType == ConnectivityManager.TYPE_WIFI || networkType == ConnectivityManager.TYPE_MOBILE;
+        } else {
+            return false;
+        }
+    }
+
+//Has been replaced for newest version of API
+       /**
+        Public static boolean checkInternetAccess(Context c){
         ConnectivityManager connectivityManager = (ConnectivityManager) c.getSystemService(Context.CONNECTIVITY_SERVICE);
         if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
                 connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
@@ -117,8 +168,9 @@ public class Settings {
             return true;
         } else
             return false;
-
-    }
-
+        }**/
 
 }
+
+
+

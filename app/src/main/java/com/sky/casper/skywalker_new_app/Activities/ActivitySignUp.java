@@ -121,7 +121,7 @@ public class ActivitySignUp extends AppCompatActivity implements ServerRequest.A
             String repassword = user_confirm.getText().toString();
 
             if(!password.equals(repassword)){
-                Toast.makeText(this, getResources().getString(R.string.wrong_password), Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getResources().getString(R.string.wrong_repassword), Toast.LENGTH_SHORT).show();
             }
             else{
                 serverRequest = new ServerRequest(ActivitySignUp.this, ActivitySignUp.this);

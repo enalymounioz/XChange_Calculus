@@ -15,19 +15,19 @@
         android:paddingTop="20dp">
 
          <RelativeLayout
-                android:id="@+id/rellay1"
+                android:id="@+id/relativeLayout1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp">
 
                 <LinearLayout
-                    android:id="@+id/linlay1"
+                    android:id="@+id/linearLayout1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
                     <ImageView
-                        android:id="@+id/imgView_logo"
+                        android:id="@+id/imageView_logo"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:adjustViewBounds="true"
@@ -36,7 +36,7 @@
                         android:src="@drawable/app_logo" />
 
                     <TextView
-                        android:id="@+id/tv_login"
+                        android:id="@+id/textView_login"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
@@ -49,10 +49,10 @@
 
 
                 <LinearLayout
-                    android:id="@+id/linlay2"
+                    android:id="@+id/linearLayout2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/linlay1"
+                    android:layout_below="@+id/linearLayout1"
                     android:orientation="vertical">
 
                     <LinearLayout
@@ -338,7 +338,7 @@
                     android:id="@+id/button_signup"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/linlay5"
+                    android:layout_below="@+id/linearLayout5"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="20dp"
                     android:background="@drawable/btn_bg"
@@ -353,7 +353,7 @@
 
                 <LinearLayout
                     android:layout_below="@+id/button_signup"
-                    android:id="@+id/linlay3"
+                    android:id="@+id/linearLayout3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
@@ -368,10 +368,10 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/linlay4"
+                    android:id="@+id/linearLayout4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/linlay3"
+                    android:layout_below="@+id/linearLayout3"
                     android:layout_centerHorizontal="true"
                     android:paddingTop="10dp">
 
@@ -405,10 +405,10 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/linlay5"
+                    android:id="@+id/linearLayout5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/linlay2"
+                    android:layout_below="@+id/linearLayout2"
                     android:layout_alignParentEnd="true"
                     android:layout_marginTop="10dp">
 

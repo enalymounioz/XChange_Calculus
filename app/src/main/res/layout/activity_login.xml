@@ -15,14 +15,14 @@ tools:context=".Activities.ActivityLogin">
     tools:ignore="UselessParent">
 
     <RelativeLayout
-        android:id="@+id/mainrellay"
+        android:id="@+id/mainRelativeLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp">
 
         <ImageView
-            android:id="@+id/imgView_logo"
+            android:id="@+id/imageView_logo"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:adjustViewBounds="true"
@@ -45,14 +45,14 @@ tools:context=".Activities.ActivityLogin">
             tools:ignore="RelativeOverlap" />
 
         <RelativeLayout
-            android:id="@+id/rellay1"
+            android:id="@+id/relativeLayout1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/imgView_logo"
+            android:layout_below="@+id/imageView_logo"
             android:layout_centerHorizontal="true">
 
             <TextView
-                android:id="@+id/tv_login"
+                android:id="@+id/textView_login"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-medium"
@@ -61,10 +61,10 @@ tools:context=".Activities.ActivityLogin">
                 android:textSize="25sp" />
 
             <LinearLayout
-                android:id="@+id/linlay1"
+                android:id="@+id/linearLayout1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_login"
+                android:layout_below="@+id/textView_login"
                 android:layout_marginTop="20dp"
                 android:orientation="vertical">
 
@@ -168,7 +168,7 @@ tools:context=".Activities.ActivityLogin">
                 android:id="@+id/button_confirm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/linlay1"
+                android:layout_below="@+id/linearLayout1"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/btn_bg"
@@ -182,7 +182,7 @@ tools:context=".Activities.ActivityLogin">
                 android:onClick="btn_login"/>
 
             <LinearLayout
-                android:id="@+id/linlay3"
+                android:id="@+id/linearLayout3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/button_confirm"
@@ -216,18 +216,18 @@ tools:context=".Activities.ActivityLogin">
                 android:fontFamily="sans-serif-medium"
                 android:text="@string/or_use_social_media"
                 android:textColor="@color/black"
-                android:layout_below="@+id/linlay3"
+                android:layout_below="@+id/linearLayout3"
                 android:layout_centerHorizontal="true"
                 android:paddingTop="20dp"/>
 
         </RelativeLayout>
 
         <LinearLayout
-            android:id="@+id/linlay2"
+            android:id="@+id/linearLayout2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_below="@+id/rellay1"
+            android:layout_below="@+id/relativeLayout1"
             android:paddingTop="10dp">
 
             <ImageView

@@ -3,7 +3,7 @@
 
     <!--Theme Splash Screen-->
     <color name="colorPrimary">#2196F3</color>
-    <color name="colorPrimaryDark">#FF1D73E4</color>
+    <color name="colorPrimaryDark">#0069c0</color>
     <color name="colorAccent">#F48120</color>
 
     <color name="colorTransparent">#00FFFFFF</color>
@@ -15,5 +15,7 @@
     <!--Theme Gradient Animation-->
     <color name="colorGradientStart">#A3D3EB</color>
     <color name="colorGradientCenter">#82BDD6</color>
-    <color name="colorGradientEnd">#005E9C</color>
+    <color name="colorGradientEnd">#2196F3</color>
+
+
 </resources>

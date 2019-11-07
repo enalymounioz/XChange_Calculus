@@ -34,4 +34,5 @@ dependencies {
 
     //TODO library for search animation
     implementation'com.github.ozodrukh:CircularReveal:2.0.1'
+    implementation 'androidx.gridlayout:gridlayout:1.0.0'
 }

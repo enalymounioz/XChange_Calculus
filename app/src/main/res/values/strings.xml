@@ -71,11 +71,17 @@
     <string name="fill_password">You did not enter a password!</string>
     <string name="fill_confirmation">You did not enter the password\'s confirmation!</string>
     <string name="check_terms_conditions">You must accept the terms &amp; conditions and privacy policy!</string>
-    <string name="wrong_password">Password\'s confirmation is not the same with password!</string>
+    <string name="wrong_repassword">Password\'s confirmation is not the same with password!</string>
     <string name="menu">menu</string>
     <string name="test">Test</string>
     <string name="settings">settings</string>
     <string name="back">Back</string>
+
+    <!--Messages General-->
+    <string name="terms_and_conditions">Before continuing in Skywalker.gr, make sure that you read
+        and agree to our Terms &amp; Conditions and our Privacy policy.</string>
+    <string name="search">search</string>
+    <string name="user_name">John Doe</string>
 
 
 </resources>

@@ -11,11 +11,16 @@ import androidx.fragment.app.Fragment;
 
 import com.sky.casper.skywalker_new_app.R;
 
-public class FragmentMenu extends Fragment {
+public class FavoriteFragment extends Fragment {
+
+    public FavoriteFragment(){
+
+    }
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_menu, container, false);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_favorites,container,false);
     }
 }
