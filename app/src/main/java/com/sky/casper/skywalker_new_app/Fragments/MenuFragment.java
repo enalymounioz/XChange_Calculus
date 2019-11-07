@@ -143,42 +143,42 @@ public class MenuFragment extends Fragment {
         cardPlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                interfaceCommunicationFragments.startApp();
+                interfaceCommunicationFragments.accountSettings();
             }
         });
 
         cardSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                interfaceCommunicationFragments.CallSettings();
+                interfaceCommunicationFragments.notificationSettings();
             }
         });
 
         cardRanking.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                interfaceCommunicationFragments.consultRanking();
+                interfaceCommunicationFragments.contactSupport();
             }
         });
 
         cardHelp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                interfaceCommunicationFragments.consultInstructions();
+                interfaceCommunicationFragments.shareApp();
             }
         });
 
         cardUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                interfaceCommunicationFragments.manageUser();
+                interfaceCommunicationFragments.rateApp();
             }
         });
 
         cardInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                interfaceCommunicationFragments.consultInformation();
+                interfaceCommunicationFragments.helpInformation();
             }
         });
 

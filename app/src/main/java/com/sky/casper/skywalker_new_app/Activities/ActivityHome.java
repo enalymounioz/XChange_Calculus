@@ -222,37 +222,37 @@ public class ActivityHome extends AppCompatActivity implements
     public void showMenu() {}
 
     @Override
-    public void startApp() {
+    public void accountSettings() {
         Toast.makeText(getApplicationContext(),"Account Settings from the activity",Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void CallSettings() {
+    public void notificationSettings() {
         Toast.makeText(getApplicationContext(),"Notification Settings from the activity",Toast.LENGTH_SHORT).show();
         //Intent intent=new Intent(this, SettingsActivity.class);
         //startActivity(intent);
     }
 
     @Override
-    public void consultRanking() {
+    public void contactSupport() {
         Toast.makeText(getApplicationContext(),"Contact Support from the activity",Toast.LENGTH_SHORT).show();
         // getSupportFragmentManager().beginTransaction().replace(R.id.containerFragments,rankingFragment).commit();
     }
 
     @Override
-    public void consultInstructions() {
+    public void shareApp() {
         Toast.makeText(getApplicationContext(),"Share the app from the activity",Toast.LENGTH_SHORT).show();
        // Intent intent=new Intent(this, ContainerInstructionsActivity.class);
        // startActivity(intent);
     }
 
     @Override
-    public void manageUser() {
+    public void rateApp() {
         Toast.makeText(getApplicationContext(),"Rate in the Play Store from the activity",Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void consultInformation() {
+    public void helpInformation() {
         Toast.makeText(getApplicationContext(),"Information from the activity",Toast.LENGTH_SHORT).show();
         //Intent intent=new Intent(this, AboutActivity.class);
         //startActivity(intent);
