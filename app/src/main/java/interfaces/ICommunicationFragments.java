@@ -3,11 +3,11 @@ package interfaces;
 public interface ICommunicationFragments {
 
     public void showMenu();
-    public void accountSettings();
-    public void notificationSettings();
-    public void contactSupport();
-    public void shareApp();
-    public void rateApp();
-    public void helpInformation();
+    public void settingsButton();
+    public void chatButton();
+    public void supportButton();
+    public void shareButton();
+    public void rateButton();
+    public void infoButton();
 
 }

@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:card_view="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:gravity="center"
     android:id="@+id/idLayoutBackground">
@@ -46,48 +45,6 @@
         android:layout_below="@+id/linearLayout1">
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/cardPlay"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginBottom="10dp"
-            app:cardBackgroundColor="@color/white"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="6dp"
-            app:layout_columnWeight="1"
-            app:layout_rowWeight="1"
-            card_view:cardBackgroundColor="@color/colorTransparent">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal|center_vertical"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:layout_width="60dp"
-                    android:layout_height="55dp"
-                    android:layout_gravity="center_horizontal"
-                    android:src="@drawable/ic_account" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_centerHorizontal="true"
-                    android:layout_gravity="center_horizontal"
-                    android:text="Account Settings"
-                    android:textAlignment="center"
-                    android:textColor="#FF717477"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-
-
-        <androidx.cardview.widget.CardView
             android:id="@+id/cardSettings"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -98,8 +55,7 @@
             app:cardCornerRadius="8dp"
             app:cardElevation="6dp"
             app:layout_columnWeight="1"
-            app:layout_rowWeight="1"
-            card_view:cardBackgroundColor="@android:color/colorTransparent">
+            app:layout_rowWeight="1">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -111,13 +67,14 @@
                     android:layout_width="60dp"
                     android:layout_height="55dp"
                     android:layout_gravity="center_horizontal"
-                    android:src="@drawable/ic_notification" />
+                    android:src="@drawable/ic_settings" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_centerHorizontal="true"
-                    android:text="Notification Settings"
+                    android:layout_gravity="center_horizontal"
+                    android:text="Settings"
                     android:textAlignment="center"
                     android:textColor="#FF717477"
                     android:textSize="16sp"
@@ -128,7 +85,7 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/cardRanking"
+            android:id="@+id/cardChat"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginLeft="16dp"
@@ -138,8 +95,46 @@
             app:cardCornerRadius="8dp"
             app:cardElevation="6dp"
             app:layout_columnWeight="1"
-            app:layout_rowWeight="1"
-            card_view:cardBackgroundColor="@android:color/colorTransparent">
+            app:layout_rowWeight="1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="55dp"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/ic_chat" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerHorizontal="true"
+                    android:text="Chat"
+                    android:textAlignment="center"
+                    android:textColor="#FF717477"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardSupport"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="10dp"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="6dp"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -157,7 +152,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_centerHorizontal="true"
-                    android:text="Contact Support"
+                    android:text="Support"
                     android:textAlignment="center"
                     android:textColor="#FF717477"
                     android:textSize="16sp"
@@ -168,7 +163,7 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/cardHelp"
+            android:id="@+id/cardShare"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginLeft="16dp"
@@ -178,8 +173,7 @@
             app:cardCornerRadius="8dp"
             app:cardElevation="6dp"
             app:layout_columnWeight="1"
-            app:layout_rowWeight="1"
-            card_view:cardBackgroundColor="@android:color/colorTransparent">
+            app:layout_rowWeight="1">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -197,7 +191,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_centerHorizontal="true"
-                    android:text="Share the app"
+                    android:text="Share"
                     android:textAlignment="center"
                     android:textColor="#FF717477"
                     android:textSize="16sp"
@@ -208,7 +202,7 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/cardUser"
+            android:id="@+id/cardRate"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginLeft="16dp"
@@ -218,8 +212,7 @@
             app:cardCornerRadius="8dp"
             app:cardElevation="6dp"
             app:layout_columnWeight="1"
-            app:layout_rowWeight="1"
-            card_view:cardBackgroundColor="@android:color/colorTransparent">
+            app:layout_rowWeight="1">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -237,7 +230,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_centerHorizontal="true"
-                    android:text="Rate in Play Store"
+                    android:text="Rate"
                     android:textAlignment="center"
                     android:textColor="#FF717477"
                     android:textSize="16sp"
@@ -258,8 +251,7 @@
             app:cardCornerRadius="8dp"
             app:cardElevation="6dp"
             app:layout_columnWeight="1"
-            app:layout_rowWeight="1"
-            card_view:cardBackgroundColor="@android:color/colorTransparent">
+            app:layout_rowWeight="1">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -299,6 +291,6 @@
         android:layout_marginTop="20dp"
         android:layout_marginRight="20dp"
         android:background="@color/colorTransparent"
-        android:src="@drawable/ic_help" />
+        android:src="@drawable/ic_help_center" />
 
 </RelativeLayout>

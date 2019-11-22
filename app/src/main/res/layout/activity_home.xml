@@ -43,7 +43,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <RelativeLayout
-        android:id="@+id/lin_id"
+        android:id="@+id/relativeLayoutFabButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center"
@@ -58,7 +58,7 @@
             android:layout_margin="12dp"
             android:visibility="gone"
             app:elevation="6dp"
-            app:vector_src="@drawable/ic_menu_white_24dp" />
+            app:vector_src="@drawable/ic_menu_white" />
 
         <com.sdsmdg.harjot.vectormaster.VectorMasterView
             android:id="@+id/fab1"
@@ -67,7 +67,7 @@
             android:layout_centerInParent="true"
             android:layout_margin="12dp"
             app:elevation="6dp"
-            app:vector_src="@drawable/ic_search_white_24dp" />
+            app:vector_src="@drawable/ic_search_white" />
 
         <com.sdsmdg.harjot.vectormaster.VectorMasterView
             android:id="@+id/fab2"
@@ -77,7 +77,7 @@
             android:layout_margin="12dp"
             android:visibility="gone"
             app:elevation="6dp"
-            app:vector_src="@drawable/ic_favorite_border_white_24dp" />
+            app:vector_src="@drawable/ic_favorite_border_white" />
 
     </RelativeLayout>
 

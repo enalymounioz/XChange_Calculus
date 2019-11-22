@@ -43,6 +43,6 @@
         android:layout_marginTop="20dp"
         android:layout_marginRight="20dp"
         android:background="@color/colorTransparent"
-        android:src="@drawable/ic_help" />
+        android:src="@drawable/ic_help_center" />
 
 </RelativeLayout>

@@ -39,7 +39,7 @@ public class ActivityHome extends AppCompatActivity implements
     private VectorMasterView heartVector1;
     private VectorMasterView heartVector2;
     private float mYVal;
-    private RelativeLayout mlinId;
+    private RelativeLayout mRelativeLayoutFabButton;
 
     private SearchFragment searchFragment;
     private MenuFragment menuFragment;
@@ -55,7 +55,7 @@ public class ActivityHome extends AppCompatActivity implements
         heartVector1 = findViewById(R.id.fab1);
         heartVector2 = findViewById(R.id.fab2);
 
-        mlinId = findViewById(R.id.lin_id);
+        mRelativeLayoutFabButton = findViewById(R.id.relativeLayoutFabButton);
         mView.inflateMenu(R.menu.bottom_menu);
         mView.setSelectedItemId(R.id.action_search);
 
@@ -85,7 +85,7 @@ public class ActivityHome extends AppCompatActivity implements
             case R.id.action_menu:
                 tet(6);
                 // find the correct path using name
-                mlinId.setX(mView.firstCurveControlPoint1.x );
+                mRelativeLayoutFabButton.setX(mView.firstCurveControlPoint1.x );
                 heartVector.setVisibility(View.VISIBLE);
                 heartVector1.setVisibility(View.GONE);
                 heartVector2.setVisibility(View.GONE);
@@ -94,7 +94,7 @@ public class ActivityHome extends AppCompatActivity implements
                 break;
             case R.id.action_search:
                 tet(2);
-                mlinId.setX(mView.firstCurveControlPoint1.x );
+                mRelativeLayoutFabButton.setX(mView.firstCurveControlPoint1.x );
                 heartVector.setVisibility(View.GONE);
                 heartVector1.setVisibility(View.VISIBLE);
                 heartVector2.setVisibility(View.GONE);
@@ -103,7 +103,7 @@ public class ActivityHome extends AppCompatActivity implements
                 break;
             case R.id.action_favorite:
                 tet();
-                mlinId.setX(mView.firstCurveControlPoint1.x ) ;
+                mRelativeLayoutFabButton.setX(mView.firstCurveControlPoint1.x ) ;
                 heartVector.setVisibility(View.GONE);
                 heartVector1.setVisibility(View.GONE);
                 heartVector2.setVisibility(View.VISIBLE);
@@ -186,13 +186,14 @@ public class ActivityHome extends AppCompatActivity implements
         mView.secondCurveControlPoint1.set(mView.secondCurveStartPoint.x + (mView.CURVE_CIRCLE_RADIUS * 2) - mView.CURVE_CIRCLE_RADIUS, mView.secondCurveStartPoint.y);
         mView.secondCurveControlPoint2.set(mView.secondCurveEndPoint.x - (mView.CURVE_CIRCLE_RADIUS + (mView.CURVE_CIRCLE_RADIUS / 4)), mView.secondCurveEndPoint.y);
     }
+
     /*back button press is controlled*/
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         // TODO Auto-generated method stub
         if (keyCode == event.KEYCODE_BACK) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage("Do you want Exit Skywalker.gr")
+            builder.setMessage("Do you want to Exit Skywalker.gr")
                     .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             Intent intent = new Intent(Intent.ACTION_MAIN);
@@ -222,37 +223,39 @@ public class ActivityHome extends AppCompatActivity implements
     public void showMenu() {}
 
     @Override
-    public void accountSettings() {
-        Toast.makeText(getApplicationContext(),"Account Settings from the activity",Toast.LENGTH_SHORT).show();
+    public void settingsButton() {
+        //Toast.makeText(getApplicationContext(),"Account Settings from the activity",Toast.LENGTH_SHORT).show();
+        Intent intent=new Intent(this, SettingsActivity.class);
+        startActivity(intent);
     }
 
     @Override
-    public void notificationSettings() {
+    public void chatButton() {
         Toast.makeText(getApplicationContext(),"Notification Settings from the activity",Toast.LENGTH_SHORT).show();
         //Intent intent=new Intent(this, SettingsActivity.class);
         //startActivity(intent);
     }
 
     @Override
-    public void contactSupport() {
+    public void supportButton() {
         Toast.makeText(getApplicationContext(),"Contact Support from the activity",Toast.LENGTH_SHORT).show();
         // getSupportFragmentManager().beginTransaction().replace(R.id.containerFragments,rankingFragment).commit();
     }
 
     @Override
-    public void shareApp() {
+    public void shareButton() {
         Toast.makeText(getApplicationContext(),"Share the app from the activity",Toast.LENGTH_SHORT).show();
        // Intent intent=new Intent(this, ContainerInstructionsActivity.class);
        // startActivity(intent);
     }
 
     @Override
-    public void rateApp() {
+    public void rateButton() {
         Toast.makeText(getApplicationContext(),"Rate in the Play Store from the activity",Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void helpInformation() {
+    public void infoButton() {
         Toast.makeText(getApplicationContext(),"Information from the activity",Toast.LENGTH_SHORT).show();
         //Intent intent=new Intent(this, AboutActivity.class);
         //startActivity(intent);

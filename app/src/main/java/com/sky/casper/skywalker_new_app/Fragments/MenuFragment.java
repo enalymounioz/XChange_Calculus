@@ -47,7 +47,7 @@ public class MenuFragment extends Fragment {
     Activity activity;
     RelativeLayout layoutBackground;
     GridLayout gridMenu;
-    CardView cardPlay,cardSettings,cardRanking,cardHelp,cardUser,cardInfo;
+    CardView cardSettings,cardChat,cardSupport,cardShare,cardRate,cardInfo;
 
     ICommunicationFragments interfaceCommunicationFragments;
 
@@ -92,12 +92,12 @@ public class MenuFragment extends Fragment {
         vista= inflater.inflate(R.layout.fragment_menu, container, false);
         layoutBackground=vista.findViewById(R.id.idLayoutBackground);
         gridMenu=vista.findViewById(R.id.idGrid);
-        cardPlay=vista.findViewById(R.id.cardPlay);
-        buttonHelp=vista.findViewById(R.id.buttonHelp);
         cardSettings=vista.findViewById(R.id.cardSettings);
-        cardRanking=vista.findViewById(R.id.cardRanking);
-        cardHelp=vista.findViewById(R.id.cardHelp);
-        cardUser=vista.findViewById(R.id.cardUser);
+        buttonHelp=vista.findViewById(R.id.buttonHelp);
+        cardChat=vista.findViewById(R.id.cardChat);
+        cardSupport=vista.findViewById(R.id.cardSupport);
+        cardShare=vista.findViewById(R.id.cardShare);
+        cardRate=vista.findViewById(R.id.cardRate);
         cardInfo=vista.findViewById(R.id.cardInfo);
         textNickName=vista.findViewById(R.id.textNickName);
         imageAvatar=vista.findViewById(R.id.avatarImage);
@@ -140,45 +140,45 @@ public class MenuFragment extends Fragment {
 
     private void eventsMenu() {
 
-        cardPlay.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                interfaceCommunicationFragments.accountSettings();
-            }
-        });
-
         cardSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                interfaceCommunicationFragments.notificationSettings();
+                interfaceCommunicationFragments.settingsButton();
             }
         });
 
-        cardRanking.setOnClickListener(new View.OnClickListener() {
+        cardChat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                interfaceCommunicationFragments.contactSupport();
+                interfaceCommunicationFragments.chatButton();
             }
         });
 
-        cardHelp.setOnClickListener(new View.OnClickListener() {
+        cardSupport.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                interfaceCommunicationFragments.shareApp();
+                interfaceCommunicationFragments.supportButton();
             }
         });
 
-        cardUser.setOnClickListener(new View.OnClickListener() {
+        cardShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                interfaceCommunicationFragments.rateApp();
+                interfaceCommunicationFragments.shareButton();
+            }
+        });
+
+        cardRate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                interfaceCommunicationFragments.rateButton();
             }
         });
 
         cardInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                interfaceCommunicationFragments.helpInformation();
+                interfaceCommunicationFragments.infoButton();
             }
         });
 

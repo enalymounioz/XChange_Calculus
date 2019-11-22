@@ -6,21 +6,21 @@
     <item
         android:id="@+id/action_menu"
         android:enabled="true"
-        android:icon="@drawable/ic_menu_white_24dp"
+        android:icon="@drawable/ic_menu_white"
         android:title="Menu"
         app:showAsAction="ifRoom"/>
 
     <item
         android:id="@+id/action_search"
         android:enabled="true"
-        android:icon="@drawable/ic_search_white_24dp"
+        android:icon="@drawable/ic_search_white"
         android:title="Search"
         app:showAsAction="ifRoom"/>
 
     <item
         android:id="@+id/action_favorite"
         android:enabled="true"
-        android:icon="@drawable/ic_favorite_border_white_24dp"
+        android:icon="@drawable/ic_favorite_border_white"
         android:title="Saved Adds"
         app:showAsAction="ifRoom"/>
 
