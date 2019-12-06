@@ -48,9 +48,10 @@
     <string name="new_user">New user?</string>
     <string name="skip">Skip</string>
     <string name="username_or_password_incorrect">The username or password is incorrect!</string>
-    <string name="success_registration">You have successfully registered.</string>
+    <string name="success_registration">You have successfully registered. Please check your email account to complete the registration!</string>
     <string name="email_exist">This email already exists.</string>
     <string name="fail_registration">Registration Failed!</string>
+    <string name="login_success">You have signed in, successfully!</string>
 
 
     <!--Toast messages-->

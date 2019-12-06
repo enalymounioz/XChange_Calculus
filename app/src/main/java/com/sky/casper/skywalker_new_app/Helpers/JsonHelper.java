@@ -19,4 +19,8 @@ public class JsonHelper {
     public String getMessage() throws JSONException {
         return jsonObject.getString("Message");
     }
+
+    public String getAttribute(String attribute) throws JSONException {
+        return jsonObject.getString(attribute);
+    }
 }

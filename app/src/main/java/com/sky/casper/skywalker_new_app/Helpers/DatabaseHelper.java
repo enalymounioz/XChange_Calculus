@@ -1,8 +1,10 @@
 package com.sky.casper.skywalker_new_app.Helpers;
 
 
+import android.content.ContentValues;
 import android.content.Context;
 
+import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
@@ -345,6 +347,31 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String myPath = DEFAULT_DB_PATH + DATABASE_NAME;
         myDataBase = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READWRITE);
 
+    }
+
+    public boolean insertUserId(String id){
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(USER_ID,id);
+        long result = myDataBase.insert(TABLE_SETTINGS,null,contentValues);
+        return result!=-1;
+    }
+
+    public String getUserId(){
+        Cursor cur;
+
+        cur=myDataBase.rawQuery("select "+USER_ID+" from "+TABLE_SETTINGS,null);
+
+        if(cur.getCount() == 0){
+            return null;
+        }
+        else if(cur.getCount()>1){
+            myDataBase.execSQL("delete from "+TABLE_SETTINGS);
+            return Settings.ERROR_MSG.DATABASE_ERROR;
+        }
+        else{
+            cur.moveToNext();
+            return cur.getString(0);
+        }
     }
 
     /* Create Tables */

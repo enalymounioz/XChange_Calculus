@@ -1,14 +1,18 @@
 package com.sky.casper.skywalker_new_app.Activities;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.preference.PreferenceCategory;
 import androidx.preference.PreferenceFragmentCompat;
+import androidx.preference.SwitchPreferenceCompat;
 
 import com.sky.casper.skywalker_new_app.R;
 
 public class ActivitySettings extends AppCompatActivity {
+    static Context ctx;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +34,8 @@ public class ActivitySettings extends AppCompatActivity {
         decorView.setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         /*Make Activity full screen and hide navigation bar*/
+
+        this.ctx = ActivitySettings.this;
     }
 
 
@@ -43,6 +49,13 @@ public class ActivitySettings extends AppCompatActivity {
         @Override
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
             setPreferencesFromResource(R.xml.security_and_privacy_preferences, rootKey);
+//            PreferenceCategory preferenceCategory = findPreference("editpublicprofile");
+//            SwitchPreferenceCompat test  = new SwitchPreferenceCompat(ActivitySettings.ctx);
+//            test.setChecked(true);
+//            test.setTitle("Blaaallajrfj");
+//            test.setSummaryOn("Public");
+//            test.setSummaryOff("Private");
+//            preferenceCategory.addPreference(test);
         }
     }
 

@@ -12,6 +12,8 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.sky.casper.skywalker_new_app.Helpers.Cache;
+import com.sky.casper.skywalker_new_app.Helpers.DatabaseHelper;
 import com.sky.casper.skywalker_new_app.Helpers.JsonHelper;
 import com.sky.casper.skywalker_new_app.Helpers.ServerRequest;
 import com.sky.casper.skywalker_new_app.Helpers.Settings;
@@ -30,6 +32,8 @@ public class ActivityLogin extends AppCompatActivity implements ServerRequest.As
     /* User information for login*/
 
     private ServerRequest serverRequest; // server request for login and maybe for other API services
+    private DatabaseHelper db;
+    private Cache cache;
 
     /*Variables for background animation*/
     private RelativeLayout relativeLayout;
@@ -87,6 +91,8 @@ public class ActivityLogin extends AppCompatActivity implements ServerRequest.As
 
         /* server request for login in */
         serverRequest = new ServerRequest(this,this);
+
+        db = new DatabaseHelper(this);
     }
 
     private void setListeners(){
@@ -116,6 +122,10 @@ public class ActivityLogin extends AppCompatActivity implements ServerRequest.As
         }
     }
 
+    private boolean getCandidateDetails(){
+        return true;
+    }
+
 
     @Override /* handle the server answer */
     public void handleAnswer(String answer) {
@@ -132,7 +142,14 @@ public class ActivityLogin extends AppCompatActivity implements ServerRequest.As
                  jsonHelper = new JsonHelper(answer);
                  if(jsonHelper.getStatus().toLowerCase().equals("success")){
                     /// Go to profile activity
-                    Toast.makeText(this,answer,Toast.LENGTH_SHORT).show();
+                    db.insertUserId(jsonHelper.getAttribute("Id"));
+                    cache.saveUserToken(jsonHelper.getAttribute("Token"));
+                    if(getCandidateDetails()) {
+                        Toast.makeText(this, getResources().getString(R.string.login_success), Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                        Toast.makeText(this, getResources().getString(R.string.general_error), Toast.LENGTH_LONG).show();
+                    }
                  }
                  else{
                      String message = jsonHelper.getMessage();
