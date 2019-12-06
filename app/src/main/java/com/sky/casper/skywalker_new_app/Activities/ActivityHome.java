@@ -188,6 +188,7 @@ public class ActivityHome extends AppCompatActivity implements
     }
 
     /*back button press is controlled*/
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         // TODO Auto-generated method stub
@@ -225,14 +226,14 @@ public class ActivityHome extends AppCompatActivity implements
     @Override
     public void settingsButton() {
         //Toast.makeText(getApplicationContext(),"Account Settings from the activity",Toast.LENGTH_SHORT).show();
-        Intent intent=new Intent(this, SettingsActivity.class);
+        Intent intent=new Intent(this, ActivitySettings.class);
         startActivity(intent);
     }
 
     @Override
     public void chatButton() {
         Toast.makeText(getApplicationContext(),"Notification Settings from the activity",Toast.LENGTH_SHORT).show();
-        //Intent intent=new Intent(this, SettingsActivity.class);
+        //Intent intent=new Intent(this, ActivitySettings.class);
         //startActivity(intent);
     }
 

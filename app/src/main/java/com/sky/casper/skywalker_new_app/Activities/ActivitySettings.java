@@ -8,7 +8,7 @@ import androidx.preference.PreferenceFragmentCompat;
 
 import com.sky.casper.skywalker_new_app.R;
 
-public class SettingsActivity extends AppCompatActivity {
+public class ActivitySettings extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,17 +32,12 @@ public class SettingsActivity extends AppCompatActivity {
         /*Make Activity full screen and hide navigation bar*/
     }
 
+
     public static class SettingsFragment extends PreferenceFragmentCompat {
         @Override
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey);
         }
-    }
-    public static class AboutFragment extends PreferenceFragmentCompat {
-        @Override
-        public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
-            setPreferencesFromResource(R.xml.about_preferences, rootKey);
-                    }
     }
     public static class SecurityAndPrivacyFragment extends PreferenceFragmentCompat {
         @Override
@@ -50,6 +45,7 @@ public class SettingsActivity extends AppCompatActivity {
             setPreferencesFromResource(R.xml.security_and_privacy_preferences, rootKey);
         }
     }
+
     public static class LanguageAndRegionFragment extends PreferenceFragmentCompat {
         @Override
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
@@ -74,22 +70,12 @@ public class SettingsActivity extends AppCompatActivity {
             setPreferencesFromResource(R.xml.notifications_preferences, rootKey);
         }
     }
-    public static class TermsAndConditionsFragment extends PreferenceFragmentCompat {
-        @Override
-        public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
-            setPreferencesFromResource(R.xml.terms_and_conditions_preferences, rootKey);
-        }
-    }
-    public static class FaqFragment extends PreferenceFragmentCompat {
-        @Override
-        public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
-            setPreferencesFromResource(R.xml.faq_preferences, rootKey);
-        }
-    }
+
     public static class LogoutFragment extends PreferenceFragmentCompat {
         @Override
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
             setPreferencesFromResource(R.xml.logout_preferences, rootKey);
         }
     }
+
 }

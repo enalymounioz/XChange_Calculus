@@ -1,4 +1,4 @@
-package com.sky.casper.skywalker_new_app;
+package com.sky.casper.skywalker_new_app.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
@@ -10,8 +10,8 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.sky.casper.skywalker_new_app.Activities.ActivityLogin;
 import com.sky.casper.skywalker_new_app.Helpers.DatabaseHelper;
+import com.sky.casper.skywalker_new_app.R;
 
 public class ActivitySplash extends AppCompatActivity {
 
