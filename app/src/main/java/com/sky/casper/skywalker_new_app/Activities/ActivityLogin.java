@@ -2,6 +2,7 @@ package com.sky.casper.skywalker_new_app.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
@@ -17,9 +18,12 @@ import com.sky.casper.skywalker_new_app.Helpers.DatabaseHelper;
 import com.sky.casper.skywalker_new_app.Helpers.JsonHelper;
 import com.sky.casper.skywalker_new_app.Helpers.ServerRequest;
 import com.sky.casper.skywalker_new_app.Helpers.Settings;
+import com.sky.casper.skywalker_new_app.Models.CVProfile;
 import com.sky.casper.skywalker_new_app.R;
 
 import org.json.JSONException;
+
+import java.util.concurrent.ExecutionException;
 
 public class ActivityLogin extends AppCompatActivity implements ServerRequest.AsyncResponse {
 
@@ -32,8 +36,9 @@ public class ActivityLogin extends AppCompatActivity implements ServerRequest.As
     /* User information for login*/
 
     private ServerRequest serverRequest; // server request for login and maybe for other API services
-    private DatabaseHelper db;
-    private Cache cache;
+    private DatabaseHelper db; // helper for handling database
+    private Cache cache; // handling cache save,delete,get etc.
+    private ProgressDialog pd;
 
     /*Variables for background animation*/
     private RelativeLayout relativeLayout;
@@ -92,6 +97,7 @@ public class ActivityLogin extends AppCompatActivity implements ServerRequest.As
         /* server request for login in */
         serverRequest = new ServerRequest(this,this);
 
+        /*initialise database helper */
         db = new DatabaseHelper(this);
     }
 
@@ -118,13 +124,12 @@ public class ActivityLogin extends AppCompatActivity implements ServerRequest.As
             Toast.makeText(ActivityLogin.this, ActivityLogin.this.getResources().getString(R.string.fill_username_password),Toast.LENGTH_LONG).show();
         }
         else {
+            cache = new Cache(this);
             serverRequest.execute(Settings.CONNECTION_TYPES.POST, "Username", email.getText().toString(), "Password", password.getText().toString(), Settings.URLS.LOGIN_CANDIDATE);
         }
     }
 
-    private boolean getCandidateDetails(){
-        return true;
-    }
+
 
 
     @Override /* handle the server answer */
@@ -142,10 +147,11 @@ public class ActivityLogin extends AppCompatActivity implements ServerRequest.As
                  jsonHelper = new JsonHelper(answer);
                  if(jsonHelper.getStatus().toLowerCase().equals("success")){
                     /// Go to profile activity
-                    db.insertUserId(jsonHelper.getAttribute("Id"));
-                    cache.saveUserToken(jsonHelper.getAttribute("Token"));
-                    if(getCandidateDetails()) {
+                    db.insertUserId(jsonHelper.getAttribute("Id"));  /// save user id
+                    cache.saveUserToken(jsonHelper.getAttribute("Token")); /// save in cache the oath token
+                    if(Settings.getCandidateDetails()) { /// download from server all the details of candidate
                         Toast.makeText(this, getResources().getString(R.string.login_success), Toast.LENGTH_SHORT).show();
+                        openActivityHome();
                     }
                     else{
                         Toast.makeText(this, getResources().getString(R.string.general_error), Toast.LENGTH_LONG).show();

@@ -352,19 +352,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public boolean insertUserId(String id){
         ContentValues contentValues = new ContentValues();
         contentValues.put(USER_ID,id);
-        long result = myDataBase.insert(TABLE_SETTINGS,null,contentValues);
+        long result = myDataBase.insert(TABLE_SETTINGS,null,contentValues); /// insert query
         return result!=-1;
     }
 
     public String getUserId(){
         Cursor cur;
 
-        cur=myDataBase.rawQuery("select "+USER_ID+" from "+TABLE_SETTINGS,null);
+        cur=myDataBase.rawQuery("select "+USER_ID+" from "+TABLE_SETTINGS,null); /// select id query
 
         if(cur.getCount() == 0){
             return null;
         }
-        else if(cur.getCount()>1){
+        else if(cur.getCount()>1){ /// if there is more than one id values
             myDataBase.execSQL("delete from "+TABLE_SETTINGS);
             return Settings.ERROR_MSG.DATABASE_ERROR;
         }
@@ -372,6 +372,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             cur.moveToNext();
             return cur.getString(0);
         }
+    }
+
+    public void delete_id(String id){ /// delete id from table
+//        SQLiteDatabase db = this.getWritableDatabase();
+        myDataBase.delete(TABLE_SETTINGS, USER_ID + "=?" ,new String[]{ id });
     }
 
     /* Create Tables */

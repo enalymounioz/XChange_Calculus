@@ -26,6 +26,7 @@ import com.sky.casper.skywalker_new_app.CurvedBottomNavigationView;
 import com.sky.casper.skywalker_new_app.Fragments.FavoriteFragment;
 import com.sky.casper.skywalker_new_app.Fragments.MenuFragment;
 import com.sky.casper.skywalker_new_app.Fragments.SearchFragment;
+import com.sky.casper.skywalker_new_app.Helpers.DatabaseHelper;
 import com.sky.casper.skywalker_new_app.R;
 
 import interfaces.ICommunicationFragments;
@@ -33,6 +34,8 @@ import interfaces.ICommunicationFragments;
 public class ActivityHome extends AppCompatActivity implements
         BottomNavigationView.OnNavigationItemSelectedListener,
         ICommunicationFragments,MenuFragment.OnFragmentInteractionListener {
+
+    private DatabaseHelper db;
 
     private CurvedBottomNavigationView mView;
     private VectorMasterView heartVector;
@@ -73,6 +76,8 @@ public class ActivityHome extends AppCompatActivity implements
         decorView.setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         /*Make Activity full screen and hide navigation bar*/
+
+        db = new DatabaseHelper(this);
 
 
     }
@@ -226,8 +231,11 @@ public class ActivityHome extends AppCompatActivity implements
     @Override
     public void settingsButton() {
         //Toast.makeText(getApplicationContext(),"Account Settings from the activity",Toast.LENGTH_SHORT).show();
-        Intent intent=new Intent(this, ActivitySettings.class);
+
+        Intent intent = new Intent(this, ActivitySettings.class);
         startActivity(intent);
+
+
     }
 
     @Override

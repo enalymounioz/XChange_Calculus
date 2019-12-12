@@ -54,10 +54,6 @@
     <string name="login_success">You have signed in, successfully!</string>
 
 
-    <!--Toast messages-->
-    <string name="server_error">Server is down, please try again later</string>
-    <string name="no_internet">No internet access, please connect to the network!</string>
-    <string name="general_error">Something wrong happened, please try again later!</string>
 
     <!--Toast messages Log in-->
     <string name="fill_username_password">You must fill in, the email and password!</string>
@@ -83,6 +79,11 @@
     <string name="search">search</string>
     <string name="user_name">Welcome </string>
     <string name="title_activity_settings">Settings</string>
+    <string name="server_error">Server is down, please try again later</string>
+    <string name="no_internet">No internet access, please connect to the network!</string>
+    <string name="general_error">Something wrong happened, please try again later!</string>
+    <string name="loading">Loading...</string>
+    <string name="required_login">You must sign in!</string>
 
     <!-- Preference Titles -->
     <string name="settings_about">About</string>
@@ -112,6 +113,39 @@
     <string name="information_about_preference">Information</string>
     <string name="SecurityAndPrivacySummary">You control your profile\'s appearance.\n
         The limits you set here affect how your profile appears on search engines and permitted services like Outlook</string>
+    <string name="all_checked">Privacy on</string>
+    <string name="all_unchecked">Privacy off</string>
+    <string name="edit_privacy">Edit your Public Profile</string>
 
+    <string name="public_permissions">Public</string>
+    <string name="private_permissions">Private</string>
+    <string-array name="privacy_items">
+        <item>View in CV search</item>
+        <item>Work Area of interest</item>
+        <item>Job positions of interest</item>
+        <item>Work experience</item>
+        <item>Education</item>
+        <item>Foreign Languages</item>
+        <item>Computer knowledge</item>
+        <item>Seminars</item>
+        <item>CV Profile Picture</item>
+        <item>CV files</item>
+        <item>Other knowledge</item>
+        <item>Other interests</item>
+        <item>Portfolio</item>
+        <item>CV video</item>
+        <item>Full name</item>
+        <item>E-mail</item>
+        <item>Birth date</item>
+        <item>Sex</item>
+        <item>Home address</item>
+        <item>Military Service</item>
+        <item>Drivers license</item>
+        <item>Phone numbers</item>
+        <item>Ability to relocate</item>
+        <item>Ability to travel</item>
+        <item>Distance work from home</item>
+        <item>LinkedIn</item>
+    </string-array>
 
 </resources>

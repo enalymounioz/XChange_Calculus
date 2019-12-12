@@ -4,9 +4,17 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
@@ -18,6 +26,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.net.ssl.HttpsURLConnection;
+
+import static java.net.Proxy.Type.HTTP;
 
 public class ServerRequest extends AsyncTask<String, String, String> {
 
@@ -47,6 +57,11 @@ public class ServerRequest extends AsyncTask<String, String, String> {
                 // maybe we'll use different types for download upload etc.
                 return null;
             }
+            else if(connectionType.equals(Settings.CONNECTION_TYPES.JSON)){
+                String json = data[1];
+                String url = data[2];
+                return postJson(url,json);
+            }
             else{
                 String url = data[data.length-1];        /// get url
                 HashMap<String,String> paramsValues = new HashMap<>(); /// parameter name : value
@@ -68,7 +83,9 @@ public class ServerRequest extends AsyncTask<String, String, String> {
 
     @Override
     protected void onPostExecute(String s) { // do things after the execution such as dismiss dialog
-        response.handleAnswer(s);
+        if(response!=null) {
+            response.handleAnswer(s);
+        }
     }
 
     /*   convert the parameters and values into string  in order to pass them in the output stream of the connection */
@@ -153,6 +170,52 @@ public class ServerRequest extends AsyncTask<String, String, String> {
         }
 
         return response;
+    }
+
+    private String postJson(String urlAdress, String json){  //// post to server a json
+        InputStream inputStream = null;
+        String result = Settings.ERROR_MSG.ERROR_SRVR;
+
+        try{
+            URL url = new URL(urlAdress); //// set the parametrs of connection
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("POST");
+            conn.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
+            conn.setRequestProperty("Accept","application/json");
+            conn.setDoOutput(true);
+            conn.setDoInput(true);
+
+            Log.e("JSON",json);
+            DataOutputStream os = new DataOutputStream(conn.getOutputStream());  /// open connection
+            //os.writeBytes(URLEncoder.encode(jsonParam.toString(), "UTF-8"));
+            os.writeBytes(json); /// send json
+
+            os.flush();
+            os.close();
+
+            int responseCode=conn.getResponseCode();
+
+            if (responseCode == HttpsURLConnection.HTTP_OK) { // if the server does not throw exception
+                String line;
+
+                BufferedReader br=new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                result="";
+                while ((line=br.readLine()) != null) { /// take the answer
+                    result+=line;
+
+                }
+            }
+            else {
+                result=Settings.ERROR_MSG.ERROR_SRVR;
+
+            }
+
+            conn.disconnect();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return result;
     }
 
 }

@@ -37,8 +37,7 @@
         app:key="security_privacy_fragment"
         app:title="@string/settings_security_and_privacy"
         app:icon="@drawable/ic_security_settings"
-        app:summary="@string/SecurityAndPrivacySummary"
-        app:fragment="com.sky.casper.skywalker_new_app.Activities.ActivitySettings$SecurityAndPrivacyFragment"/>
+        app:summary="@string/SecurityAndPrivacySummary" />
 
     <Preference
         app:key="language_and_region_fragment"

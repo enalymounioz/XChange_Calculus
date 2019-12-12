@@ -17,6 +17,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    useLibrary 'org.apache.http.legacy'
 }
 
 dependencies {
@@ -36,4 +37,5 @@ dependencies {
     //TODO library for search animation
     implementation 'com.github.ozodrukh:CircularReveal:2.0.1'
     implementation 'androidx.gridlayout:gridlayout:1.0.0'
+    implementation 'com.google.code.gson:gson:2.8.6'
 }
