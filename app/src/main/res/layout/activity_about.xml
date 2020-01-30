@@ -1,11 +1,11 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_main_login"
+    android:id="@+id/activity_about"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradient_animation"
-    tools:context=".Activities.ActivityLogin">
+    tools:context=".Activities.ActivityAbout">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -20,20 +20,30 @@
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp">
 
-            <ImageView
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/imageView_logo"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
-                android:adjustViewBounds="true"
                 android:contentDescription="@string/logo"
-                android:scaleType="fitCenter"
                 android:src="@drawable/app_logo"
                 android:layout_alignParentStart="true"/>
 
+            <Button
+                android:id="@+id/button_skip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_trans"
+                android:fontFamily="@font/montserrat_bold"
+                android:text="@string/skip"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:layout_alignParentRight="true"
+                android:textStyle="bold"
+                tools:ignore="RelativeOverlap" />
 
 
             <RelativeLayout
-                android:id="@+id/relativeLayout1"
+                android:id="@+id/relativeLayoutone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/imageView_logo"
@@ -43,14 +53,14 @@
                     android:id="@+id/textView_login"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-medium"
+                    android:fontFamily="@font/montserrat_bold"
                     android:text="@string/settings_about"
+                    android:textAlignment="center"
                     android:textColor="@color/white"
-                    android:textSize="25sp"
-                    android:textAlignment="center"/>
+                    android:textSize="25sp" />
 
                 <LinearLayout
-                    android:id="@+id/linearLayout1"
+                    android:id="@+id/linearLayoutOne"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/textView_login"
@@ -63,7 +73,8 @@
                         android:text="@string/summary_about"
                         android:textColor="@color/white"
                         android:fontFamily="sans-serif-light"
-                        android:textSize="20sp"/>
+                        android:textSize="20sp"
+                        android:textAlignment="center"/>
 
                 </LinearLayout>
 

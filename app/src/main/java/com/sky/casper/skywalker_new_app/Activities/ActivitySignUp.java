@@ -3,10 +3,12 @@ package com.sky.casper.skywalker_new_app.Activities;
 import androidx.appcompat.app.AppCompatActivity;
 
 
+import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -32,6 +34,7 @@ public class ActivitySignUp extends AppCompatActivity implements ServerRequest.A
     private TextInputEditText user_name,user_surname,user_postcode,user_password,user_confirm,user_email,user_address;
 
     private ServerRequest serverRequest;
+    private Button skipButton;//Variable for the Skip Button
 
 
 
@@ -45,12 +48,28 @@ public class ActivitySignUp extends AppCompatActivity implements ServerRequest.A
         View decorView = getWindow().getDecorView();
         decorView.setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+
         /*Make Activity full screen and hide navigation bar*/
+        /*Going to Home Activity*/
+        skipButton = findViewById(R.id.button_skip);
+        skipButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openActivityHome();
+                            }
+        });
+        /*Going to Home Activity*/
 
         initialiseValues();
         setListeners();
 
     }
+    /*Going to Home Activity*/
+    private void openActivityHome() {
+        Intent intent=new Intent(this, ActivityHome.class);
+        startActivity(intent);
+    }
+    /*Going to Home Activity*/
 
 
     private void initialiseValues(){

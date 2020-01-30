@@ -1,7 +1,6 @@
 package com.sky.casper.skywalker_new_app.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
@@ -11,19 +10,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
-
 import com.google.android.material.textfield.TextInputEditText;
 import com.sky.casper.skywalker_new_app.Helpers.Cache;
 import com.sky.casper.skywalker_new_app.Helpers.DatabaseHelper;
 import com.sky.casper.skywalker_new_app.Helpers.JsonHelper;
 import com.sky.casper.skywalker_new_app.Helpers.ServerRequest;
 import com.sky.casper.skywalker_new_app.Helpers.Settings;
-import com.sky.casper.skywalker_new_app.Models.CVProfile;
 import com.sky.casper.skywalker_new_app.R;
 
 import org.json.JSONException;
 
-import java.util.concurrent.ExecutionException;
 
 public class ActivityLogin extends AppCompatActivity implements ServerRequest.AsyncResponse {
 

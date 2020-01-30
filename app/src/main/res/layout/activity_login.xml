@@ -21,31 +21,30 @@ tools:context=".Activities.ActivityLogin">
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp">
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imageView_logo"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:adjustViewBounds="true"
-            android:contentDescription="@string/logo"
-            android:scaleType="fitCenter"
-            android:src="@drawable/app_logo"
-            android:layout_alignParentStart="true"/>
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:contentDescription="@string/profile_image"
+            android:src="@drawable/app_logo">
+        </de.hdodenhof.circleimageview.CircleImageView>
+
 
         <Button
             android:id="@+id/button_skip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/btn_trans"
-            android:fontFamily="sans-serif-condensed-light"
-            android:text="@string/skip"
-            android:textColor="@color/white"
-            android:textAllCaps="false"
-            android:textStyle="bold"
             android:layout_alignParentEnd="true"
+            android:background="@drawable/btn_trans"
+            android:fontFamily="@font/montserrat_bold"
+            android:text="@string/skip"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textStyle="bold"
             tools:ignore="RelativeOverlap" />
 
         <RelativeLayout
-            android:id="@+id/relativeLayout1"
+            android:id="@+id/relativeLayoutone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/imageView_logo"
@@ -55,13 +54,14 @@ tools:context=".Activities.ActivityLogin">
                 android:id="@+id/textView_login"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-medium"
+                android:fontFamily="@font/montserrat_bold"
                 android:text="@string/already_have_an_account"
                 android:textColor="@color/white"
+                android:layout_marginTop="20dp"
                 android:textSize="25sp" />
 
             <LinearLayout
-                android:id="@+id/linearLayout1"
+                android:id="@+id/linearLayoutOne"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/textView_login"
@@ -76,7 +76,7 @@ tools:context=".Activities.ActivityLogin">
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="sans-serif-light"
+                        android:fontFamily="@font/montserrat_bold"
                         android:text="@string/username"
                         android:textAllCaps="true"
                         android:textColor="@color/white"
@@ -116,7 +116,7 @@ tools:context=".Activities.ActivityLogin">
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="sans-serif-light"
+                        android:fontFamily="@font/montserrat_bold"
                         android:text="@string/password1"
                         android:textAllCaps="true"
                         android:textColor="@color/white"
@@ -168,21 +168,21 @@ tools:context=".Activities.ActivityLogin">
                 android:id="@+id/button_confirm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/linearLayout1"
+                android:layout_below="@+id/linearLayoutOne"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/btn_bg"
-                android:fontFamily="sans-serif-medium"
+                android:fontFamily="@font/montserrat_bold"
+                android:onClick="btn_login"
                 android:paddingLeft="70dp"
                 android:paddingRight="70dp"
                 android:text="@string/login_now"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
-                android:textSize="16sp"
-                android:onClick="btn_login"/>
+                android:textSize="16sp" />
 
             <LinearLayout
-                android:id="@+id/linearLayout3"
+                android:id="@+id/linearLayoutFour"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/button_confirm"
@@ -216,7 +216,7 @@ tools:context=".Activities.ActivityLogin">
                 android:fontFamily="sans-serif-medium"
                 android:text="@string/or_use_social_media"
                 android:textColor="@color/black"
-                android:layout_below="@+id/linearLayout3"
+                android:layout_below="@+id/linearLayoutFour"
                 android:layout_centerHorizontal="true"
                 android:paddingTop="20dp"/>
 
@@ -227,7 +227,7 @@ tools:context=".Activities.ActivityLogin">
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_below="@+id/relativeLayout1"
+            android:layout_below="@+id/relativeLayoutone"
             android:paddingTop="10dp">
 
             <ImageView
@@ -261,7 +261,4 @@ tools:context=".Activities.ActivityLogin">
     </RelativeLayout>
 
 </ScrollView>
-
-
-
 </RelativeLayout>

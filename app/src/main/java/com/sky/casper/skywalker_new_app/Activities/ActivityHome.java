@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -36,14 +38,13 @@ public class ActivityHome extends AppCompatActivity implements
         ICommunicationFragments,MenuFragment.OnFragmentInteractionListener {
 
     private DatabaseHelper db;
-
+    private ImageButton loginButton;//Variable for the Skip Button
     private CurvedBottomNavigationView mView;
     private VectorMasterView heartVector;
     private VectorMasterView heartVector1;
     private VectorMasterView heartVector2;
     private float mYVal;
     private RelativeLayout mRelativeLayoutFabButton;
-
     private SearchFragment searchFragment;
     private MenuFragment menuFragment;
     private FavoriteFragment favoriteFragment;
@@ -79,8 +80,25 @@ public class ActivityHome extends AppCompatActivity implements
 
         db = new DatabaseHelper(this);
 
+        /*Going to Login Activity*/
+        loginButton = findViewById(R.id.login_button);
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openLoginActivity();
+            }
+        });
+        /*Going to Home Activity*/
+
 
     }
+
+    /*Going to Login Activity*/
+    private void openLoginActivity() {
+        Intent intent=new Intent(this, ActivityLogin.class);
+        startActivity(intent);
+    }
+    /*Going to Login Activity*/
 
     /*Switch between menu items and fragments*/
     @Override
@@ -197,7 +215,7 @@ public class ActivityHome extends AppCompatActivity implements
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         // TODO Auto-generated method stub
-        if (keyCode == event.KEYCODE_BACK) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage("Do you want to Exit Skywalker.gr")
                     .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
@@ -240,7 +258,7 @@ public class ActivityHome extends AppCompatActivity implements
 
     @Override
     public void chatButton() {
-        Toast.makeText(getApplicationContext(),"Notification Settings from the activity",Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(),"Available in future updates",Toast.LENGTH_SHORT).show();
         //Intent intent=new Intent(this, ActivitySettings.class);
         //startActivity(intent);
     }

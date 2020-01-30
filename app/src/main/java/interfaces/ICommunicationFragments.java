@@ -2,12 +2,12 @@ package interfaces;
 
 public interface ICommunicationFragments {
 
-    public void showMenu();
-    public void settingsButton();
-    public void chatButton();
-    public void supportButton();
-    public void shareButton();
-    public void rateButton();
-    public void infoButton();
+    void showMenu();
+    void settingsButton();
+    void chatButton();
+    void supportButton();
+    void shareButton();
+    void rateButton();
+    void infoButton();
 
 }

@@ -83,12 +83,7 @@ public class JsonHelper {
 
     public boolean invalidToken(){
         try {
-            if(jsonObject.getString("Status").toLowerCase().contains("fail") && jsonObject.getString("Response").toLowerCase().contains("invalid")){
-                return true;
-            }
-            else{
-                return false;
-            }
+            return jsonObject.getString("Status").toLowerCase().contains("fail") && jsonObject.getString("Response").toLowerCase().contains("invalid");
         } catch (JSONException e) {
             e.printStackTrace();
             return false;

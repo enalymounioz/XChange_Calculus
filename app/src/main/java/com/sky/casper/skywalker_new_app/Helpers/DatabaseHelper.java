@@ -311,7 +311,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         }
 
-        return checkDB != null ? true : false;
+        return checkDB != null;
     }
 
     private void copyDataBase() throws Exception {

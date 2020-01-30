@@ -42,8 +42,7 @@ public class MenuFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    ImageButton buttonHelp;
-    View vista;
+        View vista;
     Activity activity;
     RelativeLayout layoutBackground;
     GridLayout gridMenu;
@@ -51,7 +50,7 @@ public class MenuFragment extends Fragment {
 
     ICommunicationFragments interfaceCommunicationFragments;
 
-    TextView textNickName;
+    TextView textNickName,textWelcome;
     ImageView imageAvatar;
 
     public MenuFragment() {
@@ -93,12 +92,13 @@ public class MenuFragment extends Fragment {
         layoutBackground=vista.findViewById(R.id.idLayoutBackground);
         gridMenu=vista.findViewById(R.id.idGrid);
         cardSettings=vista.findViewById(R.id.cardSettings);
-        buttonHelp=vista.findViewById(R.id.buttonHelp);
+       // buttonHelp=vista.findViewById(R.id.buttonHelp);
         cardChat=vista.findViewById(R.id.cardChat);
         cardSupport=vista.findViewById(R.id.cardSupport);
         cardShare=vista.findViewById(R.id.cardShare);
         cardRate=vista.findViewById(R.id.cardRate);
         cardInfo=vista.findViewById(R.id.cardInfo);
+        textWelcome=vista.findViewById(R.id.textWelcome);
         textNickName=vista.findViewById(R.id.textNickName);
         imageAvatar=vista.findViewById(R.id.avatarImage);
 
@@ -107,33 +107,11 @@ public class MenuFragment extends Fragment {
         imageAvatar.setImageResource(R.drawable.app_logo);
         eventsMenu();
 
-        buttonHelp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//
-                createSimpleDialog().show();
-            }
-        });
 
         return vista;
     }
 
-    public AlertDialog createSimpleDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
 
-        builder.setTitle("Help")
-                .setMessage("This application can help you look for a job. In order to personalize your search, Account or the Application" +
-                        " ,you can do so from the Menu tab. ")
-                .setPositiveButton("OK",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-
-                            }
-                        });
-
-        return builder.create();
-    }
 
     //Allows you to assign preferences and change the mode and color of the custom banner
 
