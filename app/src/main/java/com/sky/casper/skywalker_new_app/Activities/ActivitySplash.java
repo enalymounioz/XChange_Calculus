@@ -37,14 +37,11 @@ public class ActivitySplash extends AppCompatActivity {
 
         /*Move from Splash Screen to Main Screen*/
         Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                db = new DatabaseHelper(ActivitySplash.this); /// create database before moving to the main screen
-                Intent intent=new Intent(ActivitySplash.this, ActivityLogin.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK); /// delete splash activity
-                startActivity(intent);
-            }
+        handler.postDelayed(() -> {
+            db = new DatabaseHelper(ActivitySplash.this); /// create database before moving to the main screen
+            Intent intent=new Intent(ActivitySplash.this, ActivityLogin.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK); /// delete splash activity
+            startActivity(intent);
         },timeout);
         /*Move from Splash Screen to Main Screen*/
 

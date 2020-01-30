@@ -22,6 +22,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -132,7 +133,7 @@ public class ServerRequest extends AsyncTask<String, String, String> {
 
                 if (requestValues != null) {
                     BufferedWriter writer = new BufferedWriter(
-                            new OutputStreamWriter(os, "UTF-8"));
+                            new OutputStreamWriter(os, StandardCharsets.UTF_8));
                     writer.write(getPostDataString(requestValues)); /// pass the data to the stream
 
                     writer.flush();

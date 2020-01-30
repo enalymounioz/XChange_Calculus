@@ -1,7 +1,6 @@
 package com.sky.casper.skywalker_new_app.Activities;
 
 import android.animation.ValueAnimator;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
@@ -9,6 +8,7 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -36,14 +36,14 @@ public class ActivityHome extends AppCompatActivity implements
         ICommunicationFragments,MenuFragment.OnFragmentInteractionListener {
 
     private DatabaseHelper db;
-
+    private ImageButton loginButton;//Variable for the login Button
+    private ImageButton accountButton;
     private CurvedBottomNavigationView mView;
     private VectorMasterView heartVector;
     private VectorMasterView heartVector1;
     private VectorMasterView heartVector2;
     private float mYVal;
     private RelativeLayout mRelativeLayoutFabButton;
-
     private SearchFragment searchFragment;
     private MenuFragment menuFragment;
     private FavoriteFragment favoriteFragment;
@@ -79,8 +79,31 @@ public class ActivityHome extends AppCompatActivity implements
 
         db = new DatabaseHelper(this);
 
+        /*Going to Login Activity*/
+        loginButton = findViewById(R.id.login_button);
+        loginButton.setOnClickListener(view -> openLoginActivity());
+        /*Going to Login Activity*/
+
+        /*Going to Account Activity*/
+        loginButton = findViewById(R.id.account_button);
+        loginButton.setOnClickListener(view -> openAccountActivity());
+        /*Going to Account Activity*/
 
     }
+
+    /*Going to Login Activity*/
+    private void openLoginActivity() {
+        Intent intent=new Intent(this, ActivityLogin.class);
+        startActivity(intent);
+    }
+    /*Going to Login Activity*/
+
+    /*Going to Account Activity*/
+    private void openAccountActivity() {
+        Intent intent=new Intent(this, ActivityAccount.class);
+        startActivity(intent);
+    }
+    /*Going to Login Activity*/
 
     /*Switch between menu items and fragments*/
     @Override
@@ -136,13 +159,10 @@ public class ActivityHome extends AppCompatActivity implements
         // initialise valueAnimator and pass start and end float values
         ValueAnimator valueAnimator = ValueAnimator.ofFloat(0.0f, 1.0f);
         valueAnimator.setDuration(1000);
-        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                // set trim end value and update view
-                outline.setTrimPathEnd((Float) valueAnimator.getAnimatedValue());
-                heartVector.update();
-            }
+        valueAnimator.addUpdateListener(valueAnimator1 -> {
+            // set trim end value and update view
+            outline.setTrimPathEnd((Float) valueAnimator1.getAnimatedValue());
+            heartVector.update();
         });
         valueAnimator.start();
     }
@@ -197,22 +217,16 @@ public class ActivityHome extends AppCompatActivity implements
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         // TODO Auto-generated method stub
-        if (keyCode == event.KEYCODE_BACK) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage("Do you want to Exit Skywalker.gr")
-                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            Intent intent = new Intent(Intent.ACTION_MAIN);
-                            intent.addCategory(Intent.CATEGORY_HOME);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            startActivity(intent);
-                        }
+                    .setPositiveButton("Yes", (dialog, id) -> {
+                        Intent intent = new Intent(Intent.ACTION_MAIN);
+                        intent.addCategory(Intent.CATEGORY_HOME);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
                     })
-                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            dialog.dismiss();
-                        }
-                    });
+                    .setNegativeButton("Cancel", (dialog, id) -> dialog.dismiss());
             builder.show();
         }
 
@@ -230,19 +244,16 @@ public class ActivityHome extends AppCompatActivity implements
 
     @Override
     public void settingsButton() {
-        //Toast.makeText(getApplicationContext(),"Account Settings from the activity",Toast.LENGTH_SHORT).show();
 
         Intent intent = new Intent(this, ActivitySettings.class);
         startActivity(intent);
-
 
     }
 
     @Override
     public void chatButton() {
-        Toast.makeText(getApplicationContext(),"Notification Settings from the activity",Toast.LENGTH_SHORT).show();
-        //Intent intent=new Intent(this, ActivitySettings.class);
-        //startActivity(intent);
+        Toast.makeText(getApplicationContext(),"Available in future updates",Toast.LENGTH_SHORT).show();
+
     }
 
     @Override

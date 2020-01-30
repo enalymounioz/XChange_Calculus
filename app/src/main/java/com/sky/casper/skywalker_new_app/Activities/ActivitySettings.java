@@ -12,7 +12,6 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceCategory;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.SwitchPreferenceCompat;
-
 import com.google.gson.Gson;
 import com.sky.casper.skywalker_new_app.Helpers.Cache;
 import com.sky.casper.skywalker_new_app.Helpers.DatabaseHelper;
@@ -56,7 +55,7 @@ public class ActivitySettings extends AppCompatActivity {
         /*Make Activity full screen and hide navigation bar*/
 
         /* context cache database construction*/
-        this.ctx = ActivitySettings.this;
+        ctx = ActivitySettings.this;
         cache = new Cache(this);
         db = new DatabaseHelper(this);
         /* context cache database construction*/
@@ -68,7 +67,7 @@ public class ActivitySettings extends AppCompatActivity {
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey);
             Preference preference = findPreference("security_privacy_fragment");
-            /* whether the user does not connected do not open privacy settings*/
+            /* when the user is not connected do not open privacy settings*/
             preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
@@ -240,24 +239,7 @@ public class ActivitySettings extends AppCompatActivity {
             setPreferencesFromResource(R.xml.language_and_region_preferences, rootKey);
         }
     }
-    public static class AccountFragment extends PreferenceFragmentCompat {
-        @Override
-        public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
-            setPreferencesFromResource(R.xml.account_preferences, rootKey);
-        }
-    }
-    public static class ResumeFragment extends PreferenceFragmentCompat {
-        @Override
-        public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
-            setPreferencesFromResource(R.xml.resume_preferences, rootKey);
-        }
-    }
-    public static class NotificationsFragment extends PreferenceFragmentCompat {
-        @Override
-        public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
-            setPreferencesFromResource(R.xml.notifications_preferences, rootKey);
-        }
-    }
+
 
     public static class LogoutFragment extends PreferenceFragmentCompat {
         @Override

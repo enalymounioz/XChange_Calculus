@@ -31,8 +31,7 @@ import interfaces.ICommunicationFragments;
  */
 
 public class MenuFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -42,7 +41,6 @@ public class MenuFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    ImageButton buttonHelp;
     View vista;
     Activity activity;
     RelativeLayout layoutBackground;
@@ -51,7 +49,7 @@ public class MenuFragment extends Fragment {
 
     ICommunicationFragments interfaceCommunicationFragments;
 
-    TextView textNickName;
+    TextView textNickName,textWelcome;
     ImageView imageAvatar;
 
     public MenuFragment() {
@@ -93,12 +91,13 @@ public class MenuFragment extends Fragment {
         layoutBackground=vista.findViewById(R.id.idLayoutBackground);
         gridMenu=vista.findViewById(R.id.idGrid);
         cardSettings=vista.findViewById(R.id.cardSettings);
-        buttonHelp=vista.findViewById(R.id.buttonHelp);
+       // buttonHelp=vista.findViewById(R.id.buttonHelp);
         cardChat=vista.findViewById(R.id.cardChat);
         cardSupport=vista.findViewById(R.id.cardSupport);
         cardShare=vista.findViewById(R.id.cardShare);
         cardRate=vista.findViewById(R.id.cardRate);
         cardInfo=vista.findViewById(R.id.cardInfo);
+        textWelcome=vista.findViewById(R.id.textWelcome);
         textNickName=vista.findViewById(R.id.textNickName);
         imageAvatar=vista.findViewById(R.id.avatarImage);
 
@@ -107,80 +106,28 @@ public class MenuFragment extends Fragment {
         imageAvatar.setImageResource(R.drawable.app_logo);
         eventsMenu();
 
-        buttonHelp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//
-                createSimpleDialog().show();
-            }
-        });
 
         return vista;
     }
 
-    public AlertDialog createSimpleDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
 
-        builder.setTitle("Help")
-                .setMessage("This application can help you look for a job. In order to personalize your search, Account or the Application" +
-                        " ,you can do so from the Menu tab. ")
-                .setPositiveButton("OK",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-
-                            }
-                        });
-
-        return builder.create();
-    }
 
     //Allows you to assign preferences and change the mode and color of the custom banner
 
 
     private void eventsMenu() {
 
-        cardSettings.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                interfaceCommunicationFragments.settingsButton();
-            }
-        });
+        cardSettings.setOnClickListener(view -> interfaceCommunicationFragments.settingsButton());
 
-        cardChat.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                interfaceCommunicationFragments.chatButton();
-            }
-        });
+        cardChat.setOnClickListener(view -> interfaceCommunicationFragments.chatButton());
 
-        cardSupport.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                interfaceCommunicationFragments.supportButton();
-            }
-        });
+        cardSupport.setOnClickListener(view -> interfaceCommunicationFragments.supportButton());
 
-        cardShare.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                interfaceCommunicationFragments.shareButton();
-            }
-        });
+        cardShare.setOnClickListener(view -> interfaceCommunicationFragments.shareButton());
 
-        cardRate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                interfaceCommunicationFragments.rateButton();
-            }
-        });
+        cardRate.setOnClickListener(view -> interfaceCommunicationFragments.rateButton());
 
-        cardInfo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                interfaceCommunicationFragments.infoButton();
-            }
-        });
+        cardInfo.setOnClickListener(view -> interfaceCommunicationFragments.infoButton());
 
     }
 

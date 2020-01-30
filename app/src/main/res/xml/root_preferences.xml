@@ -1,98 +1,79 @@
-<!--
-  ~ Copyright 2018 The app Open Source Project
-  ~
-  ~ Licensed under the Apache License, Version 2.0 (the "License");
-  ~ you may not use this file except in compliance with the License.
-  ~ You may obtain a copy of the License at
-  ~
-  ~      http://www.apache.org/licenses/LICENSE-2.0
-  ~
-  ~ Unless required by applicable law or agreed to in writing, software
-  ~ distributed under the License is distributed on an "AS IS" BASIS,
-  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  ~ See the License for the specific language governing permissions and
-  ~ limitations under the License.
-  -->
-
-<PreferenceScreen
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <PreferenceCategory
         app:key="settings_category"
         app:title="@string/settings_category">
 
-    <Preference
-        app:key="about_fragment"
-        app:title="@string/settings_about"
-        app:icon="@drawable/ic_about_settings"
-        app:fragment="com.sky.casper.skywalker_new_app.Activities.ActivitySettings$AboutFragment"/>
+        <Preference
+            app:fragment="com.sky.casper.skywalker_new_app.Activities.ActivitySettings$SecurityAndPrivacyFragment"
+            app:icon="@drawable/ic_security_settings"
+            app:key="security_privacy_fragment"
+            app:summary="@string/SecurityAndPrivacySummary"
+            app:title="@string/settings_security_and_privacy" />
 
-    <Preference
-        app:key="version_fragment"
-        app:summary="1.0.0"
-        app:title="@string/settings_build_version" />
+        <Preference
+            app:fragment="com.sky.casper.skywalker_new_app.Activities.ActivitySettings$LanguageAndRegionFragment"
+            app:icon="@drawable/ic_language_settings"
+            app:key="language_and_region_fragment"
+            app:title="@string/settings_language_and_region" />
+        <Preference
+            app:icon="@drawable/ic_account_settings"
+            app:key="profile_fragment"
+            app:title="Profile">
+            <intent
+                android:action="com.sky.casper.skywalker_new_app.SETTINGS_START_ACTIVITY"
+                android:targetClass="com.sky.casper.skywalker_new_app.Activities.ActivityProfile"
+                android:targetPackage="com.sky.casper.skywalker_new_app" />
+        </Preference>
 
-    <Preference
-        app:key="security_privacy_fragment"
-        app:title="@string/settings_security_and_privacy"
-        app:icon="@drawable/ic_security_settings"
-        app:summary="@string/SecurityAndPrivacySummary" />
-
-    <Preference
-        app:key="language_and_region_fragment"
-        app:title="@string/settings_language_and_region"
-        app:icon="@drawable/ic_language_settings"
-        app:fragment="com.sky.casper.skywalker_new_app.Activities.ActivitySettings$LanguageAndRegionFragment"/>
-
-    <Preference
-        app:key="account_fragment"
-        app:title="@string/settings_account"
-        app:icon="@drawable/ic_account_settings"
-        app:fragment="com.sky.casper.skywalker_new_app.Activities.ActivitySettings$AccountFragment"/>
-
-    <Preference
-        app:key="resume_fragment"
-        app:title="@string/settings_resume"
-        app:icon="@drawable/ic_resume_settings"
-        app:fragment="com.sky.casper.skywalker_new_app.Activities.ActivitySettings$ResumeFragment"/>
-
-    <Preference
-        app:key="notification_fragment"
-        app:title="@string/settings_notification"
-        app:icon="@drawable/ic_notifications_settings"
-        app:fragment="com.sky.casper.skywalker_new_app.Activities.ActivitySettings$NotificationsFragment"/>
-
-
-    <Preference
-        app:key="terms_and_conditions_fragment"
-        app:title="@string/settings_terms_and_conditions"
-        app:icon="@drawable/ic_terms_and_conditions_settings">
-        <intent
-            android:action="android.intent.action.VIEW"
-            android:data="https://www.skywalker.gr/elGR/static/politiki-aporritou"/>
-
-    </Preference>
-
-
+        <Preference
+            app:icon="@drawable/ic_notifications_settings"
+            app:key="notification_fragment"
+            app:title="@string/settings_notification">
+            <intent
+                android:action="com.sky.casper.skywalker_new_app.SETTINGS_START_ACTIVITY"
+                android:targetClass="com.sky.casper.skywalker_new_app.Activities.ActivityUnderConstruction"
+                android:targetPackage="com.sky.casper.skywalker_new_app" />
+        </Preference>
+        <Preference
+            app:icon="@drawable/ic_terms_and_conditions_settings"
+            app:key="terms_and_conditions_fragment"
+            app:title="@string/settings_terms_and_conditions">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://www.skywalker.gr/elGR/static/politiki-aporritou" />
+        </Preference>
         <!-- preference opens url in browser -->
-    <Preference
-        app:key="faq_fragment"
-        app:title="@string/title_faq"
-        android:summary="@string/summary_faq"
-        app:icon="@drawable/ic_faq_settings">
-        <intent
-            android:action="android.intent.action.VIEW"
-            android:data="@string/url_faq"/>
+        <Preference
+            android:summary="@string/summary_faq"
+            app:icon="@drawable/ic_faq_settings"
+            app:key="faq_fragment"
+            app:title="@string/title_faq">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="@string/url_faq" />
+        </Preference>
 
-    </Preference>
+        <Preference
+            app:icon="@drawable/ic_about_settings"
+            app:key="about_fragment"
+            app:title="@string/settings_about" >
+            <intent
+                android:action="com.sky.casper.skywalker_new_app.SETTINGS_START_ACTIVITY"
+                android:targetClass="com.sky.casper.skywalker_new_app.Activities.ActivityAbout"
+                android:targetPackage="com.sky.casper.skywalker_new_app" />
+        </Preference>
 
-    <Preference
-        app:key="logout_fragment"
-        app:title="@string/settings_logout"
-        app:icon="@drawable/ic_logout_settings"
-        app:fragment="com.sky.casper.skywalker_new_app.Activities.SettingsActivity$LogoutFragment"/>
-
+        <Preference
+            app:key="version_fragment"
+            app:summary="1.0.0"
+            app:title="@string/settings_build_version" />
+        <Preference
+            app:fragment="com.sky.casper.skywalker_new_app.Activities.SettingsActivity$LogoutFragment"
+            app:icon="@drawable/ic_logout_settings"
+            app:key="logout_fragment"
+            app:title="@string/settings_logout" />
     </PreferenceCategory>
 
 </PreferenceScreen>

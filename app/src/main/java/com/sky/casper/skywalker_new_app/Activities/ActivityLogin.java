@@ -1,7 +1,6 @@
 package com.sky.casper.skywalker_new_app.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
@@ -11,24 +10,20 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
-
 import com.google.android.material.textfield.TextInputEditText;
 import com.sky.casper.skywalker_new_app.Helpers.Cache;
 import com.sky.casper.skywalker_new_app.Helpers.DatabaseHelper;
 import com.sky.casper.skywalker_new_app.Helpers.JsonHelper;
 import com.sky.casper.skywalker_new_app.Helpers.ServerRequest;
 import com.sky.casper.skywalker_new_app.Helpers.Settings;
-import com.sky.casper.skywalker_new_app.Models.CVProfile;
 import com.sky.casper.skywalker_new_app.R;
 
 import org.json.JSONException;
 
-import java.util.concurrent.ExecutionException;
 
 public class ActivityLogin extends AppCompatActivity implements ServerRequest.AsyncResponse {
 
     private Button forgotButton;//Variable for the Forgot Password Button
-    private Button skipButton;//Variable for the Skip Button
 
     /* User information for login*/
     private TextInputEditText email;
@@ -40,9 +35,6 @@ public class ActivityLogin extends AppCompatActivity implements ServerRequest.As
     private Cache cache; // handling cache save,delete,get etc.
     private ProgressDialog pd;
 
-    /*Variables for background animation*/
-    private RelativeLayout relativeLayout;
-    private AnimationDrawable animationDrawable;
     /*Variables for background animation*/
 
     @Override
@@ -58,14 +50,12 @@ public class ActivityLogin extends AppCompatActivity implements ServerRequest.As
         /*Make Activity full screen and hide navigation bar*/
 
         /*Going to Home Activity*/
-        skipButton = findViewById(R.id.button_skip);
-        skipButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openActivityHome();
-                /*Going to Home Activity*/
+        //Variable for the Skip Button
+        Button skipButton = findViewById(R.id.button_skip);
+        skipButton.setOnClickListener(view -> {
+            openActivityHome();
+            /*Going to Home Activity*/
 
-            }
         });
         initialiseValues();
         setListeners();
@@ -80,8 +70,9 @@ public class ActivityLogin extends AppCompatActivity implements ServerRequest.As
 
     private void initialiseValues(){
         /*Start Background Animation*/
-        relativeLayout = findViewById(R.id.activity_main_login);
-        animationDrawable = (AnimationDrawable) relativeLayout.getBackground();
+        /*Variables for background animation*/
+        RelativeLayout relativeLayout = findViewById(R.id.activity_main_login);
+        AnimationDrawable animationDrawable = (AnimationDrawable) relativeLayout.getBackground();
         animationDrawable.setEnterFadeDuration(10);
         animationDrawable.setExitFadeDuration(3000);
         animationDrawable.start();
@@ -102,12 +93,9 @@ public class ActivityLogin extends AppCompatActivity implements ServerRequest.As
     }
 
     private void setListeners(){
-        forgotButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        /*Forgot my password button*/
+        forgotButton.setOnClickListener(view -> {
 
-            }
-            /*Forgot my password button*/
         });
     }
 
