@@ -16,12 +16,10 @@ import com.sky.casper.skywalker_new_app.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ContactInfoFragment extends Fragment {
-    CountryCodePicker ccp;
-    EditText editTextCarrierNumber;
+public class UploadResumeFragment extends Fragment {
 
 
-    public ContactInfoFragment() {
+    public UploadResumeFragment() {
         // Required empty public constructor
     }
 
@@ -30,7 +28,7 @@ public class ContactInfoFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_contact_info, container, false);
+        return inflater.inflate(R.layout.fragment_upload_resume, container, false);
     }
 
 }

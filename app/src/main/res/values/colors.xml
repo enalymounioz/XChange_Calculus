@@ -16,6 +16,7 @@
     <color name="colorGradientStart">#A3D3EB</color>
     <color name="colorGradientCenter">#82BDD6</color>
     <color name="colorGradientEnd">#2196F3</color>
+    <color name="grey">#3D4246</color>
 
 
 </resources>

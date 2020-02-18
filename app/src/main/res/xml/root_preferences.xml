@@ -6,11 +6,13 @@
         app:title="@string/settings_category">
 
         <Preference
-            app:fragment="com.sky.casper.skywalker_new_app.Activities.ActivitySettings$SecurityAndPrivacyFragment"
             app:icon="@drawable/ic_security_settings"
             app:key="security_privacy_fragment"
-            app:summary="@string/SecurityAndPrivacySummary"
-            app:title="@string/settings_security_and_privacy" />
+            app:title="@string/settings_security_and_privacy">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://www.skywalker.gr/elGR/users/privacy-settings" />
+        </Preference>
 
         <Preference
             app:fragment="com.sky.casper.skywalker_new_app.Activities.ActivitySettings$LanguageAndRegionFragment"
@@ -36,6 +38,7 @@
                 android:targetClass="com.sky.casper.skywalker_new_app.Activities.ActivityUnderConstruction"
                 android:targetPackage="com.sky.casper.skywalker_new_app" />
         </Preference>
+
         <Preference
             app:icon="@drawable/ic_terms_and_conditions_settings"
             app:key="terms_and_conditions_fragment"
@@ -44,6 +47,7 @@
                 android:action="android.intent.action.VIEW"
                 android:data="https://www.skywalker.gr/elGR/static/politiki-aporritou" />
         </Preference>
+
         <!-- preference opens url in browser -->
         <Preference
             android:summary="@string/summary_faq"

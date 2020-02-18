@@ -10,8 +10,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.tabs.TabLayout;
 import com.sky.casper.skywalker_new_app.Adapter.ViewPagerAdapter;
 import com.sky.casper.skywalker_new_app.Fragments.GenerateFragment;
-import com.sky.casper.skywalker_new_app.Fragments.ContactInfoFragment;
-import com.sky.casper.skywalker_new_app.Fragments.PhotoFragment;
+import com.sky.casper.skywalker_new_app.Fragments.UploadResumeFragment;
 import com.sky.casper.skywalker_new_app.Fragments.AcademicFragment;
 import com.sky.casper.skywalker_new_app.Fragments.WorkExperienceFragment;
 import com.sky.casper.skywalker_new_app.R;
@@ -35,10 +34,9 @@ public class ActivityProfile extends AppCompatActivity {
          /*Make Activity full screen and hide navigation bar*/
 
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
-        viewPagerAdapter.AddFragment(new ContactInfoFragment(), "Contact Info");
+        viewPagerAdapter.AddFragment(new UploadResumeFragment(), "Resume");
         viewPagerAdapter.AddFragment(new AcademicFragment(), "Academic");
         viewPagerAdapter.AddFragment(new WorkExperienceFragment(), "Work Experience");
-         viewPagerAdapter.AddFragment(new PhotoFragment(), "Photo");
          viewPagerAdapter.AddFragment(new GenerateFragment(), "Generate");
 
         viewPager.setAdapter(viewPagerAdapter);
