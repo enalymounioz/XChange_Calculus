@@ -2,6 +2,8 @@ package com.sky.casper.skywalker_new_app.Helpers;
 
 import android.util.Pair;
 
+import com.google.gson.JsonObject;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -51,34 +53,26 @@ public class JsonHelper {
         return new Pair(otherValues,arrayInfo);
     }
 
-    public Pair<Map,Map> decodePersonalAndBioInfo(){ //// get personal details and some bio values
-        JSONObject personDetaills,bioDetails;
+    public Map decodePersonalInfo(){ //// get personal details and some bio values
+        JSONObject personDetaills;
         HashMap<String,String> personalAttr = new HashMap<String,String>();
-        HashMap<String,String> profileAttr = new HashMap<String,String>();
         try{
             JSONArray jsonArray=jsonObject.getJSONArray("Items");
-            personDetaills = jsonArray.getJSONObject(0);
-            bioDetails = jsonArray.getJSONObject(1);
+            for(int i=0; i<jsonArray.length(); i++){
+                personDetaills = jsonArray.getJSONObject(i);
+                Iterator keys = personDetaills.keys();
 
-            Iterator keys = personDetaills.keys();
-
-            while(keys.hasNext()){
-                String currentDynamicKey = (String)keys.next();
-                personalAttr.put(currentDynamicKey,personDetaills.getString(currentDynamicKey));
-            }
-
-            keys = bioDetails.keys();
-
-            while(keys.hasNext()){
-                String currentDynamicKey = (String)keys.next();
-                profileAttr.put(currentDynamicKey,bioDetails.getString(currentDynamicKey));
+                while(keys.hasNext()){
+                    String currentDynamicKey = (String)keys.next();
+                    personalAttr.put(currentDynamicKey,personDetaills.getString(currentDynamicKey));
+                }
             }
 
         }catch (JSONException e) {
             e.printStackTrace();
         }
 
-        return new Pair(personalAttr,profileAttr);
+        return personalAttr;
     }
 
     public boolean invalidToken(){

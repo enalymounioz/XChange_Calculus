@@ -41,7 +41,13 @@ public class ActivitySplash extends AppCompatActivity {
             @Override
             public void run() {
                 db = new DatabaseHelper(ActivitySplash.this); /// create database before moving to the main screen
-                Intent intent=new Intent(ActivitySplash.this, ActivityLogin.class);
+                Intent intent;
+                if(db.getUserId()==null) {
+                    intent = new Intent(ActivitySplash.this, ActivityLogin.class);
+                }
+                else{
+                    intent = new Intent(ActivitySplash.this, ActivityHome.class);
+                }
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK); /// delete splash activity
                 startActivity(intent);
             }

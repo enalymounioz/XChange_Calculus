@@ -1,12 +1,16 @@
 package com.sky.casper.skywalker_new_app.Activities;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceCategory;
@@ -26,6 +30,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ExecutionException;
 
 public class ActivitySettings extends AppCompatActivity {
@@ -66,9 +71,10 @@ public class ActivitySettings extends AppCompatActivity {
         @Override
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey);
-            Preference preference = findPreference("security_privacy_fragment");
+            Preference preferenceSecurity = findPreference("security_privacy_fragment");
+            Preference preferenceLogout =  findPreference("logout_fragment");
             /* whether the user does not connected do not open privacy settings*/
-            preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            preferenceSecurity.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
                     if(db.getUserId()==null){
@@ -82,6 +88,37 @@ public class ActivitySettings extends AppCompatActivity {
                     }
                 }
             });
+
+            if(db.getUserId()!=null){
+                preferenceLogout.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                    @Override
+                    public boolean onPreferenceClick(Preference preference) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(ctx);
+                        builder.setMessage(ctx.getResources().getString(R.string.logout_message))
+                                .setPositiveButton(ctx.getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        db.delete_id(db.getUserId());
+                                        Intent intent=new Intent(ctx, ActivityHome.class);
+                                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                        dialog.dismiss();
+                                        startActivity(intent);
+                                        ((Activity)ctx).finish();
+
+                                    }
+                                })
+                                .setNegativeButton(ctx.getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        dialog.dismiss();
+                                    }
+                                });
+                        builder.show();
+                        return true;
+                    }
+                });
+            }
+            else{
+                preferenceLogout.setVisible(false);
+            }
 
         }
     }
@@ -131,10 +168,16 @@ public class ActivitySettings extends AppCompatActivity {
             entirePrivacy.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
-                    for(String key : getPreferenceScreen().getSharedPreferences().getAll().keySet()){
-                        SwitchPreferenceCompat preferncePrivacy = findPreference(key);
+                    int pCount = preferenceCategory.getPreferenceCount();
+                    for(int i = 0; i < pCount; i++) {
+                        SwitchPreferenceCompat preferncePrivacy = (SwitchPreferenceCompat) preferenceCategory.getPreference(i);
                         preferncePrivacy.setChecked((Boolean)newValue);
                     }
+//                    for(String key : getPreferenceScreen().getSharedPreferences().getAll().keySet()){
+//                        Log.e("KEYSPREFERENCES ",key);
+//                        SwitchPreferenceCompat preferncePrivacy = findPreference(key);
+//                        preferncePrivacy.setChecked((Boolean)newValue);
+//                    }
                     cvProfile.setPrivacy((Boolean)newValue); /// update all the values in privacy map
                     if((Boolean)newValue){
                         preference.setTitle(ctx.getResources().getString(R.string.all_checked));
@@ -211,7 +254,13 @@ public class ActivitySettings extends AppCompatActivity {
                 String bioDetails;
                 try {
                     bioDetails = new ServerRequest(Skywalker.getContext()).execute(Settings.CONNECTION_TYPES.POST,"Id",db.getUserId(),"Token",cache.getServerToken(),Settings.URLS.BIO_URL).get(); //// take only the privacy values from server
+                    Log.e("Permisions details",bioDetails);
                     JsonHelper jsonHelper = new JsonHelper(bioDetails);
+                    if(jsonHelper.invalidToken()){
+                        cache.saveUserToken(new ServerRequest(Skywalker.getContext()).execute(Settings.CONNECTION_TYPES.POST,"Id",db.getUserId(), Settings.URLS.URL_TOKEN).get());
+                        bioDetails = new ServerRequest(Skywalker.getContext()).execute(Settings.CONNECTION_TYPES.POST,"Id",db.getUserId(),"Token",cache.getServerToken(),Settings.URLS.BIO_URL).get();
+                        jsonHelper = new JsonHelper(bioDetails);
+                    }
                     cvProfile.updatePrivacies(jsonHelper.getAttribute(Settings.BIO_INFO.BioPermissions.class.getSimpleName())); //// update the privacy values
                     cvProfile.setBioVisibility(jsonHelper.getAttribute(Settings.BIO_INFO.VISIBILITY).equals("1")); //// and bio visibility
                     return true;

@@ -29,7 +29,9 @@ import com.sky.casper.skywalker_new_app.Fragments.FavoriteFragment;
 import com.sky.casper.skywalker_new_app.Fragments.MenuFragment;
 import com.sky.casper.skywalker_new_app.Fragments.SearchFragment;
 import com.sky.casper.skywalker_new_app.Helpers.DatabaseHelper;
+import com.sky.casper.skywalker_new_app.Helpers.Settings;
 import com.sky.casper.skywalker_new_app.R;
+import com.sky.casper.skywalker_new_app.Skywalker;
 
 import interfaces.ICommunicationFragments;
 
@@ -82,12 +84,17 @@ public class ActivityHome extends AppCompatActivity implements
 
         /*Going to Login Activity*/
         loginButton = findViewById(R.id.login_button);
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openLoginActivity();
-            }
-        });
+        if(db.getUserId() == null) {
+            loginButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    openLoginActivity();
+                }
+            });
+        }
+        else{
+            loginButton.setVisibility(View.GONE);
+        }
         /*Going to Home Activity*/
 
 
@@ -217,16 +224,17 @@ public class ActivityHome extends AppCompatActivity implements
         // TODO Auto-generated method stub
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage("Do you want to Exit Skywalker.gr")
-                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            builder.setMessage(ActivityHome.this.getResources().getString(R.string.exit_message))
+                    .setPositiveButton(ActivityHome.this.getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             Intent intent = new Intent(Intent.ACTION_MAIN);
                             intent.addCategory(Intent.CATEGORY_HOME);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            dialog.dismiss();
                             startActivity(intent);
                         }
                     })
-                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    .setNegativeButton(ActivityHome.this.getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             dialog.dismiss();
                         }

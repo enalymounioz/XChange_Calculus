@@ -2,6 +2,8 @@ package com.sky.casper.skywalker_new_app.Helpers;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkCapabilities;
@@ -11,6 +13,9 @@ import android.os.Build;
 import android.util.Log;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
+
+import com.sky.casper.skywalker_new_app.Activities.ActivityHome;
 import com.sky.casper.skywalker_new_app.Models.CVProfile;
 import com.sky.casper.skywalker_new_app.R;
 import com.sky.casper.skywalker_new_app.Skywalker;
@@ -22,8 +27,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
+import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 public class Settings {
@@ -124,10 +132,79 @@ public class Settings {
         public static String DATABASE_ERROR = "error_db";
     }
 
+    public static class REGIONS {
+//        public static final String SELECT_COUNTRY = Skywalker.getContext().getResources().getString(R.string.country);
+//        public static final String SELECT_GEO_DEP = Skywalker.getContext().getResources().getString(R.string.gdepartment);
+//        public static final String SELECT_STATE = Skywalker.getContext().getResources().getString(R.string.state);
+//        public static final String SELECT_CITY = Skywalker.getContext().getResources().getString(R.string.city);
+//        public static final String SELECT_MUNICIPALITY = Skywalker.getContext().getResources().getString(R.string.municipality);
+        public static final String COUNTRY_TYPE = "countries";
+        public static final String GEO_DEP_TYPE = "departments";
+        public static final String STATE_TYPE = "states";
+        public static final String CITY_TYPE = "cities";
+        public static final String MUNICIPALITY_TYPE = "municipalities";
+        public static final String All_REGIONS = "all";
+        public static final String REGION = "region";
+        public static final String JSON_COUNTRY_TYPE = "Country";
+        public static final String JSON_GEO_DEP_TYPE = "GeoDepartment";
+        public static final String JSON_STATE_TYPE = "State";
+        public static final String JSON_CITY_TYPE = "City";
+        public static final String JSON_MUNICIPALITY_TYPE = "Municipality";
+    }
+
+    public static class PersonalInfo{
+        public static final String CANDIDATE_TYPE="candidate";
+        public static final String NAME = "Name";
+        public static final String SURNAME = "LastName";
+        public static final String PHONE = "Phone";
+        public static final String EMAIL = "Email";
+        public static final String MOB_PHONE = "MobPhone";
+        public static final String REGION = "Perioxi";
+        public static final String ADDRESS = "Address";
+        public static final String PHOTO = "Photo";
+        public static final String CHANGEMAIL = "ChangeMail";
+        public static final String BIRTH_DATE = "BirthDate";
+        public static final String SEX = "Sex";
+        public static final String ARMY_SERVICES = "ArmyStatus";
+        public static final String DRIVING_LICENSE = "DrivingLic";
+        public static final String TRAVEL_INTERNAL = "TravelInterval";
+        public static final String RELOACATE = "CanRelocate";
+        public static final String HOME_DISTANCE = "HomeDistance";
+        public static final String LINKED_IN = "LinkedInProfile";
+        public static final String PORTFOLIO = "Portfolio";
+        public static final String CV_VIDEO = "BioVideo";
+    }
+
+
     public static class BIO_INFO{    ///// Bio server json values
         public static final String VISIBILITY = "Visibility";
+        public static final String BIO_ID = "Id";
+        public static final String TITLE = "Title";
+        public static final String INTERESTS = "Interests";
+        public static final String KNOWLEDGES = "OtherKnowledges";
+        public static final String COMPLETE_PERCENT = "Complete";
+
+        public static final Map<String,Integer> attrToPos;
+        static {
+            Map<String,Integer> tempMap =new HashMap<String, Integer>() {
+                {
+                    put(BioPrefAreas.class.getSimpleName(), 0);
+                    put(BioPrefPositions.class.getSimpleName(), 1);
+                    put(BioWorkExperience.class.getSimpleName(), 2);
+                    put(BioEducation.class.getSimpleName(), 3);
+                    put(BioForeignLang.class.getSimpleName(), 4);
+                    put(BioItSkills.class.getSimpleName(), 5);
+                    put(BioSeminars.class.getSimpleName(), 6);
+                }
+            };
+
+            attrToPos = Collections.unmodifiableMap(tempMap);
+
+        }
 
         public static class BioPermissions{
+
+            // Permissions
             public static final String AllowPrefWorkAreas = "AllowPrefWorkAreas";
             public static final String AllowPrefWorkPositions = "AllowPrefWorkPositions";
             public static final String AllowWorkExperiences = "AllowWorkExperiences";
@@ -153,6 +230,8 @@ public class Settings {
             public static final String  AllowTravels = "AllowTravels";
             public static final String AllowKmFromHome = "AllowKmFromHome";
             public static final String AllowLinkedIn = "AllowLinkedIn";
+
+            //BioValue
 
 
             public static String[] getPermissionsTitles(){   //// get permission json key values as string array
@@ -187,6 +266,82 @@ public class Settings {
                 return titles;
             }
 
+        }
+
+        public static class BioPrefAreas {
+            public static final String COUNTRY = "PrefCountry";
+            public static final String DEPARTMENT = "PrefDepartment";
+            public static final String STATE = "PrefState";
+            public static final String CITY = "PrefCity";
+            public static final String MUNICIPALITY = "PrefMunicipality";
+        }
+
+        public static class BioPrefPositions{
+            public static final String CATEGORY = "PrefCategory";
+            public static final String SUBCATEGORY = "PrefSubCategory";
+            public static final String JOBPOSITION = "PrefPosition";
+        }
+
+        public static class BioWorkExperience{
+            public static final String START = "Start";
+            public static final String END = "End";
+            public static final String CATEGORY = "Category";
+            public static final String SUBCATEGORY = "SubCategory";
+            public static final String POSITION = "Position";
+            public static final String SPECIALITY = "Eidikotita";
+            public static final String LEVEL = "Level";
+            public static final String EMP_TYPE = "Employmenttype";
+            public static final String COMPANY = "Company";
+            public static final String WORK_COUNTRY = "WorkCountry";
+            public static final String WORK_DEPARTMENT = "WorkDepartment";
+            public static final String WORK_STATE = "WorkState";
+            public static final String WORK_CITY = "WorkCity";
+            public static final String WORK_MUNICIPALITY = "WorkMunicipality";
+            public static final String REGION = "Perioxi";
+            public static final String TODAY = "Today";
+        }
+
+        public static class BioEducation{
+            public static final String FROM = "DateFrom";
+            public static final String TO = "DateTo";
+            public static final String EDU_LEVEL = "EducationLevel";
+            public static final String UNIVERSITY = "University";
+            public static final String EDU_DEPARTMENT = "EduDepartment";
+            public static final String EDU_TITLE = "EduTitle";
+        }
+
+
+        public static class BioForeignLang{
+            public static final String LANGUAGE = "Lang";
+            public static final String LEVEL = "Level";
+            public static final String CERTIFICATE = "Certificate";
+        }
+
+        public static class BioItSkills{
+            public static final String IT_CATEGORY = "ItCategory";
+            public static final String LEVEL = "Level";
+            public static final String IT_SKILL = "ItSkill";
+        }
+
+        public static class BioSeminars{
+            public static final String NAME = "Name";
+            public static final String FOREAS = "Foreas";
+            public static final String DATE = "SemDate";
+            public static final String CARTIFICATE = "Certificate";
+        }
+
+        public static class BioSpinnerValues{
+            public static final String NO_VALUE = "Χωρίς Επιλογή";
+            public static final String[] SEX_VALUES = {NO_VALUE,"Άνδρας","Γυναίκα"};
+            public static final String[] ARMY_VALUES = {NO_VALUE,"ΕΚΠΛΗΡΩΜΕΝΕΣ", "ΑΠΑΛΑΓΜΕΝΟΣ", "ΕΝ ΕΝΕΡΓΕΙΑ", "ΣΤΟ ΜΕΛΛΟΝ"};
+            public static final String[] DRIVING_VALUES = {NO_VALUE,"Α ΚΑΤΗΓΟΡΙΑΣ", "Β ΚΑΤΗΓΟΡΙΑΣ", "Γ ΚΑΤΗΓΟΡΙΑΣ", "Δ ΚΑΤΗΓΟΡΙΑΣ", "Ε ΚΑΤΗΓΟΡΙΑΣ"};
+            public static final String[] TRAVEL_VALUES = {NO_VALUE,"ΣΥΧΝΑ", "ΣΠΑΝΙΑ", "ΠΟΤΕ"};
+            public static final String[] RELOCATION_VALUES = {NO_VALUE,"ΝΑΙ", "ΟΧΙ", "ΙΣΩΣ"};
+            public static final String[] DISTANCE_VALUES = {NO_VALUE,"5 KM", "10 KM", "25 KM", "50 KM", "ΑΔΙΑΦΟΡΟ"};
+            public static final String[] POS_VALUES = {NO_VALUE,"assistant","middlemngm","supervisor","manager","director"};
+            public static final String[] EDU_VALUES = {"ΛΥΚΕΙΟ", "ΤΕΕ (ΤΕΧΝ. ΕΠΑΓΓ.)", "ΙΕΚ / ΤΕΧΝΙΚΗ ΣΧΟΛΗ", "ΤΕΙ", "ΑΕΙ", "ΜΕΤΑΠΤΥΧΙΑΚΟ", "ΔΙΔΑΚΤΟΡΙΚΟ", "ΙΔΙΩΤΙΚΑ ΚΟΛΛΕΓΙΑ - ΠΑΝΕΠΙΣΤΗΜΙΑ"};
+            public static final String[] LANG_LEVELS_VALUES = {"ΣΤΟΙΧΕΙΩΔΗ","ΜΕΤΡΙΑ", "ΚΑΛΑ", "ΠΟΛΥ ΚΑΛΑ", "ΑΡΙΣΤΑ", "ΜΗΤΡΙΚΗ"};
+            public static final String[] IT_VALUES = {"BEGINNER","NORMAL", "ADVANCED", "POWER", "EXPERT"};
         }
     }
 
@@ -271,7 +426,7 @@ public class Settings {
                candDetails = new ServerRequest(Skywalker.getContext()).execute(Settings.CONNECTION_TYPES.POST,"Id",db.getUserId(),"Token",cache.getServerToken(),Settings.URLS.CANDIDATE_URL).get(); /// personal details and a few bio details
                JsonHelper jsonHelper = new JsonHelper(candDetails);
                if(jsonHelper.invalidToken()){ /// if the token is invalid update it from the server
-                    cache.saveUserToken(new ServerRequest(Skywalker.getContext()).execute(CONNECTION_TYPES.POST,"Id",db.getUserId()).get());
+                    cache.saveUserToken(new ServerRequest(Skywalker.getContext()).execute(CONNECTION_TYPES.POST,"Id",db.getUserId(), URLS.URL_TOKEN).get());
                     candDetails = new ServerRequest(Skywalker.getContext()).execute(Settings.CONNECTION_TYPES.POST,"Id",db.getUserId(),"Token",cache.getServerToken(),Settings.URLS.CANDIDATE_URL).get();
                }
                bioDetails = new ServerRequest(Skywalker.getContext()).execute(Settings.CONNECTION_TYPES.POST,"Id",db.getUserId(),"Token",cache.getServerToken(),Settings.URLS.BIO_URL).get(); //// get bio detils from server
@@ -293,13 +448,35 @@ public class Settings {
            Log.e("Candidate Details",candDetails);
            Log.e("Candidate Bio",bioDetails);
            try {
-               CVProfile profile = new CVProfile(new JsonHelper(candDetails).decodePersonalAndBioInfo(),new JsonHelper(bioDetails).decodeBioInfo()); //// construct cv profile
-               cache.saveProfile(profile);
+               CVProfile profile = new CVProfile(new JsonHelper(candDetails).decodePersonalInfo(),new JsonHelper(bioDetails).decodeBioInfo()); //// construct cv profile
+               if(cache.saveProfile(profile)){
+                   Log.e("CACHE","Profile saved");
+               }
+               else{
+                   Log.e("CACHE","Profile not saved");
+               }
            } catch (JSONException e) {
                e.printStackTrace();
                return false;
            }
            return true;
+       }
+
+
+       public static void alertMessage(String message){
+           AlertDialog.Builder builder = new AlertDialog.Builder(Skywalker.getContext());
+           builder.setMessage(message)
+                   .setPositiveButton(Skywalker.getContext().getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
+                       public void onClick(DialogInterface dialog, int id) {
+
+                       }
+                   })
+                   .setNegativeButton(Skywalker.getContext().getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                       public void onClick(DialogInterface dialog, int id) {
+                           dialog.dismiss();
+                       }
+                   });
+           builder.show();
        }
 
 }

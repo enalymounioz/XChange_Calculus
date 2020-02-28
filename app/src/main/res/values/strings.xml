@@ -172,5 +172,12 @@
     <string name="preview_your_public_profile">Preview your public profile.</string>
     <string name="guest">Guest</string>
 
+    <string name="until_today">Until today</string>
+    <string name="yes">Yes</string>
+    <string name="cancel">Cancel</string>
+    <string name="exit_message">Do you want to Exit Skywalker.gr?</string>
+    <string name="logout_message">Do you want to log out from your profile?</string>
+
+
 
 </resources>
