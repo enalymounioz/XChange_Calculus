@@ -2,23 +2,18 @@ package com.sky.casper.skywalker_new_app.Fragments;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.gridlayout.widget.GridLayout;
-
 import com.sky.casper.skywalker_new_app.R;
-
 import interfaces.ICommunicationFragments;
 
 /**
@@ -40,17 +35,14 @@ public class MenuFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
-
-    View vista;
-    Activity activity;
-    RelativeLayout layoutBackground;
-    GridLayout gridMenu;
-    CardView cardSettings,cardChat,cardSupport,cardShare,cardRate,cardInfo;
-
-    ICommunicationFragments interfaceCommunicationFragments;
-
-    TextView textNickName,textWelcome;
-    ImageView imageAvatar;
+    private View vista;
+    private Activity activity;
+    private RelativeLayout layoutBackground;
+    private GridLayout gridMenu;
+    private CardView cardSettings,cardChat,cardSupport,cardShare,cardRate,cardInfo;
+    private ICommunicationFragments interfaceCommunicationFragments;
+    private TextView textNickName,textWelcome;
+    private ImageView imageAvatar;
 
     public MenuFragment() {
         // Required empty public constructor
@@ -86,12 +78,12 @@ public class MenuFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
         vista= inflater.inflate(R.layout.fragment_menu, container, false);
         layoutBackground=vista.findViewById(R.id.idLayoutBackground);
         gridMenu=vista.findViewById(R.id.idGrid);
         cardSettings=vista.findViewById(R.id.cardSettings);
-       // buttonHelp=vista.findViewById(R.id.buttonHelp);
         cardChat=vista.findViewById(R.id.cardChat);
         cardSupport=vista.findViewById(R.id.cardSupport);
         cardShare=vista.findViewById(R.id.cardShare);
@@ -100,20 +92,11 @@ public class MenuFragment extends Fragment {
         textWelcome=vista.findViewById(R.id.textWelcome);
         textNickName=vista.findViewById(R.id.textNickName);
         imageAvatar=vista.findViewById(R.id.avatarImage);
-
-
-
         imageAvatar.setImageResource(R.drawable.app_logo);
         eventsMenu();
 
-
         return vista;
     }
-
-
-
-    //Allows you to assign preferences and change the mode and color of the custom banner
-
 
     private void eventsMenu() {
 

@@ -32,7 +32,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/bottom_stroke"
         android:orientation="vertical"
-        android:visibility="visible"
+        android:visibility="gone"
         android:weightSum="4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -271,13 +271,15 @@
             android:textColorHint="@color/white"
             android:textSize="15sp" />
 
-        <ImageButton
-            android:id="@+id/imageButton"
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabImageButtonWork"
+            android:layout_marginTop="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@drawable/btn_trans"
             android:layout_gravity="center"
-            android:layout_marginTop="20dp"
-            android:src="@drawable/add" />
+            android:src="@drawable/add"/>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

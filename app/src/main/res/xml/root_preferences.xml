@@ -15,10 +15,14 @@
         </Preference>
 
         <Preference
-            app:fragment="com.sky.casper.skywalker_new_app.Activities.ActivitySettings$LanguageAndRegionFragment"
             app:icon="@drawable/ic_language_settings"
             app:key="language_and_region_fragment"
-            app:title="@string/settings_language_and_region" />
+            app:title="@string/settings_language_and_region">
+            <intent
+                android:action="com.sky.casper.skywalker_new_app.SETTINGS_START_ACTIVITY"
+                android:targetClass="com.sky.casper.skywalker_new_app.Activities.ActivityUnderConstruction"
+                android:targetPackage="com.sky.casper.skywalker_new_app" />
+        </Preference>
         <Preference
             app:icon="@drawable/ic_account_settings"
             app:key="profile_fragment"

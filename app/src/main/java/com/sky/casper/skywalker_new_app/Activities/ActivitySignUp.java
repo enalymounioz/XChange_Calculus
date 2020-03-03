@@ -3,11 +3,13 @@ package com.sky.casper.skywalker_new_app.Activities;
 import androidx.appcompat.app.AppCompatActivity;
 
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.RelativeLayout;
@@ -183,4 +185,9 @@ public class ActivitySignUp extends AppCompatActivity implements ServerRequest.A
         serverRequest.cancel(true);
         serverRequest = new ServerRequest(this,this);
     }
+    /*Hide Keyboard on screen touch*/
+    public void hideKeyboard(View view) {
+        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(),0);    }
+    /*Hide Keyboard on screen touch*/
 }

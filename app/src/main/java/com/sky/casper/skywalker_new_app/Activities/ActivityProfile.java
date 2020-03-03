@@ -10,6 +10,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.tabs.TabLayout;
 import com.sky.casper.skywalker_new_app.Adapter.ViewPagerAdapter;
 import com.sky.casper.skywalker_new_app.Fragments.GenerateFragment;
+import com.sky.casper.skywalker_new_app.Fragments.MoreOptionsPrivacyFragment;
 import com.sky.casper.skywalker_new_app.Fragments.UploadResumeFragment;
 import com.sky.casper.skywalker_new_app.Fragments.AcademicFragment;
 import com.sky.casper.skywalker_new_app.Fragments.WorkExperienceFragment;
@@ -38,9 +39,12 @@ public class ActivityProfile extends AppCompatActivity {
         viewPagerAdapter.AddFragment(new AcademicFragment(), "Academic");
         viewPagerAdapter.AddFragment(new WorkExperienceFragment(), "Work Experience");
          viewPagerAdapter.AddFragment(new GenerateFragment(), "Generate");
+         viewPagerAdapter.AddFragment(new MoreOptionsPrivacyFragment(),"More Options");
+
 
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
+
          /*Going to Home Activity*/
          skipButton = findViewById(R.id.button_skip);
          skipButton.setOnClickListener(view -> openActivityHome());

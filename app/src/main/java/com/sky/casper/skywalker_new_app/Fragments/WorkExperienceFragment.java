@@ -10,7 +10,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.sky.casper.skywalker_new_app.Adapter.ListAdapter;
 import com.sky.casper.skywalker_new_app.R;
 
@@ -19,6 +21,7 @@ import com.sky.casper.skywalker_new_app.R;
  */
 public class WorkExperienceFragment extends Fragment {
 
+    private FloatingActionButton fabAddWork;
 
     public WorkExperienceFragment() {
         // Required empty public constructor
@@ -32,11 +35,14 @@ public class WorkExperienceFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_work_experience, container, false);
 
         RecyclerView recyclerView = view.findViewById(R.id.recyclerViewWork);
+        fabAddWork = view.findViewById (R.id.fabImageButtonWork);
 
         ListAdapter listAdapter = new ListAdapter();
         recyclerView.setAdapter(listAdapter);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
+
+        fabAddWork.setOnClickListener(view12 -> Toast.makeText(getContext(),"Work fab Clicked. Replace this Action",Toast.LENGTH_SHORT).show());
 
 
         return view;

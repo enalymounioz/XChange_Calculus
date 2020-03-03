@@ -1,3 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -6,22 +14,53 @@
     android:background="@drawable/gradient_animation">
 
     <LinearLayout
+        android:id="@+id/linearLayout_upload_cv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_gravity="center">
 
-        <TextView
-            android:id="@+id/textView_login"
+        <androidx.appcompat.widget.AppCompatCheckBox
+            android:id="@+id/checkbox_public"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:buttonTint="@color/white"
+            android:fontFamily="sans-serif-light"
+            android:padding="20dp"
+            android:text="Public"
+            android:layout_gravity="right"
+            android:textColor="@color/white"/>
+
+        <LinearLayout
+            android:id="@+id/linearLayout_existing_academic_details"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bottom_stroke"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewUploadCV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textView_upload_cv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingRight="20dp"
+            android:paddingLeft="20dp"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
-            android:fontFamily="@font/montserrat_bold"
+            android:fontFamily="sans-serif-light"
             android:text="Upload your CV on your profile"
             android:textColor="@color/white"
             android:textSize="25sp"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:visibility="visible"/>
+
 
         <Button
             android:id="@+id/button_upload"
@@ -42,6 +81,5 @@
 
     </LinearLayout>
 
-
-
 </FrameLayout>
+</ScrollView>

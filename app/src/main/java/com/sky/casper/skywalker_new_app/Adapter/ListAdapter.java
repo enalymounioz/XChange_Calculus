@@ -3,12 +3,10 @@ package com.sky.casper.skywalker_new_app.Adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
+import android.widget.ImageButton;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.sky.casper.skywalker_new_app.DummyData.DummyData;
 import com.sky.casper.skywalker_new_app.R;
 
@@ -16,9 +14,8 @@ public class ListAdapter extends RecyclerView.Adapter {
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_academic, parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_profile, parent,false);
         return new ListViewHolder(view);
-
     }
 
     @Override
@@ -36,12 +33,14 @@ public class ListAdapter extends RecyclerView.Adapter {
     private class ListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private TextView mItemText;
-        private CheckBox mCheckBox;
+        private ImageButton mImageButton;
 
         public ListViewHolder(View itemView) {
             super(itemView);
-            mItemText = itemView.findViewById(R.id.textview_college);
-            mCheckBox = itemView.findViewById(R.id.checkbox_public);
+            mItemText = itemView.findViewById(R.id.textView_profile_details);
+            mImageButton = itemView.findViewById(R.id.image_button_delete);
+            mImageButton = itemView.findViewById(R.id.image_button_edit);
+
             itemView.setOnClickListener(this);
         }
 

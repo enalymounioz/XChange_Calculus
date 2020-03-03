@@ -5,12 +5,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:fillViewport="true">
 
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:background="@drawable/gradient_animation"
     tools:context=".Fragments.AcademicFragment">
 
@@ -22,6 +22,7 @@
         android:fontFamily="sans-serif-light"
         android:padding="20dp"
         android:text="Public"
+        android:visibility="gone"
         android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout_existing_academic_details"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -32,7 +33,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/bottom_stroke"
         android:orientation="vertical"
-        android:visibility="visible"
+        android:visibility="gone"
         android:weightSum="4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -41,7 +42,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewAcademic"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
 
 
     </LinearLayout>
@@ -200,11 +201,10 @@
             android:textSize="16sp" />
     </LinearLayout>
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/linearLayout_add"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -214,26 +214,103 @@
             android:id="@+id/textView_add_academic"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="20dp"
             android:fontFamily="sans-serif-light"
-            android:gravity="bottom"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
             android:text="Tap '+' to create Academic Details"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
             android:textSize="15sp"
-            android:visibility="visible" />
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageButton
-            android:id="@+id/imageButtonAdd"
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabImageButtonEducation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="20dp"
-            android:src="@drawable/add" />
-    </LinearLayout>
+            android:background="@drawable/btn_trans"
+            android:src="@drawable/add"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView_add_academic" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabImageButtonUniversity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_trans"
+            android:src="@drawable/university"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/fabImageButtonLanguage"
+            app:layout_constraintEnd_toStartOf="@+id/fabImageButtonEducation"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fabImageButtonEducation" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabImageButtonLanguage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/btn_trans"
+            android:src="@drawable/language"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fabImageButtonEducation" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabImageButtonSeminars"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_trans"
+            android:src="@drawable/seminars"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/fabImageButtonLanguage"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/fabImageButtonEducation"
+            app:layout_constraintTop_toBottomOf="@+id/fabImageButtonEducation" />
+
+        <TextView
+            android:id="@+id/textViewUniversity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="University/College"
+            android:fontFamily="sans-serif-light"
+            android:textColor="@color/white"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="@+id/fabImageButtonUniversity"
+            app:layout_constraintStart_toStartOf="@+id/fabImageButtonUniversity"
+            app:layout_constraintTop_toBottomOf="@+id/fabImageButtonUniversity" />
+
+        <TextView
+            android:id="@+id/textViewLanguage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Language"
+            android:textColor="@color/white"
+            android:visibility="invisible"
+            android:fontFamily="sans-serif-light"
+            app:layout_constraintEnd_toEndOf="@+id/fabImageButtonLanguage"
+            app:layout_constraintStart_toStartOf="@+id/fabImageButtonLanguage"
+            app:layout_constraintTop_toBottomOf="@+id/fabImageButtonLanguage" />
+
+        <TextView
+            android:id="@+id/textViewSeminars"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Seminars"
+            android:visibility="invisible"
+            android:fontFamily="sans-serif-light"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="@+id/fabImageButtonSeminars"
+            app:layout_constraintStart_toStartOf="@+id/fabImageButtonSeminars"
+            app:layout_constraintTop_toBottomOf="@+id/fabImageButtonSeminars" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

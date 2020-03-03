@@ -117,7 +117,6 @@ public class Settings {
 
     }
 
-
     public static class CONNECTION_TYPES{
         public static String FILE = "FILE";
         public static String POST = "POST";

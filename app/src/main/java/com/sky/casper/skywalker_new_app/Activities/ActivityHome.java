@@ -1,6 +1,8 @@
 package com.sky.casper.skywalker_new_app.Activities;
 
 import android.animation.ValueAnimator;
+import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
@@ -8,17 +10,16 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.sdsmdg.harjot.vectormaster.VectorMasterView;
 import com.sdsmdg.harjot.vectormaster.models.PathModel;
@@ -27,10 +28,7 @@ import com.sky.casper.skywalker_new_app.Fragments.FavoriteFragment;
 import com.sky.casper.skywalker_new_app.Fragments.MenuFragment;
 import com.sky.casper.skywalker_new_app.Fragments.SearchFragment;
 import com.sky.casper.skywalker_new_app.Helpers.DatabaseHelper;
-import com.sky.casper.skywalker_new_app.Helpers.Settings;
 import com.sky.casper.skywalker_new_app.R;
-import com.sky.casper.skywalker_new_app.Skywalker;
-
 import interfaces.ICommunicationFragments;
 
 public class ActivityHome extends AppCompatActivity implements
@@ -39,7 +37,6 @@ public class ActivityHome extends AppCompatActivity implements
 
     private DatabaseHelper db;
     private ImageButton loginButton;//Variable for the login Button
-    private ImageButton accountButton;
     private CurvedBottomNavigationView mView;
     private VectorMasterView heartVector;
     private VectorMasterView heartVector1;
@@ -81,31 +78,26 @@ public class ActivityHome extends AppCompatActivity implements
 
         db = new DatabaseHelper(this);
 
-        /*Going to Login Activity*/
-        loginButton = findViewById(R.id.login_button);
-        loginButton.setOnClickListener(view -> openLoginActivity());
-        /*Going to Login Activity*/
 
-        /*Going to Account Activity*/
-        loginButton = findViewById(R.id.account_button);
-        loginButton.setOnClickListener(view -> openAccountActivity());
-        /*Going to Account Activity*/
         /*Going to Login Activity*/
         loginButton = findViewById(R.id.login_button);
         if(db.getUserId() == null) {
             loginButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    openLoginActivity();
-                }
-            });
-        }
-        else{
-            loginButton.setVisibility(View.GONE);
-        }
+              @Override
+               public void onClick(View view) {
+                   openLoginActivity();
+              }});
+                  }
+              else{
+           loginButton.setVisibility(View.GONE);
+           }
         /*Going to Home Activity*/
 
+    }
 
+    private void openLoginActivity() {
+        Intent intent=new Intent(this, ActivityLogin.class);
+        startActivity(intent);
     }
 
     /*Switch between menu items and fragments*/
@@ -224,14 +216,14 @@ public class ActivityHome extends AppCompatActivity implements
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage(ActivityHome.this.getResources().getString(R.string.exit_message))
                     .setPositiveButton(ActivityHome.this.getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                        Intent intent = new Intent(Intent.ACTION_MAIN);
-                        intent.addCategory(Intent.CATEGORY_HOME);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            dialog.dismiss();
-                        startActivity(intent);
-                    })
-                    .setNegativeButton("Cancel", (dialog, id) -> dialog.dismiss());
+                public void onClick(DialogInterface dialog, int id) {
+                    Intent intent = new Intent(Intent.ACTION_MAIN);
+                    intent.addCategory(Intent.CATEGORY_HOME);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    dialog.dismiss();
+                    startActivity(intent);
+                }
+            })
                     .setNegativeButton(ActivityHome.this.getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             dialog.dismiss();
@@ -290,4 +282,9 @@ public class ActivityHome extends AppCompatActivity implements
         //Intent intent=new Intent(this, AboutActivity.class);
         //startActivity(intent);
     }
+    /*Hide Keyboard on screen touch*/
+    public void hideKeyboard(View view) {
+        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(),0);    }
+    /*Hide Keyboard on screen touch*/
 }
