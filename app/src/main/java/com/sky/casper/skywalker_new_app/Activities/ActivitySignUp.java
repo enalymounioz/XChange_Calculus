@@ -50,9 +50,15 @@ public class ActivitySignUp extends AppCompatActivity implements ServerRequest.A
                 View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
 
         /*Make Activity full screen and hide navigation bar*/
+
         /*Going to Home Activity*/
         skipButton = findViewById(R.id.button_skip);
-        skipButton.setOnClickListener(view -> openActivityHome());
+        skipButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openActivityHome();
+                            }
+        });
         /*Going to Home Activity*/
 
         initialiseValues();

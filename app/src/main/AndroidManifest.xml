@@ -27,9 +27,27 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".Activities.ActivityProfile"
+            android:label="@string/title_activity_profile"
+            android:theme="@style/AppTheme.NoActionBar.NoActionBar">
+            <intent-filter>
+                <action android:name=".Activities.ActivityProfile" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".Activities.ActivitySettings"
             android:label="@string/title_activity_settings"
-            tools:ignore="InnerclassSeparator" />
+            tools:ignore="InnerclassSeparator"></activity>
+        <activity
+            android:name=".Activities.ActivityAbout"
+            android:label="@string/title_activity_about"
+            tools:ignore="InnerclassSeparator"></activity>
+        <activity
+            android:name=".Activities.ActivityUnderConstruction"
+            android:label="Under Construction"
+            tools:ignore="InnerclassSeparator"></activity>
         <activity
             android:name=".Activities.ActivityAbout"
             android:label="@string/title_activity_about"

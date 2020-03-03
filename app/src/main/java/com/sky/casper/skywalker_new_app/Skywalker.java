@@ -19,14 +19,14 @@ public class Skywalker extends Application {
     public void onCreate() {
         super.onCreate();
         mContext = this;
-        db = new DatabaseHelper(this);
-        cache = new Cache(this);
-        if(db.getUserId()!=null){   //// every time that start the app we disconnect the user until to put the appropriate button
-            Log.e("Delete user id","DELETE DB USER ID");
-            db.delete_id(db.getUserId());
-            cache.deleteServerToken();
-            cache.deleteProfile();
-        }
+//        db = new DatabaseHelper(this);
+//        cache = new Cache(this);
+//        if(db.getUserId()!=null){   //// every time that start the app we disconnect the user until to put the appropriate button
+//            Log.e("Delete user id","DELETE DB USER ID");
+//            db.delete_id(db.getUserId());
+//            cache.deleteServerToken();
+//            cache.deleteProfile();
+//        }
     }
 
     public static Context getContext(){

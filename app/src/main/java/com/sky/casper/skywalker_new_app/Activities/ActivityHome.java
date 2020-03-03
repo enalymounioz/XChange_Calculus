@@ -27,7 +27,9 @@ import com.sky.casper.skywalker_new_app.Fragments.FavoriteFragment;
 import com.sky.casper.skywalker_new_app.Fragments.MenuFragment;
 import com.sky.casper.skywalker_new_app.Fragments.SearchFragment;
 import com.sky.casper.skywalker_new_app.Helpers.DatabaseHelper;
+import com.sky.casper.skywalker_new_app.Helpers.Settings;
 import com.sky.casper.skywalker_new_app.R;
+import com.sky.casper.skywalker_new_app.Skywalker;
 
 import interfaces.ICommunicationFragments;
 
@@ -88,22 +90,23 @@ public class ActivityHome extends AppCompatActivity implements
         loginButton = findViewById(R.id.account_button);
         loginButton.setOnClickListener(view -> openAccountActivity());
         /*Going to Account Activity*/
+        /*Going to Login Activity*/
+        loginButton = findViewById(R.id.login_button);
+        if(db.getUserId() == null) {
+            loginButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    openLoginActivity();
+                }
+            });
+        }
+        else{
+            loginButton.setVisibility(View.GONE);
+        }
+        /*Going to Home Activity*/
+
 
     }
-
-    /*Going to Login Activity*/
-    private void openLoginActivity() {
-        Intent intent=new Intent(this, ActivityLogin.class);
-        startActivity(intent);
-    }
-    /*Going to Login Activity*/
-
-    /*Going to Account Activity*/
-    private void openAccountActivity() {
-        Intent intent=new Intent(this, ActivityAccount.class);
-        startActivity(intent);
-    }
-    /*Going to Login Activity*/
 
     /*Switch between menu items and fragments*/
     @Override
@@ -219,14 +222,21 @@ public class ActivityHome extends AppCompatActivity implements
         // TODO Auto-generated method stub
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage("Do you want to Exit Skywalker.gr")
-                    .setPositiveButton("Yes", (dialog, id) -> {
+            builder.setMessage(ActivityHome.this.getResources().getString(R.string.exit_message))
+                    .setPositiveButton(ActivityHome.this.getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
                         Intent intent = new Intent(Intent.ACTION_MAIN);
                         intent.addCategory(Intent.CATEGORY_HOME);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            dialog.dismiss();
                         startActivity(intent);
                     })
                     .setNegativeButton("Cancel", (dialog, id) -> dialog.dismiss());
+                    .setNegativeButton(ActivityHome.this.getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.dismiss();
+                        }
+                    });
             builder.show();
         }
 
