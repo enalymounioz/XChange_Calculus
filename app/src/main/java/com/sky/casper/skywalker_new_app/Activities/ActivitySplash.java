@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.sky.casper.skywalker_new_app.Helpers.DatabaseHelper;
+import com.sky.casper.skywalker_new_app.Helpers.Settings;
 import com.sky.casper.skywalker_new_app.R;
 
 public class ActivitySplash extends AppCompatActivity {
@@ -44,6 +45,7 @@ public class ActivitySplash extends AppCompatActivity {
                     intent = new Intent(ActivitySplash.this, ActivityLogin.class);
                 }
                 else{
+                    Settings.getCandidateDetails();
                     intent = new Intent(ActivitySplash.this, ActivityHome.class);
                 }
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK); /// delete splash activity

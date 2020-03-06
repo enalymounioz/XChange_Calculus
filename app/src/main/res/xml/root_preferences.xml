@@ -6,15 +6,6 @@
         app:title="@string/settings_category">
 
         <Preference
-            app:icon="@drawable/ic_security_settings"
-            app:key="security_privacy_fragment"
-            app:title="@string/settings_security_and_privacy">
-            <intent
-                android:action="android.intent.action.VIEW"
-                android:data="https://www.skywalker.gr/elGR/users/privacy-settings" />
-        </Preference>
-
-        <Preference
             app:icon="@drawable/ic_language_settings"
             app:key="language_and_region_fragment"
             app:title="@string/settings_language_and_region">
@@ -26,7 +17,7 @@
         <Preference
             app:icon="@drawable/ic_account_settings"
             app:key="profile_fragment"
-            app:title="Profile">
+            app:title="@string/settings_profile">
             <intent
                 android:action="com.sky.casper.skywalker_new_app.SETTINGS_START_ACTIVITY"
                 android:targetClass="com.sky.casper.skywalker_new_app.Activities.ActivityProfile"

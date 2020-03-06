@@ -54,25 +54,28 @@ public class ActivitySettings extends AppCompatActivity {
         @Override
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey);
-            Preference preferenceSecurity = findPreference("security_privacy_fragment");
+//            Preference preferenceSecurity = findPreference("security_privacy_fragment");
             Preference preferenceLogout =  findPreference("logout_fragment");
+            Preference preferenceProfile = findPreference("profile_fragment");
             /* whether the user does not connected do not open privacy settings*/
-            preferenceSecurity.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                @Override
-                public boolean onPreferenceClick(Preference preference) {
-                    if(db.getUserId()==null){
-                        Toast.makeText(ctx,ctx.getResources().getString(R.string.required_login),Toast.LENGTH_LONG).show();
-                        preference.setFragment("");
-                        return true;
-                    }
-                    else{
-                        preference.setFragment("com.sky.casper.skywalker_new_app.Activities.ActivitySettings$SecurityAndPrivacyFragment") ;
-                        return false;
-                    }
-                }
-            });
+//            preferenceSecurity.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+//                @Override
+//                public boolean onPreferenceClick(Preference preference) {
+//                    if(db.getUserId()==null){
+//                        Toast.makeText(ctx,ctx.getResources().getString(R.string.required_login),Toast.LENGTH_LONG).show();
+//                        preference.setFragment("");
+//                        return true;
+//                    }
+//                    else{
+//                        preference.setFragment("com.sky.casper.skywalker_new_app.Activities.ActivitySettings$SecurityAndPrivacyFragment") ;
+//                        return false;
+//                    }
+//                }
+//            });
 
             if(db.getUserId()!=null){
+                preferenceProfile.setVisible(true);
+                preferenceLogout.setVisible(true);
                 preferenceLogout.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                     @Override
                     public boolean onPreferenceClick(Preference preference) {
@@ -81,6 +84,8 @@ public class ActivitySettings extends AppCompatActivity {
                                 .setPositiveButton(ctx.getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
                                         db.delete_id(db.getUserId());
+                                        cache.deleteProfile();
+                                        cache.deleteServerToken();
                                         Intent intent=new Intent(ctx, ActivityHome.class);
                                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                         dialog.dismiss();
@@ -98,8 +103,10 @@ public class ActivitySettings extends AppCompatActivity {
                         return true;
                     }
                 });
+
             }
             else{
+                preferenceProfile.setVisible(false);
                 preferenceLogout.setVisible(false);
             }
 

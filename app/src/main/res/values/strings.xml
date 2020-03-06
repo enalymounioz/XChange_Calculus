@@ -101,6 +101,7 @@
        \nConnect through social media.
       \n Glad to Help in anyway!</string>
     <string name="settings_security_and_privacy">Security and Privacy</string>
+    <string name="settings_profile">Profile</string>
     <string name="settings_language_and_region">Language and Region(Future Update)</string>
     <string name="settings_account">Account</string>
     <string name="settings_resume">Resume</string>
@@ -164,7 +165,7 @@
         <item>Distance work from home</item>
         <item>LinkedIn</item>
     </string-array>
-       <string name="until_today">Until today</string>
+    <string name="until_today">Until today</string>
     <string name="yes">Yes</string>
     <string name="cancel">Cancel</string>
     <string name="exit_message">Do you want to Exit Skywalker.gr?</string>

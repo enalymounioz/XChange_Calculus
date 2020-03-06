@@ -131,6 +131,39 @@ public class Settings {
         public static String DATABASE_ERROR = "error_db";
     }
 
+    public static class JOB_CATEGORIES {
+        public static final String CATEGORY_TYPE = "categories";
+        public static final String SUBCATEGORY_TYPE = "subcategories";
+        public static final String JOBPOSITION_TYPE = "jobpositions";
+//        public static final String SELECT_CATEGORY = Skywalker.getContext().getResources().getString(R.string.category);
+//        public static final String SELECT_SUBCATEGORY = Skywalker.getContext().getResources().getString(R.string.subcategory);
+//        public static final String SELECT_JOBPOSITION = Skywalker.getContext().getResources().getString(R.string.job_position);
+        public static final String JSON_CATEGORY_TYPE = "Category";
+        public static final String JSON_SUBCATEOGORY_TYPE = "SubCategory";
+        public static final String JSON_JOBPOSITION_TYPE = "JobPosition";
+        public static final String KEYWORDS_TYPE = "keywords";
+        public static final String SELECT_KEYWORDS = "Select keywords";
+    }
+
+    public static class ACADEMIC {
+//        public static final String SELECT_UNIVERSITY = Skywalker.getContext().getResources().getString(R.string.university);
+        public static final String UNIVERSITY_TYPE = "university";
+        public static final String JSON_UNIVERSITY_TYPE = "University";
+
+//        public static final String SELECT_EDUTYPE = Skywalker.getContext().getResources().getString(R.string.education);
+        public static final String EDUCATION_TYPE = "edutype";
+        public static final String JSON_EDUCATION_TYPE = "EduType";
+
+//        public static final String SELECT_LANGUAGE = Skywalker.getContext().getResources().getString(R.string.language);
+        public static final String FOREIGN_LANG_TYPE = "foreignlang";
+        public static final String JSON_FOREIGN_LANG_TYPE = "ForeignLang";
+        public static final String POST_FOREIGN_LABG = "languages";
+
+//        public static final String SELECT_CERTIFICATION = Skywalker.getContext().getResources().getString(R.string.certification);
+        public static final String CERTIFICATION_TYPE = "certificationlang";
+        public static final String JSON_CERTIFICATION_LANG_TYPE = "ForeignLangCert";
+    }
+
     public static class REGIONS {
 //        public static final String SELECT_COUNTRY = Skywalker.getContext().getResources().getString(R.string.country);
 //        public static final String SELECT_GEO_DEP = Skywalker.getContext().getResources().getString(R.string.gdepartment);

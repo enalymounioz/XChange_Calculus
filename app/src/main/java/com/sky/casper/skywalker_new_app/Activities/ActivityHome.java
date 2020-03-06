@@ -82,15 +82,16 @@ public class ActivityHome extends AppCompatActivity implements
         /*Going to Login Activity*/
         loginButton = findViewById(R.id.login_button);
         if(db.getUserId() == null) {
-            loginButton.setOnClickListener(new View.OnClickListener() {
+                    loginButton.setOnClickListener(new View.OnClickListener() {
               @Override
                public void onClick(View view) {
                    openLoginActivity();
               }});
-                  }
-              else{
-           loginButton.setVisibility(View.GONE);
-           }
+        }
+
+        else{
+            loginButton.setVisibility(View.GONE);
+        }
         /*Going to Home Activity*/
 
     }

@@ -60,6 +60,18 @@ public class CVProfile implements Serializable { //// cv profile is separated in
         return this.privacies;
     }
 
+    public List<BioInfo.BioAttributes> getAcademic(){
+        return new ArrayList<BioInfo.BioAttributes>(){{
+            addAll(bInfo.bioDetails[3]);
+            addAll(bInfo.bioDetails[4]);
+            addAll(bInfo.bioDetails[6]);
+        }};
+    }
+
+    public List<BioInfo.BioAttributes> getExperience(){
+        return  bInfo.bioDetails[2];
+    }
+
     public void setPrivacy(String key, Boolean value){
         this.privacies.put(key,value);
     }
@@ -88,7 +100,7 @@ public class CVProfile implements Serializable { //// cv profile is separated in
         this.bioVisibility = value;
     }
 
-    private class BioInfo implements Serializable{  /// bio details
+    public class BioInfo implements Serializable{  /// bio details
         private String id;
         private String title;
         private String interests;
@@ -163,9 +175,10 @@ public class CVProfile implements Serializable { //// cv profile is separated in
 
         }
 
-        abstract class BioAttributes implements Serializable{
+        public abstract class BioAttributes implements Serializable{
             String id = null;
             Boolean permission;
+            String custom_type;
 
             BioAttributes(JSONObject jb){
                 try {
@@ -183,11 +196,13 @@ public class CVProfile implements Serializable { //// cv profile is separated in
             BioAttributes(BioAttributes ba){
                 this.id = ba.id;
                 this.permission = ba.permission;
+                this.custom_type = ba.custom_type;
             }
 
 
             public abstract void setValues(JSONObject obj);
             public abstract BioAttributes clone();
+            public abstract String getTitle();
         }
 
         class WorkArea extends BioAttributes{
@@ -262,10 +277,16 @@ public class CVProfile implements Serializable { //// cv profile is separated in
             public WorkArea clone() {
                 return new WorkArea(this);
             }
+
+            @Override
+            public String getTitle() {
+                return region;
+            }
         }
 
         class WorkPosition extends BioAttributes {
             private String category, subcategory, position;
+            private String specialty;
 
             WorkPosition(JSONObject values){
                 super(values);
@@ -280,8 +301,17 @@ public class CVProfile implements Serializable { //// cv profile is separated in
                 this.id = null;
                 this.permission = null;
                 this.category = c;
+                if(this.category != null && !this.category.equals("")){
+                    this.specialty = category;
+                }
                 this.subcategory = s;
+                if(this.subcategory != null && !this.subcategory.equals("")){
+                    this.specialty = subcategory;
+                }
                 this.position = p;
+                if(this.position != null && !this.position.equals("")){
+                    this.specialty = position;
+                }
             }
 
             WorkPosition(WorkPosition wp){
@@ -289,6 +319,7 @@ public class CVProfile implements Serializable { //// cv profile is separated in
                 this.category = wp.category;
                 this.subcategory = wp.subcategory;
                 this.position = wp.position;
+                this.specialty = wp.specialty;
             }
 
             @Override
@@ -302,6 +333,15 @@ public class CVProfile implements Serializable { //// cv profile is separated in
                     this.category = obj.getString(Settings.BIO_INFO.BioPrefPositions.CATEGORY);
                     this.subcategory = obj.getString(Settings.BIO_INFO.BioPrefPositions.SUBCATEGORY);
                     this.position = obj.getString(Settings.BIO_INFO.BioPrefPositions.JOBPOSITION);
+                    if(this.position != null && !this.position.equals("")){
+                        this.specialty = position;
+                    }
+                    else if(this.subcategory != null && !this.subcategory.equals("")){
+                        this.specialty = subcategory;
+                    }
+                    else{
+                        this.specialty = category;
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -311,6 +351,11 @@ public class CVProfile implements Serializable { //// cv profile is separated in
             public WorkPosition clone() {
                 return new WorkPosition(this);
             }
+
+            @Override
+            public String getTitle() {
+                return this.specialty;
+            }
         }
 
         class WorkExperience extends BioAttributes{
@@ -318,7 +363,7 @@ public class CVProfile implements Serializable { //// cv profile is separated in
             private boolean untilToday;
             private WorkPosition workPosition;
             private WorkArea workArea;
-            private String levelPosition, company, employmentType, specialty, endStr;
+            private String levelPosition, company, employmentType, endStr;
 
             WorkExperience(JSONObject values){
                 super(values);
@@ -344,7 +389,6 @@ public class CVProfile implements Serializable { //// cv profile is separated in
                 this.levelPosition = we.levelPosition;
                 this.company = we.company;
                 this.employmentType = we.employmentType;
-                this.specialty = we.specialty;
                 workPosition = new WorkPosition(we.workPosition);
                 workArea = new WorkArea(we.workArea);
             }
@@ -372,7 +416,7 @@ public class CVProfile implements Serializable { //// cv profile is separated in
                     this.levelPosition = obj.getString(Settings.BIO_INFO.BioWorkExperience.LEVEL);
                     this.company = obj.getString(Settings.BIO_INFO.BioWorkExperience.COMPANY);
                     this.employmentType = obj.getString(Settings.BIO_INFO.BioWorkExperience.EMP_TYPE);
-                    this.specialty = obj.getString(Settings.BIO_INFO.BioWorkExperience.SPECIALITY);
+//                    this.specialty = obj.getString(Settings.BIO_INFO.BioWorkExperience.SPECIALITY);
 
                     workArea = new WorkArea(obj.getString(Settings.BIO_INFO.BioWorkExperience.WORK_COUNTRY),obj.getString(Settings.BIO_INFO.BioWorkExperience.WORK_DEPARTMENT),obj.getString(Settings.BIO_INFO.BioWorkExperience.WORK_STATE),
                             obj.getString(Settings.BIO_INFO.BioWorkExperience.WORK_CITY),obj.getString(Settings.BIO_INFO.BioWorkExperience.WORK_MUNICIPALITY));
@@ -389,19 +433,29 @@ public class CVProfile implements Serializable { //// cv profile is separated in
             public WorkExperience clone() {
                 return new WorkExperience(this);
             }
+
+            @Override
+            public String getTitle() {
+                String experience_info;
+                SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+                experience_info = this.company +" "+format.format(start) +"-"+ (untilToday ? Skywalker.getContext().getResources().getString(R.string.until_today) : format.format(end)) +"\n" + this.workPosition.getTitle();
+                return experience_info;
+            }
         }
 
-        class WorkEducation extends BioAttributes{
+        public class WorkEducation extends BioAttributes{
             private Date from, to;
             private String eduLevel, university, eduDepartment, eduTitle;
 
             WorkEducation(JSONObject values){
                 super(values);
                 this.setValues(values);
+                this.custom_type = "edu";
             }
 
             WorkEducation(){
                 super();
+                this.custom_type = "edu";
             }
             
             WorkEducation(WorkEducation wed){
@@ -443,6 +497,15 @@ public class CVProfile implements Serializable { //// cv profile is separated in
             public WorkEducation clone() {
                 return new WorkEducation(this);
             }
+
+            @Override
+            public String getTitle() {
+                String education_info;
+                SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+//                education_info = format.format(from) + " - " + format.format(to)+"\n";
+                education_info = this.university + ", " + this.eduTitle+"\n"+format.format(to);
+                return education_info;
+            }
         }
 
         class ForeignLanguage extends BioAttributes{
@@ -451,10 +514,12 @@ public class CVProfile implements Serializable { //// cv profile is separated in
             ForeignLanguage(JSONObject values){
                 super(values);
                 this.setValues(values);
+                this.custom_type = "lang";
             }
 
             ForeignLanguage(){
                 super();
+                this.custom_type = "lang";
             }
             
             ForeignLanguage(ForeignLanguage fl){
@@ -483,6 +548,13 @@ public class CVProfile implements Serializable { //// cv profile is separated in
             @Override
             public ForeignLanguage clone() {
                 return new ForeignLanguage(this);
+            }
+
+            @Override
+            public String getTitle() {
+                String language_info;
+                language_info = this.language+", "+this.certificate;
+                return language_info;
             }
         }
 
@@ -524,6 +596,12 @@ public class CVProfile implements Serializable { //// cv profile is separated in
             public ItAttribute clone() {
                 return new ItAttribute(this);
             }
+
+            @Override
+            public String getTitle() {
+                /// TODO set title IT
+                return null;
+            }
         }
 
         class Seminar extends BioAttributes{
@@ -533,10 +611,12 @@ public class CVProfile implements Serializable { //// cv profile is separated in
             Seminar(JSONObject values){
                 super(values);
                 this.setValues(values);
+                this.custom_type = "lang";
             }
 
             Seminar(){
                 super();
+                this.custom_type = "lang";
             }
 
             Seminar(Seminar s){
@@ -557,7 +637,7 @@ public class CVProfile implements Serializable { //// cv profile is separated in
                     SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
                     format.setLenient(false);
                     // TODO check permission value;
-                    this.date = format.parse(Settings.BIO_INFO.BioSeminars.DATE);
+                    this.date = format.parse(obj.getString(Settings.BIO_INFO.BioSeminars.DATE));
                     this.name = obj.getString(Settings.BIO_INFO.BioSeminars.NAME);
                     this.operator = obj.getString(Settings.BIO_INFO.BioSeminars.FOREAS);
                     this.certificate = obj.getString(Settings.BIO_INFO.BioSeminars.CARTIFICATE);
@@ -572,10 +652,19 @@ public class CVProfile implements Serializable { //// cv profile is separated in
             public Seminar clone() {
                 return new Seminar(this);
             }
+
+            @Override
+            public String getTitle() {
+                String seminar_info;
+                seminar_info = this.name +", "+ this.operator+" \n ";
+                SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+                seminar_info += format.format(date);
+                return seminar_info;
+            }
         }
     }
 
-    private class PersonalInfo implements Serializable{ //// personal details
+    public class PersonalInfo implements Serializable{ //// personal details
         private String name;
         private String surname;
         private String phone;

@@ -11,10 +11,16 @@ import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.sky.casper.skywalker_new_app.Models.Type;
+
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 public class DatabaseHelper extends SQLiteOpenHelper {
@@ -377,6 +383,98 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void delete_id(String id){ /// delete id from table
 //        SQLiteDatabase db = this.getWritableDatabase();
         myDataBase.delete(TABLE_SETTINGS, USER_ID + "=?" ,new String[]{ id });
+    }
+
+    public Cursor getAllData(String type){
+//        SQLiteDatabase myDataBase = this.getWritableDatabase();
+        Cursor res=null;
+        if(type.equals(Settings.JOB_CATEGORIES.JSON_CATEGORY_TYPE)){
+            res = myDataBase.rawQuery("select "+CATEGORY_ID+", "+CATEGORY_TITLE+" from "+TABLE_CATEGORIES,null);
+        }
+        else if(type.equals(Settings.JOB_CATEGORIES.JSON_SUBCATEOGORY_TYPE)){
+            res = myDataBase.rawQuery("select "+SUBCATEGORY_ID+", "+SUBCATEGORY_TITLE+", "+SUBCATEGORY_PARENT_CATEGORY+" from "+TABLE_SUBCATEGORIES,null);
+        }
+        else if(type.equals(Settings.JOB_CATEGORIES.JSON_JOBPOSITION_TYPE)){
+            res = myDataBase.rawQuery("select "+JOBPOSITION_ID+", "+JOBPOSITION_TITLE+", "+JOBPOSITION_PARENT_SUBCATEGORY+" from "+TABLE_JOBPOSITIONS,null);
+        }
+        else if(type.equals(Settings.REGIONS.JSON_COUNTRY_TYPE)){
+            res = myDataBase.rawQuery("select "+COUNTRY_ID+", "+COUNTRY_TITLE+" from "+TABLE_COUNTRIES,null);
+        }
+        else if(type.equals(Settings.REGIONS.JSON_GEO_DEP_TYPE)){
+            res = myDataBase.rawQuery("select "+GEO_ID+", "+GEO_TITLE+", "+GEO_PARENT_COUNTRY+" from "+TABLE_GEODEPARTMENT,null);
+        }
+        else if(type.equals(Settings.REGIONS.JSON_STATE_TYPE)){
+            res = myDataBase.rawQuery("select "+STATE_ID+", "+STATE_TITLE+", "+STATE_PARENT_GEODEPARTMENT+" from "+TABLE_STATES,null);
+        }
+        else if(type.equals(Settings.REGIONS.JSON_CITY_TYPE)){
+            res = myDataBase.rawQuery("select "+CITY_ID+", "+CITY_TITLE+", "+CITY_PARENT_STATE+" from "+TABLE_CITIES,null);
+        }
+        else if(type.equals(Settings.REGIONS.JSON_MUNICIPALITY_TYPE)){
+            res = myDataBase.rawQuery("select "+MUNICIPALITY_ID+", "+MUNICIPALITY_TITLE+", "+MUNICIPALITY_PARENT_CITY+" from "+TABLE_MUNICIPALITIES,null);
+        }
+//        else if(type.equals(Settings.EMPLOYE.JSON_EMPTYPE_TYPE)){
+//            res = myDataBase.rawQuery("select "+EMPTYPE_ID+", "+EMPTYPE_TITLE+" from "+TABLE_EMPTYPE,null);
+//        }
+        else if(type.equals(Settings.ACADEMIC.JSON_UNIVERSITY_TYPE)){
+            res = myDataBase.rawQuery("select "+UNIVERSITY_ID+", "+UNIVERSITY_TITLE+", "+UNIVERSITY_LEVEL+" from "+TABLE_UNIVERSITY,null);
+        }
+        else if(type.equals(Settings.ACADEMIC.JSON_EDUCATION_TYPE)){
+            res = myDataBase.rawQuery("select "+EDUTYPE_ID+", "+EDUTYPE_TITLE+" from "+TABLE_EDUTYPE,null);
+        }
+        else if(type.equals(Settings.ACADEMIC.JSON_FOREIGN_LANG_TYPE)){
+            res = myDataBase.rawQuery("select "+LANG_ID+", "+LANG_TITLE+" from "+TABLE_LANGUAGE,null);
+        }
+        else if(type.equals(Settings.ACADEMIC.JSON_CERTIFICATION_LANG_TYPE)){
+            res = myDataBase.rawQuery("select "+CERT_ID+", "+CERT_TITLE+", "+LANGUAGE+" from "+TABLE_LANG_CERTIFICATION,null);
+        }
+        else{
+            res = myDataBase.rawQuery("select *",null);
+        }
+        return res;
+    }
+
+
+    public Map<String, List<Type>> getTypesAndParents(String db_type){
+        Cursor res = this.getAllData(db_type);
+        Type type;
+        List<Type> listType;
+        Map<String,List<Type>> parentHash = new HashMap<>();
+
+        while(res.moveToNext()){
+            type = new Type(res.getString(0),res.getString(1),null,res.getString(2));
+            if((listType=parentHash.get(type.getParent_id()))!=null){
+                listType.add(type);
+            }
+            else{
+                listType = new ArrayList<Type>();
+                listType.add(type);
+            }
+            parentHash.put(type.getParent_id(),listType);
+        }
+
+        return parentHash;
+    }
+
+    public List<Type> getPrimaryTypes(String db_type){
+        Cursor res = this.getAllData(db_type);
+        List<Type> listType = new ArrayList<>();
+
+        while(res.moveToNext()){
+            try {
+                if (res.getString(1) != null && res.getString(1).equals("Ελλάδα")) {
+                    if (listType.size() > 1)
+                        listType.add(1, new Type(res.getString(0), res.getString(1), null));
+                    else
+                        listType.add(new Type(res.getString(0), res.getString(1), null));
+                } else {
+                    listType.add(new Type(res.getString(0), res.getString(1), null));
+                }
+            }catch (Exception e){
+                listType.add(new Type(null, res.getString(0), null));
+            }
+        }
+
+        return listType;
     }
 
     /* Create Tables */

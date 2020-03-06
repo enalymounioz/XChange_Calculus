@@ -33,7 +33,6 @@
         android:layout_height="wrap_content"
         android:background="@drawable/bottom_stroke"
         android:orientation="vertical"
-        android:visibility="gone"
         android:weightSum="4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -1,6 +1,8 @@
 package com.sky.casper.skywalker_new_app.Fragments;
 
 import android.os.Bundle;
+
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -9,18 +11,33 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.sky.casper.skywalker_new_app.Adapter.ListAdapter;
+import com.sky.casper.skywalker_new_app.Helpers.Cache;
+import com.sky.casper.skywalker_new_app.Helpers.DatabaseHelper;
+import com.sky.casper.skywalker_new_app.Helpers.Settings;
+import com.sky.casper.skywalker_new_app.Models.CVProfile;
+import com.sky.casper.skywalker_new_app.Models.Type;
 import com.sky.casper.skywalker_new_app.R;
+
+import java.util.List;
+import java.util.Map;
 
 public class AcademicFragment extends Fragment {
 
     private FloatingActionButton fabAddEducation, fabAddUniversity, fabAddLanguage, fabAddSeminars;
     private Animation fabOpen, fabClose,rotateForward,rotateBackward;
     private TextView textViewUniversity, textViewLanguage,textViewSeminars;
+    private LinearLayout universityForm,languageForm,seminarForm;
+    private ConstraintLayout addLinear;
+    private RecyclerView recyclerView;
     boolean isOpen =false;
+    private CVProfile profile;
+    private Cache cache;
+    private DatabaseHelper db;
 
 
     @Override
@@ -30,16 +47,25 @@ public class AcademicFragment extends Fragment {
         // Inflate the layout for this fragment
       View view = inflater.inflate(R.layout.fragment_academic, container, false);
 
-        RecyclerView recyclerView = view.findViewById(R.id.recyclerViewAcademic);
-
-        ListAdapter listAdapter = new ListAdapter();
+        recyclerView = view.findViewById(R.id.recyclerViewAcademic);
+        cache = new Cache(getActivity());
+        profile = cache.getCVProfile();
+        db = new DatabaseHelper(getActivity());
+        if(profile == null){
+            Settings.getCandidateDetails();
+            profile = cache.getCVProfile();
+        }
+        ListAdapter listAdapter = new ListAdapter(profile,this,db);
         recyclerView.setAdapter(listAdapter);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
 
         textViewUniversity = view.findViewById(R.id.textViewUniversity);
+        universityForm = view.findViewById(R.id.linearLayout_academic);
         textViewLanguage = view.findViewById(R.id.textViewLanguage);
         textViewSeminars = view.findViewById(R.id.textViewSeminars);
+
+        addLinear = view.findViewById(R.id.linearLayout_add);
 
         /*Floating action Button for Academic*/
         fabAddEducation = view.findViewById (R.id.fabImageButtonEducation);
@@ -58,15 +84,29 @@ public class AcademicFragment extends Fragment {
         );
         fabAddUniversity.setOnClickListener(view12 -> {
             animFab();
-            Toast.makeText(getContext(),"University fab Clicked. Replace this Action",Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getContext(),"University fab Clicked. Replace this Action",Toast.LENGTH_SHORT).show();
+            recyclerView.setVisibility(View.GONE);
+            addLinear.setVisibility(View.GONE);
+            universityForm.setVisibility(View.VISIBLE);
+            Map<String, List<Type>> levelsUniversities = db.getTypesAndParents(Settings.ACADEMIC.JSON_UNIVERSITY_TYPE);
+
         });
         fabAddLanguage.setOnClickListener(view13 -> {
             animFab();
-            Toast.makeText(getContext(),"Language fab Clicked. Replace this Action",Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getContext(),"Language fab Clicked. Replace this Action",Toast.LENGTH_SHORT).show();
+            recyclerView.setVisibility(View.GONE);
+            addLinear.setVisibility(View.GONE);
+            /// TODO Language form, get languages and certifications from db
+            List<Type> languages = db.getPrimaryTypes(Settings.ACADEMIC.JSON_FOREIGN_LANG_TYPE);
+            Map<String,List<Type>> certifications = db.getTypesAndParents(Settings.ACADEMIC.JSON_CERTIFICATION_LANG_TYPE);
+
         });
         fabAddSeminars.setOnClickListener(view14 -> {
             animFab();
-            Toast.makeText(getContext(),"Seminars fab Clicked. Replace this Action",Toast.LENGTH_SHORT).show();
+            recyclerView.setVisibility(View.GONE);
+            addLinear.setVisibility(View.GONE);
+//            Toast.makeText(getContext(),"Seminars fab Clicked. Replace this Action",Toast.LENGTH_SHORT).show();
+            /// TODO seminar form
         });
 
         return view;
@@ -101,6 +141,6 @@ public class AcademicFragment extends Fragment {
 
         }
     }
-    }
+}
 
 
