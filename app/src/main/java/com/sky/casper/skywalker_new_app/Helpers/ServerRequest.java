@@ -1,6 +1,7 @@
 package com.sky.casper.skywalker_new_app.Helpers;
 
 import android.content.Context;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -13,6 +14,8 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -56,6 +59,15 @@ public class ServerRequest extends AsyncTask<String, String, String> {
             if(connectionType.equals(Settings.CONNECTION_TYPES.FILE)){
                 // not constructed yet
                 // maybe we'll use different types for download upload etc.
+                if(data[1].equals("Id")){
+                    String id_post_name = data[1];
+                    String id = data[2];
+                    String post_cv_name = data[3];
+                    String file_name = data[4];
+                    String path = data[5];
+                    String url = data[6];
+                    return uploadConnectedFiles(url,post_cv_name,file_name,path,id_post_name,id);
+                }
                 return null;
             }
             else if(connectionType.equals(Settings.CONNECTION_TYPES.JSON)){
@@ -171,6 +183,208 @@ public class ServerRequest extends AsyncTask<String, String, String> {
         }
 
         return response;
+    }
+
+
+    private String uploadConnectedFiles(String...values){
+//        int num_values = values.length;
+        int value_pointer = 1;
+        String url = values[0];
+        int fbyte,buffersize,cbuffer;
+        int maxbuffer = 1024*1024;
+        final String lineEnd = "\r\n";
+        String twoHyphens = "--";
+        String boundary = "*****" + Long.toString(System.currentTimeMillis())+ "*****";
+        BufferedReader reader = null;
+        String responseMsg="";
+
+        try {
+            URL url_upload = new URL(url);
+            HttpURLConnection conn = (HttpURLConnection) url_upload.openConnection();
+            conn.setDoInput(true);
+            conn.setDoOutput(true);
+            conn.setRequestMethod("POST");
+            conn.setUseCaches(false);
+            conn.setRequestProperty("Connection", "keep-Alive");
+            conn.setRequestProperty("ENCTYPE", "multipart/form-data");
+            conn.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + boundary);
+            DataOutputStream dos = new DataOutputStream(conn.getOutputStream());
+            FileInputStream fileInputStreamCV=null;
+            FileInputStream fileInputStreamLetter=null;
+
+
+            String postName = "\"" +values[value_pointer++]+ "\"";
+            String CvName = values[value_pointer++];
+            String sourceCv;
+            String CvPath = values[value_pointer++];
+
+            if(CvName.startsWith("http")){
+                sourceCv = CvName;
+            }
+            else {
+                if(CvPath==null|| CvPath.equals("")){
+                    sourceCv = "";
+                }
+                else{
+                    if(CvPath.contains(CvName))
+                    {
+                        sourceCv = CvPath;
+                    }
+                    else {
+                        sourceCv = CvPath + "/" + CvName;
+                    }
+                }
+            }
+
+
+//                if(i!=0) {
+//                    name = "\"" + "Cv"+Integer.toString(i) + "\"";
+//                }
+//                else{
+//                    name = "\"" + "Cv" + "\"";
+//                }
+            Log.e("UPLOADFUNC"," "+sourceCv+" "+postName+" "+CvName+" "+CvPath);
+            if(sourceCv.startsWith("http")){
+                dos.writeBytes(twoHyphens+boundary+lineEnd);
+                dos.writeBytes("Content-Disposition: form-data; name="+postName+";"+lineEnd);
+                dos.writeBytes("Content-Type: text/plain; charset=UTF-8"+lineEnd);
+                dos.writeBytes(lineEnd+CvPath+lineEnd);
+                dos.writeBytes(lineEnd);
+            }
+            else if(!sourceCv.equals("")){
+
+                Log.e("TYPEUPL","FILE "+sourceCv);
+
+                File sfile = new File(sourceCv);
+                try {
+                    fileInputStreamCV = new FileInputStream(String.valueOf(context.getContentResolver().openInputStream(Uri.parse(sfile.getPath()))));
+                }catch (Exception e){
+                    fileInputStreamCV = new FileInputStream(sfile);
+                }
+
+                dos.writeBytes(twoHyphens + boundary + lineEnd);
+                dos.writeBytes("Content-Disposition: form/data; name="+postName+"; filename=\"" + CvName + "\"" + lineEnd);
+                dos.writeBytes(lineEnd);
+
+                fbyte = fileInputStreamCV.available();
+                buffersize = Math.min(maxbuffer, fbyte);
+                byte[] buffer = new byte[buffersize];
+                cbuffer = fileInputStreamCV.read(buffer, 0, buffersize);
+                while (cbuffer > 0) {
+                    dos.write(buffer, 0, buffersize);
+                    fbyte = fileInputStreamCV.available();
+                    buffersize = Math.min(maxbuffer, fbyte);
+                    cbuffer = fileInputStreamCV.read(buffer, 0, buffersize);
+                }
+                dos.writeBytes(lineEnd);
+            }
+
+
+//            for(int i=0; i<3; i++){
+//                String postName = "\"" +values[value_pointer++]+ "\"";
+//                String CvName = values[value_pointer++];
+//                String sourceCv;
+//                String CvPath = values[value_pointer++];
+//
+//                if(CvName.startsWith("http")){
+//                    sourceCv = CvName;
+//                }
+//                else {
+//                    if(CvPath==null|| CvPath.equals("")){
+//                        sourceCv = "";
+//                    }
+//                    else{
+//                        if(CvPath.contains(CvName))
+//                        {
+//                            sourceCv = CvPath;
+//                        }
+//                        else {
+//                            sourceCv = CvPath + "/" + CvName;
+//                        }
+//                    }
+//                }
+//
+//
+////                if(i!=0) {
+////                    name = "\"" + "Cv"+Integer.toString(i) + "\"";
+////                }
+////                else{
+////                    name = "\"" + "Cv" + "\"";
+////                }
+//                Log.e("UPLOADFUNC",i+" "+sourceCv+" "+postName+" "+CvName+" "+CvPath);
+//                if(sourceCv.startsWith("http")){
+//                    dos.writeBytes(twoHyphens+boundary+lineEnd);
+//                    dos.writeBytes("Content-Disposition: form-data; name="+postName+";"+lineEnd);
+//                    dos.writeBytes("Content-Type: text/plain; charset=UTF-8"+lineEnd);
+//                    dos.writeBytes(lineEnd+CvPath+lineEnd);
+//                    dos.writeBytes(lineEnd);
+//                }
+//                else if(!sourceCv.equals("")){
+//
+//                    Log.e("TYPEUPL","FILE");
+//
+//                    File sfile = new File(sourceCv);
+//                    try {
+//                        fileInputStreamCV = new FileInputStream(String.valueOf(context.getContentResolver().openInputStream(Uri.parse(sfile.getPath()))));
+//                    }catch (Exception e){
+//                        fileInputStreamCV = new FileInputStream(sfile);
+//                    }
+//
+//                    dos.writeBytes(twoHyphens + boundary + lineEnd);
+//                    dos.writeBytes("Content-Disposition: form/data; name="+postName+"; filename=\"" + CvName + "\"" + lineEnd);
+//                    dos.writeBytes(lineEnd);
+//
+//                    fbyte = fileInputStreamCV.available();
+//                    buffersize = Math.min(maxbuffer, fbyte);
+//                    byte[] buffer = new byte[buffersize];
+//                    cbuffer = fileInputStreamCV.read(buffer, 0, buffersize);
+//                    while (cbuffer > 0) {
+//                        dos.write(buffer, 0, buffersize);
+//                        fbyte = fileInputStreamCV.available();
+//                        buffersize = Math.min(maxbuffer, fbyte);
+//                        cbuffer = fileInputStreamCV.read(buffer, 0, buffersize);
+//                    }
+//                    dos.writeBytes(lineEnd);
+//                }
+//
+//            }
+
+            String id_name = "\""+values[value_pointer++]+"\"";
+            dos.writeBytes(twoHyphens+boundary+lineEnd);
+            dos.writeBytes("Content-Disposition: form-data; name="+id_name+";"+lineEnd);
+            dos.writeBytes("Content-Type: text/plain; charset=UTF-8"+lineEnd);
+            dos.writeBytes(lineEnd+values[value_pointer]+lineEnd);
+            dos.writeBytes(lineEnd);
+
+
+            int responseCode=conn.getResponseCode();
+            if (responseCode == HttpsURLConnection.HTTP_OK) {
+                String line;
+                if(fileInputStreamLetter!=null) {
+                    fileInputStreamLetter.close();
+                }
+                if(fileInputStreamCV!=null){
+                    fileInputStreamCV.close();
+                }
+                dos.flush();
+                dos.close();
+
+                BufferedReader br=new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                while ((line=br.readLine()) != null) {
+                    responseMsg+=line;
+
+                }
+            }
+            else {
+                responseMsg=Settings.ERROR_MSG.ERROR_SRVR;
+            }
+            Log.e("RESPONSEMSG",responseMsg);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+        return responseMsg;
+
     }
 
     private String postJson(String urlAdress, String json){  //// post to server a json

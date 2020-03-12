@@ -117,6 +117,19 @@ public class Settings {
 
     }
 
+    public static class ACTION_TYPES{
+        public static String[] FILE_TYPES =
+        {"application/msword","application/vnd.openxmlformats-officedocument.wordprocessingml.document", "application/vnd.openxmlformats-officedocument.wordprocessingml.template","application/vnd.ms-word.document.macroEnabled.12","application/vnd.ms-word.template.macroEnabled.12", // .doc & .docx
+                "application/vnd.ms-powerpoint","application/vnd.openxmlformats-officedocument.presentationml.presentation", // .ppt & .pptx
+                "application/vnd.ms-excel","application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", // .xls & .xlsx
+                "text/plain",
+                "application/pdf",
+                "application/vnd.oasis.opendocument.text",
+                "application/vnd.google-apps.kix",
+                "application/vnd.google-apps.document","application/octet-stream","application/vnd.google-apps.document"};
+        public static int CHOOSE_FILE = 24;
+    }
+
     public static class CONNECTION_TYPES{
         public static String FILE = "FILE";
         public static String POST = "POST";

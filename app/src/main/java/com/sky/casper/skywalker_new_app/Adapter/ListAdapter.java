@@ -1,6 +1,9 @@
 package com.sky.casper.skywalker_new_app.Adapter;
 
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,23 +14,32 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.sky.casper.skywalker_new_app.Dialogs.WarningDialog;
 import com.sky.casper.skywalker_new_app.DummyData.DummyData;
+import com.sky.casper.skywalker_new_app.Helpers.Cache;
 import com.sky.casper.skywalker_new_app.Helpers.DatabaseHelper;
+import com.sky.casper.skywalker_new_app.Helpers.Settings;
 import com.sky.casper.skywalker_new_app.Models.CVProfile;
 import com.sky.casper.skywalker_new_app.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ListAdapter extends RecyclerView.Adapter {
 
     private CVProfile profile = null;
     private Fragment fragment;
-    private List<CVProfile.BioInfo.BioAttributes> attributes;
+    private DatabaseHelper db;
+
     private RecyclerView recyclerView;
+    private List<CVProfile.BioInfo.BioAttributes> attributes;
     private LinearLayout form;
     private ConstraintLayout addAcademic;
     private LinearLayout addExperience;
-    private DatabaseHelper db;
+
+    private List<Pair<String,String>> bios;
+    private int deelete_bio_pos;
 
     public ListAdapter(CVProfile pr, Fragment fr, DatabaseHelper d){
         this.profile = pr;
@@ -41,8 +53,36 @@ public class ListAdapter extends RecyclerView.Adapter {
         }
     }
 
-    public ListAdapter(){
+    public ListAdapter(String[] bs, Fragment fr, DatabaseHelper d){
+        this.bios =new ArrayList<>();
+        for(int i=0; i<bs.length; i++){
+            if(bs[i]!=null)
+                this.bios.add(new Pair("Cv"+(i+1),bs[i]));
+        }
+        this.fragment = fr;
+        this.db = d;
+    }
 
+    public ListAdapter(){
+        this.bios =new ArrayList<>();
+    }
+
+    public Pair<String,Integer> getDeletedBio(){
+        return new Pair(this.bios.get(this.deelete_bio_pos).first,this.deelete_bio_pos);
+    }
+
+    public void updateBios(String[] bs){
+        this.bios.clear();
+        for(int i=0; i<bs.length; i++){
+            if(bs[i]!=null)
+                this.bios.add(new Pair("Cv"+(i+1),bs[i]));
+        }
+        notifyDataSetChanged();
+    }
+
+    public void deleteCv(){
+        this.bios.remove(this.deelete_bio_pos);
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -65,7 +105,7 @@ public class ListAdapter extends RecyclerView.Adapter {
             return this.attributes.size();
         }
         else {
-            return DummyData.title.length;
+            return this.bios.size();
         }
     }
 
@@ -82,6 +122,36 @@ public class ListAdapter extends RecyclerView.Adapter {
             editBtn = itemView.findViewById(R.id.image_button_edit);
 
             if(profile != null){
+
+            }
+            else{
+                editBtn.setVisibility(View.GONE);
+                mItemText.setLinksClickable(true);
+                mItemText.setClickable(true);
+
+            }
+
+//            itemView.setOnClickListener(this);
+        }
+
+        public void bindView(int position) {
+            if(profile == null) {
+//                mItemText.setText(DummyData.title[position]);
+                String domainFile = bios.get(position).second.split("/")[bios.get(position).second.split("/").length-1];
+                mItemText.setText(Html.fromHtml("<a href=\"" + (bios.get(position).second.startsWith("http") ? bios.get(position).second : Settings.URLS.MyServer+Settings.URLS.URL_GET_FILES+"/"+db.getUserId()+"/"+bios.get(position).first+"/"+new Cache(fragment.getActivity()).getServerToken().replaceAll("/","*")) + "\">" + domainFile + "</a>"));
+                mItemText.setMovementMethod(LinkMovementMethod.getInstance());
+                deleteBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        deelete_bio_pos = position;
+                        new WarningDialog(fragment.getActivity(),fragment.getActivity().getResources().getString(R.string.delete_bio_warning),true, (WarningDialog.AsyncDialogAnswer) fragment).showDialog();
+
+                    }
+                });
+            }
+            else{
+                attribute = attributes.get(position);
+                mItemText.setText(attribute.getTitle());
                 deleteBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -127,19 +197,8 @@ public class ListAdapter extends RecyclerView.Adapter {
                     }
                 });
             }
-
-//            itemView.setOnClickListener(this);
         }
 
-        public void bindView(int position) {
-            if(profile == null) {
-                mItemText.setText(DummyData.title[position]);
-            }
-            else{
-                attribute = attributes.get(position);
-                mItemText.setText(attribute.getTitle());
-            }
-        }
 
 
     }

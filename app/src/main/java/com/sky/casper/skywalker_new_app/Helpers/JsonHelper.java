@@ -10,6 +10,7 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 public class JsonHelper {
@@ -26,7 +27,16 @@ public class JsonHelper {
     }
 
     public String getMessage() throws JSONException {
-        return jsonObject.getString("Message");
+        try {
+            return jsonObject.getString("Message");
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return jsonObject.getString("Response");
+        }
+    }
+
+    public boolean containsAttribute(String attribute){
+        return jsonObject.has(attribute);
     }
 
     public String getAttribute(String attribute) throws JSONException { /// get a specific attribute from the json object
@@ -53,6 +63,40 @@ public class JsonHelper {
         return new Pair(otherValues,arrayInfo);
     }
 
+    public String[] decodeBioUrls(){
+        String url1,url2,url3;
+        String[] bios = new String[3];
+        try {
+            url1 = this.getAttribute("Cv");
+            url2 = this.getAttribute("Cv2");
+            url3 = this.getAttribute("Cv3");
+
+            if(url1.equals("")){
+                bios[0] = null;
+            }
+            else{
+                bios[0] = url1;
+            }
+
+            if(url2.equals("")){
+                bios[1] = null;
+            }
+            else{
+                bios[1] = url2;
+            }
+
+            if(url3.equals("")){
+                bios[2] = null;
+            }
+            else{
+                bios[2] = url3;
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return bios;
+    }
+
     public Map decodePersonalInfo(){ //// get personal details and some bio values
         JSONObject personDetaills;
         HashMap<String,String> personalAttr = new HashMap<String,String>();
@@ -74,6 +118,7 @@ public class JsonHelper {
 
         return personalAttr;
     }
+
 
     public boolean invalidToken(){
         try {

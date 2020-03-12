@@ -1,6 +1,7 @@
 package com.sky.casper.skywalker_new_app.Helpers;
 
 import android.content.Context;
+import android.net.Uri;
 import android.util.Log;
 
 import com.sky.casper.skywalker_new_app.Models.CVProfile;
@@ -12,13 +13,16 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.OutputStream;
 import java.util.Scanner;
 import java.util.concurrent.ExecutionException;
 
 public class Cache {
-    Context ctx;
+    private Context ctx;
+    private File file_cache;
 
     public Cache(Context c){
         this.ctx = c;
@@ -60,6 +64,33 @@ public class Cache {
     public boolean deleteServerToken(){  /// delete file
         File f = new File(ctx.getCacheDir().getAbsolutePath()+"/serverToken.txt");
         return f.delete();
+    }
+
+    public File fileFromUri(Uri contentUri, String displayName){
+        int fbyte,buffersize,cbuffer;
+        int maxbuffer = 1024*1024;
+        try {
+            InputStream in = ctx.getContentResolver().openInputStream(contentUri);
+            file_cache = new File(ctx.getCacheDir()+"/"+displayName);
+            file_cache.createNewFile();
+            OutputStream fos =  new FileOutputStream(file_cache);
+            fbyte = in.available();
+            buffersize = Math.min(maxbuffer, fbyte);
+            byte[] buffer = new byte[buffersize];
+            cbuffer = in.read(buffer, 0, buffersize);
+            while (cbuffer > 0) {
+                fos.write(buffer, 0, buffersize);
+                fbyte = in.available();
+                buffersize = Math.min(maxbuffer, fbyte);
+                cbuffer = in.read(buffer, 0, buffersize);
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return file_cache;
     }
 
     public String getServerToken(){ /// get the token from the file
