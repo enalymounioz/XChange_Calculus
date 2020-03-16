@@ -85,6 +85,7 @@ public class ListAdapter extends RecyclerView.Adapter {
         notifyDataSetChanged();
     }
 
+
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -137,7 +138,8 @@ public class ListAdapter extends RecyclerView.Adapter {
         public void bindView(int position) {
             if(profile == null) {
 //                mItemText.setText(DummyData.title[position]);
-                String domainFile = bios.get(position).second.split("/")[bios.get(position).second.split("/").length-1];
+//                String domainFile = bios.get(position).second.split("/")[bios.get(position).second.split("/").length-1];
+                String domainFile = fragment.getResources().getString(R.string.view_cv)+Integer.toString(position+1);
                 mItemText.setText(Html.fromHtml("<a href=\"" + (bios.get(position).second.startsWith("http") ? bios.get(position).second : Settings.URLS.MyServer+Settings.URLS.URL_GET_FILES+"/"+db.getUserId()+"/"+bios.get(position).first+"/"+new Cache(fragment.getActivity()).getServerToken().replaceAll("/","*")) + "\">" + domainFile + "</a>"));
                 mItemText.setMovementMethod(LinkMovementMethod.getInstance());
                 deleteBtn.setOnClickListener(new View.OnClickListener() {

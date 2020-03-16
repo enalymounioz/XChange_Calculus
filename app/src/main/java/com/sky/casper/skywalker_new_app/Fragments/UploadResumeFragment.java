@@ -108,26 +108,26 @@ public class UploadResumeFragment extends Fragment implements ServerRequest.Asyn
                 if (numBios != 3) {
                     Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
                     intent.addCategory(Intent.CATEGORY_OPENABLE);
-                    intent.setType("*/*");
-//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-////                    intent.setType(Settings.ACTION_TYPES.FILE_TYPES.length == 1 ? Settings.ACTION_TYPES.FILE_TYPES[0] : "*/*");
-//                    intent.setType(Settings.ACTION_TYPES.FILE_TYPES[0]);
-//                    if (Settings.ACTION_TYPES.FILE_TYPES.length > 0) {
-//                        intent.putExtra(Intent.EXTRA_MIME_TYPES, Settings.ACTION_TYPES.FILE_TYPES);
-//                    }
-//                } else {
-//                    String mimeTypesStr = "";
-//                    for (String mimeType : Settings.ACTION_TYPES.FILE_TYPES) {
-//                        mimeTypesStr += mimeType + "|";
-//                    }
-//                    intent.setType(mimeTypesStr.substring(0,mimeTypesStr.length() - 1));
-//                }
+//                    intent.setType("*/*");
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+//                    intent.setType(Settings.ACTION_TYPES.FILE_TYPES.length == 1 ? Settings.ACTION_TYPES.FILE_TYPES[0] : "*/*");
+                    intent.setType(Settings.ACTION_TYPES.FILE_TYPES[0]);
+                    if (Settings.ACTION_TYPES.FILE_TYPES.length > 0) {
+                        intent.putExtra(Intent.EXTRA_MIME_TYPES, Settings.ACTION_TYPES.FILE_TYPES);
+                    }
+                } else {
+                    String mimeTypesStr = "";
+                    for (String mimeType : Settings.ACTION_TYPES.FILE_TYPES) {
+                        mimeTypesStr += mimeType + "|";
+                    }
+                    intent.setType(mimeTypesStr.substring(0,mimeTypesStr.length() - 1));
+                }
                     startActivityForResult(
                             Intent.createChooser(intent, UploadResumeFragment.this.getResources().getString(R.string.choose_file)),
                             Settings.ACTION_TYPES.CHOOSE_FILE);
                 }
                 else{
-                    /// TODO message only 3 bios
+                    Toast.makeText(getActivity(),UploadResumeFragment.this.getResources().getString(R.string.not_allowed_upload_cv),Toast.LENGTH_LONG).show();
                 }
             }
 
@@ -148,7 +148,17 @@ public class UploadResumeFragment extends Fragment implements ServerRequest.Asyn
                 JsonHelper jsonHelper = new JsonHelper(answer);
                 if(jsonHelper.containsAttribute("Status")){
                     if(uploadFile){
-
+                        postName = "CvMob";
+                        String message = jsonHelper.getMessage();
+                        Toast.makeText(this.getActivity(), message, Toast.LENGTH_LONG).show();
+                        if (jsonHelper.getStatus().toLowerCase().equals("success")) {
+                            this.bioUrls = jsonHelper.decodeBioUrls();
+                            this.numBios++;
+                            ListAdapter listAdapter = new ListAdapter(this.bioUrls, this, db);
+                            recyclerView.setAdapter(listAdapter);
+                            fileSave.setVisibility(View.GONE);
+                            cv_title.setText(this.getResources().getString(R.string.upload_your_cv));
+                        }
                     }
                     else {
                         String message = jsonHelper.getMessage();
@@ -156,6 +166,8 @@ public class UploadResumeFragment extends Fragment implements ServerRequest.Asyn
                         if (jsonHelper.getStatus().toLowerCase().equals("success")) {
 //                        ListAdapter listAdapter = new ListAdapter(this.bioUrls, this, db);
                             ((ListAdapter) recyclerView.getAdapter()).deleteCv();
+                            this.numBios--;
+
 //                        recyclerView.notify();
                         }
                     }
@@ -181,6 +193,7 @@ public class UploadResumeFragment extends Fragment implements ServerRequest.Asyn
     public void warningResponse(String answ) {
         if(answ.equals(this.getResources().getString(R.string.yes))){
             deleted_bio = ((ListAdapter)this.recyclerView.getAdapter()).getDeletedBio();
+            bioUrls[deleted_bio.second] = null;
             uploadFile = false;
             new ServerRequest(getActivity(),this).execute(Settings.CONNECTION_TYPES.POST,"Id",db.getUserId(),Settings.URLS.URL_DELETE_BIO+"/"+deleted_bio.first.replace("1",""));
         }
@@ -189,8 +202,9 @@ public class UploadResumeFragment extends Fragment implements ServerRequest.Asyn
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.e("RETURNED FILE CHOOOSE","resultCode"+resultCode+" requestCode "+requestCode+" data "+data.toString());
+
         if(resultCode == Activity.RESULT_OK){
+            Log.e("RETURNED FILE CHOOOSE","resultCode"+resultCode+" requestCode "+requestCode+" data "+data.toString());
             Log.e("Ola","OK");
             Uri uri = data.getData();
             String uriString = uri.toString();
@@ -225,6 +239,7 @@ public class UploadResumeFragment extends Fragment implements ServerRequest.Asyn
 
             if(i==bioUrls.length){
                 //// TODO Toast message only 3 bios allowed
+                Toast.makeText(getActivity(),this.getResources().getString(R.string.not_allowed_upload_cv),Toast.LENGTH_LONG).show();
             }
             else{
                 fileSave.setVisibility(View.VISIBLE);

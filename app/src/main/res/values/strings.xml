@@ -188,5 +188,8 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="attach_file">Attach file</string>
+    <string name="not_allowed_upload_cv">You can not upload CV! Only 3 CVs are permitted!</string>
+    <string name="upload_your_cv">Upload your CV on your profile</string>
+    <string name="view_cv">View CV</string>
 
 </resources>

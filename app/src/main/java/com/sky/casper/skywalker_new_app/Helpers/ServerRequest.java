@@ -26,6 +26,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.text.Normalizer;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -207,7 +208,7 @@ public class ServerRequest extends AsyncTask<String, String, String> {
             conn.setUseCaches(false);
             conn.setRequestProperty("Connection", "keep-Alive");
             conn.setRequestProperty("ENCTYPE", "multipart/form-data");
-            conn.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + boundary);
+            conn.setRequestProperty("Content-Type", "multipart/form-data; charset=UTF-8; boundary=" + boundary);
             DataOutputStream dos = new DataOutputStream(conn.getOutputStream());
             FileInputStream fileInputStreamCV=null;
             FileInputStream fileInputStreamLetter=null;
@@ -261,9 +262,14 @@ public class ServerRequest extends AsyncTask<String, String, String> {
                 }catch (Exception e){
                     fileInputStreamCV = new FileInputStream(sfile);
                 }
-
+//                String newName = Settings.replaceAllExceptLast(".","_",CvName);
+//                newName = Settings.replaceAllExceptLast("-","_",newName);
+//                Log.e("CVNAMENEW",newName);
+                CvName = Settings.randomIdentifier()+"."+CvName.split("\\.")[CvName.split("\\.").length-1];
+                Log.e("NEWNAME ",CvName+" "+postName+" "+CvName.split(".").length+" ");
                 dos.writeBytes(twoHyphens + boundary + lineEnd);
                 dos.writeBytes("Content-Disposition: form/data; name="+postName+"; filename=\"" + CvName + "\"" + lineEnd);
+                dos.writeBytes("Content-Type: text/plain; charset=UTF-8"+lineEnd);
                 dos.writeBytes(lineEnd);
 
                 fbyte = fileInputStreamCV.available();

@@ -26,13 +26,17 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.text.Normalizer;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ExecutionException;
+import java.util.regex.Pattern;
 
 public class Settings {
 
@@ -464,11 +468,12 @@ public class Settings {
        }
 
        public static  boolean getCandidateDetails(){ //// get candidate personal and bio details
-           String candDetails=null,bioDetails=null;
+           String candDetails="",bioDetails="";
            DatabaseHelper db = new DatabaseHelper(Skywalker.getContext());
            Cache cache = new Cache(Skywalker.getContext());
            try {
                candDetails = new ServerRequest(Skywalker.getContext()).execute(Settings.CONNECTION_TYPES.POST,"Id",db.getUserId(),"Token",cache.getServerToken(),Settings.URLS.CANDIDATE_URL).get(); /// personal details and a few bio details
+               Log.e("CANDDETAILS",candDetails);
                JsonHelper jsonHelper = new JsonHelper(candDetails);
                if(jsonHelper.invalidToken()){ /// if the token is invalid update it from the server
                     cache.saveUserToken(new ServerRequest(Skywalker.getContext()).execute(CONNECTION_TYPES.POST,"Id",db.getUserId(), URLS.URL_TOKEN).get());
@@ -476,18 +481,27 @@ public class Settings {
                }
                bioDetails = new ServerRequest(Skywalker.getContext()).execute(Settings.CONNECTION_TYPES.POST,"Id",db.getUserId(),"Token",cache.getServerToken(),Settings.URLS.BIO_URL).get(); //// get bio detils from server
 
+
+           } catch (ExecutionException e) {
+               e.printStackTrace();
                if(candDetails.equals(ERROR_MSG.ERROR_SRVR) || bioDetails.equals(ERROR_MSG.ERROR_SRVR)){
                    Toast.makeText(Skywalker.getContext(),Skywalker.getContext().getResources().getString(R.string.server_error),Toast.LENGTH_LONG).show();
                    return false;
                }
-           } catch (ExecutionException e) {
-               e.printStackTrace();
                return false;
            } catch (InterruptedException e) {
                e.printStackTrace();
+               if(candDetails.equals(ERROR_MSG.ERROR_SRVR) || bioDetails.equals(ERROR_MSG.ERROR_SRVR)){
+                   Toast.makeText(Skywalker.getContext(),Skywalker.getContext().getResources().getString(R.string.server_error),Toast.LENGTH_LONG).show();
+                   return false;
+               }
                return false;
            } catch (JSONException e) {
                e.printStackTrace();
+               if(candDetails.equals(ERROR_MSG.ERROR_SRVR) || bioDetails.equals(ERROR_MSG.ERROR_SRVR)){
+                   Toast.makeText(Skywalker.getContext(),Skywalker.getContext().getResources().getString(R.string.server_error),Toast.LENGTH_LONG).show();
+                   return false;
+               }
                return false;
            }
            Log.e("Candidate Details",candDetails);
@@ -523,6 +537,53 @@ public class Settings {
                    });
            builder.show();
        }
+
+       public static String replaceAllExceptLast(String regex,String replace, String toReplace){
+           StringBuilder sb = new StringBuilder(toReplace);
+           int first = toReplace.indexOf(regex), last = toReplace.lastIndexOf(regex);
+//           String [] pieces = toReplace.split(regex);
+//           Log.e("NUM OCCUR",pieces.length+"");
+           toReplace = toReplace.replace(regex,replace);
+           if (first != last) {
+               for(int i=first; i<last-1; i++){
+                   if(sb.charAt(i) == regex.charAt(0))
+                      sb.setCharAt(i,replace.charAt(0));
+               }
+               toReplace = sb.toString();
+           }
+
+
+
+           return  toReplace;
+       }
+
+
+
+    public static String randomIdentifier() {
+        final String lexicon = "ABCDEFGHIJKLMNOPQRSTUVWXYZ12345674890";
+
+        final java.util.Random rand = new java.util.Random();
+
+        // consider using a Map<String,Boolean> to say whether the identifier is being used or not
+        final Set<String> identifiers = new HashSet<String>();
+        StringBuilder builder = new StringBuilder();
+        while(builder.toString().length() == 0) {
+            int length = rand.nextInt(5)+5;
+            for(int i = 0; i < length; i++) {
+                builder.append(lexicon.charAt(rand.nextInt(lexicon.length())));
+            }
+            if(identifiers.contains(builder.toString())) {
+                builder = new StringBuilder();
+            }
+        }
+        return builder.toString();
+    }
+
+    public static String deAccent(String str) {
+        String nfdNormalizedString = Normalizer.normalize(str, Normalizer.Form.NFD);
+        Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
+        return pattern.matcher(nfdNormalizedString).replaceAll("");
+    }
 
 }
 
