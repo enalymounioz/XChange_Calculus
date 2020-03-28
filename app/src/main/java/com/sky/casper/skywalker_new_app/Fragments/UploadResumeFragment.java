@@ -35,8 +35,6 @@ import com.sky.casper.skywalker_new_app.R;
 import org.json.JSONException;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -69,15 +67,15 @@ public class UploadResumeFragment extends Fragment implements ServerRequest.Asyn
         fileSave = view.findViewById(R.id.save_bio);
 
         cv_title = view.findViewById(R.id.textView_upload_cv);
-        uploadFile = false;
-        db = new DatabaseHelper(getActivity());
-        cache = new Cache(getActivity());
-        bioUrls = new String[3];
+        uploadFile = false; // flag to upload file, this is important for server response handler
+        db = new DatabaseHelper(getActivity()); /// create database handler
+        cache = new Cache(getActivity()); /// create cache handler
+        bioUrls = new String[3];  /// contains urls of resumes
         numBios = 0;
 
-        getBios();
-        uploadFile();
-        saveFile();
+        getBios();  /// download the available resume urls from server
+        selectFile(); /// select a file from the device
+        saveFile(); /// upload  the file to server
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
@@ -101,7 +99,7 @@ public class UploadResumeFragment extends Fragment implements ServerRequest.Asyn
         });
     }
 
-    private void uploadFile(){
+    private void selectFile(){
         fileChoose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -146,12 +144,12 @@ public class UploadResumeFragment extends Fragment implements ServerRequest.Asyn
         else{
             try {
                 JsonHelper jsonHelper = new JsonHelper(answer);
-                if(jsonHelper.containsAttribute("Status")){
-                    if(uploadFile){
+                if(jsonHelper.containsAttribute("Status")){  /// Delete or Upload
+                    if(uploadFile){   /// Upload
                         postName = "CvMob";
                         String message = jsonHelper.getMessage();
                         Toast.makeText(this.getActivity(), message, Toast.LENGTH_LONG).show();
-                        if (jsonHelper.getStatus().toLowerCase().equals("success")) {
+                        if (jsonHelper.getStatus().toLowerCase().equals("success")) { /// success uploaded file
                             this.bioUrls = jsonHelper.decodeBioUrls();
                             this.numBios++;
                             ListAdapter listAdapter = new ListAdapter(this.bioUrls, this, db);
@@ -160,10 +158,10 @@ public class UploadResumeFragment extends Fragment implements ServerRequest.Asyn
                             cv_title.setText(this.getResources().getString(R.string.upload_your_cv));
                         }
                     }
-                    else {
+                    else {  /// Delete
                         String message = jsonHelper.getMessage();
                         Toast.makeText(this.getActivity(), message, Toast.LENGTH_LONG).show();
-                        if (jsonHelper.getStatus().toLowerCase().equals("success")) {
+                        if (jsonHelper.getStatus().toLowerCase().equals("success")) { /// success deleted file
 //                        ListAdapter listAdapter = new ListAdapter(this.bioUrls, this, db);
                             ((ListAdapter) recyclerView.getAdapter()).deleteCv();
                             this.numBios--;
@@ -172,7 +170,7 @@ public class UploadResumeFragment extends Fragment implements ServerRequest.Asyn
                         }
                     }
                 }
-                else {
+                else {   //// Get resumes' url
                     this.bioUrls = jsonHelper.decodeBioUrls();
 
                     for (String url : this.bioUrls) {
@@ -190,7 +188,7 @@ public class UploadResumeFragment extends Fragment implements ServerRequest.Asyn
     }
 
     @Override
-    public void warningResponse(String answ) {
+    public void warningResponse(String answ) {  // Handler of warning dialog rsponse for deletion a file
         if(answ.equals(this.getResources().getString(R.string.yes))){
             deleted_bio = ((ListAdapter)this.recyclerView.getAdapter()).getDeletedBio();
             bioUrls[deleted_bio.second] = null;
@@ -200,10 +198,10 @@ public class UploadResumeFragment extends Fragment implements ServerRequest.Asyn
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {  //// Hsndler from chooser menu
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(resultCode == Activity.RESULT_OK){
+        if(resultCode == Activity.RESULT_OK){ /// user choose successfully a file
             Log.e("RETURNED FILE CHOOOSE","resultCode"+resultCode+" requestCode "+requestCode+" data "+data.toString());
             Log.e("Ola","OK");
             Uri uri = data.getData();
@@ -212,7 +210,7 @@ public class UploadResumeFragment extends Fragment implements ServerRequest.Asyn
             path = myFile.getAbsolutePath();
             displayName = null;
 
-            if (uriString.startsWith("content://")) {
+            if (uriString.startsWith("content://")) {  /// decode file info such as name and path
                 Cursor cursor = null;
                 try {
                     cursor = getActivity().getContentResolver().query(uri, null, null, null, null);
@@ -229,7 +227,7 @@ public class UploadResumeFragment extends Fragment implements ServerRequest.Asyn
             Log.e("FILE INFO ","Name "+displayName+" Path "+path);
             path = cache.fileFromUri(uri,displayName).getAbsolutePath();
 
-            int i;
+            int i;  /// create the post parameter for the upload request to server
             for(i=0; i<this.bioUrls.length; i++){
                 if(bioUrls[i]==null){
                     postName += Integer.toString(i+1);
@@ -237,8 +235,7 @@ public class UploadResumeFragment extends Fragment implements ServerRequest.Asyn
                 }
             }
 
-            if(i==bioUrls.length){
-                //// TODO Toast message only 3 bios allowed
+            if(i==bioUrls.length){ /// User can not upload more than 3 resumes in server
                 Toast.makeText(getActivity(),this.getResources().getString(R.string.not_allowed_upload_cv),Toast.LENGTH_LONG).show();
             }
             else{

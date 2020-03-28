@@ -2,10 +2,14 @@ package com.sky.casper.skywalker_new_app.Models;
 
 import android.text.Html;
 
+import com.sky.casper.skywalker_new_app.Helpers.Settings;
+
 import java.io.Serializable;
 
+import androidx.annotation.Nullable;
 
-public class Advert implements Serializable {
+
+public class Advert implements Serializable { //// model represents ad info
     private String text,image_url,title,
             image_file,id,empType,region,date,clientId,name,full_text,clientName,link,category,ad_code,seoUrl,full_title,anonymous_title;
     private boolean hasQuestions;
@@ -15,12 +19,12 @@ public class Advert implements Serializable {
 
     public Advert(String txt, String img, String ttl, String i,
                   String emT, String reg, String d, String client, String n, Boolean iA, String clientN, String ac, String at){
-        text=txt;
+        text=this.parseAdText(txt);
         image_url=img;
         title=ttl;
         id=i;
         empType=emT;
-        region=reg;
+        region= Settings.parseHtml(reg);
         date=d;
         clientId=client;
         name=n;
@@ -224,11 +228,47 @@ public class Advert implements Serializable {
         return empType==null;
     }
 
+    public  String parseAdText(String txt){
+        int i=0;
+        String str="";
+        boolean ignore=false;
+        while(i<txt.length()){
+            if(txt.charAt(i) == '['){
+                ignore = true;
+            }
+            else if(txt.charAt(i)==']'){
+                ignore = false;
+            }
+            else{
+                if(ignore == false){
+                    str +=txt.charAt(i);
+                }
+            }
+            i++;
 
+        }
+        return str;
+    }
+
+
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        if(obj instanceof Advert){
+            return this.toString().equals(obj.toString());
+        }
+        else{
+            return false;
+        }
+    }
 
     @Override
     public String toString(){
         return "Advert [text="+text +" image_url="+image_url +" title="+title +" category="+category+" image_file="+image_file+" id="+id+" empType="+empType+" region="+region+
-                " date="+date+" clientId="+clientId+" name="+name+" full_text="+full_text+" link="+link+" ad_code="+ad_code+" seoUrl="+seoUrl+"]";
+                " date="+date+" clientId="+clientId+" name="+name+" full_text="+full_text+" link="+link+" ad_code="+ad_code+" seoUrl="+seoUrl+" full_title="+full_title+
+                " anonymous_title="+anonymous_title+" clientName="+clientName+" isAnonymous="+isAnonymous+" fromWebView="+fromWebview+" gdprInfo="+gdprInfo+" gdprResp="+gdprResp+"]";
     }
+
+
+
+
 }

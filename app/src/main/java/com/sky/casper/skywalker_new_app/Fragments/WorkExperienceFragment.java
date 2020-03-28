@@ -67,11 +67,11 @@ public class WorkExperienceFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
 
         fabAddWork.setOnClickListener(view12 -> {
-//            Toast.makeText(getContext(),"Work fab Clicked. Replace this Action",Toast.LENGTH_SHORT).show();
-            recyclerView.setVisibility(View.GONE);
+            recyclerView.setVisibility(View.GONE); /// Vanish the list
             addLinear.setVisibility(View.GONE);
-            experienceForm.setVisibility(View.VISIBLE);
+            experienceForm.setVisibility(View.VISIBLE);  /// show work experience form
             List<Type> jobPositions = db.getPrimaryTypes(Settings.JOB_CATEGORIES.JSON_JOBPOSITION_TYPE);
+            // TODO appers job position in order to the user choose the the desired value
         });
 
 

@@ -29,7 +29,7 @@
             android:ems="10"
             app:hintEnabled="false">
 
-            <com.google.android.material.textfield.TextInputEditText
+            <com.google.android.material.textview.MaterialAutoCompleteTextView
                 android:id="@+id/etQuery"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

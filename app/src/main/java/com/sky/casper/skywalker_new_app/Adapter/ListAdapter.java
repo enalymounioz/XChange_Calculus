@@ -41,6 +41,7 @@ public class ListAdapter extends RecyclerView.Adapter {
     private List<Pair<String,String>> bios;
     private int deelete_bio_pos;
 
+    /* This is for User info Tabs suck as academic work experience etc. */
     public ListAdapter(CVProfile pr, Fragment fr, DatabaseHelper d){
         this.profile = pr;
         this.fragment = fr;
@@ -53,6 +54,9 @@ public class ListAdapter extends RecyclerView.Adapter {
         }
     }
 
+
+
+   /* This is for uploading resume */
     public ListAdapter(String[] bs, Fragment fr, DatabaseHelper d){
         this.bios =new ArrayList<>();
         for(int i=0; i<bs.length; i++){
@@ -63,23 +67,13 @@ public class ListAdapter extends RecyclerView.Adapter {
         this.db = d;
     }
 
-    public ListAdapter(){
-        this.bios =new ArrayList<>();
-    }
-
+    /* Returns the selected resume which will be deleted*/
     public Pair<String,Integer> getDeletedBio(){
         return new Pair(this.bios.get(this.deelete_bio_pos).first,this.deelete_bio_pos);
     }
 
-    public void updateBios(String[] bs){
-        this.bios.clear();
-        for(int i=0; i<bs.length; i++){
-            if(bs[i]!=null)
-                this.bios.add(new Pair("Cv"+(i+1),bs[i]));
-        }
-        notifyDataSetChanged();
-    }
 
+    /* Deletes the selected Resume*/
     public void deleteCv(){
         this.bios.remove(this.deelete_bio_pos);
         notifyDataSetChanged();
@@ -102,10 +96,10 @@ public class ListAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-        if(profile != null){
+        if(profile != null){  // user info tab
             return this.attributes.size();
         }
-        else {
+        else { /// resume tab
             return this.bios.size();
         }
     }
@@ -125,7 +119,7 @@ public class ListAdapter extends RecyclerView.Adapter {
             if(profile != null){
 
             }
-            else{
+            else{ /// resume tab
                 editBtn.setVisibility(View.GONE);
                 mItemText.setLinksClickable(true);
                 mItemText.setClickable(true);
@@ -136,9 +130,7 @@ public class ListAdapter extends RecyclerView.Adapter {
         }
 
         public void bindView(int position) {
-            if(profile == null) {
-//                mItemText.setText(DummyData.title[position]);
-//                String domainFile = bios.get(position).second.split("/")[bios.get(position).second.split("/").length-1];
+            if(profile == null) {  /// resume tab
                 String domainFile = fragment.getResources().getString(R.string.view_cv)+Integer.toString(position+1);
                 mItemText.setText(Html.fromHtml("<a href=\"" + (bios.get(position).second.startsWith("http") ? bios.get(position).second : Settings.URLS.MyServer+Settings.URLS.URL_GET_FILES+"/"+db.getUserId()+"/"+bios.get(position).first+"/"+new Cache(fragment.getActivity()).getServerToken().replaceAll("/","*")) + "\">" + domainFile + "</a>"));
                 mItemText.setMovementMethod(LinkMovementMethod.getInstance());
@@ -151,7 +143,7 @@ public class ListAdapter extends RecyclerView.Adapter {
                     }
                 });
             }
-            else{
+            else{ /// User info tab
                 attribute = attributes.get(position);
                 mItemText.setText(attribute.getTitle());
                 deleteBtn.setOnClickListener(new View.OnClickListener() {
@@ -167,25 +159,25 @@ public class ListAdapter extends RecyclerView.Adapter {
                     public void onClick(View view) {
                         //// TODO edit action gone -> visible
 
-                        if(fragment.getClass().getSimpleName().toLowerCase().contains("academic")){
+                        if(fragment.getClass().getSimpleName().toLowerCase().contains("academic")){ /// edit academic attributes
                             recyclerView = fragment.getView().findViewById(R.id.recyclerViewAcademic);
                             addAcademic = fragment.getView().findViewById(R.id.linearLayout_add);
 
-                            recyclerView.setVisibility(View.GONE);
+                            recyclerView.setVisibility(View.GONE); // vanish  all the info
                             addAcademic.setVisibility(View.GONE);
 
                             if(attribute.getClass().getSimpleName().toLowerCase().contains("edu")){
                                 form = fragment.getView().findViewById(R.id.linearLayout_academic);
-                                form.setVisibility(View.VISIBLE);
+                                form.setVisibility(View.VISIBLE);  // appear the form
                             }
                             else if(attribute.getClass().getSimpleName().toLowerCase().contains("lang")){
-
+                                    /// TODO complete forms for other attributes such as language
                             }
                             else{
 
                             }
                         }
-                        else{
+                        else{  /// edit work experience
                             recyclerView = fragment.getView().findViewById(R.id.recyclerViewWork);
                             form = fragment.getView().findViewById(R.id.linearLayout_work_experience);
                             addExperience = fragment.getView().findViewById(R.id.linearLayout_add);

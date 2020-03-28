@@ -4,15 +4,21 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.sky.casper.skywalker_new_app.Helpers.Cache;
 import com.sky.casper.skywalker_new_app.Helpers.DatabaseHelper;
+import com.sky.casper.skywalker_new_app.Helpers.ServerRequest;
 import com.sky.casper.skywalker_new_app.Helpers.Settings;
 import com.sky.casper.skywalker_new_app.R;
+
+import java.util.Set;
+import java.util.concurrent.ExecutionException;
 
 public class ActivitySplash extends AppCompatActivity {
 
@@ -25,6 +31,7 @@ public class ActivitySplash extends AppCompatActivity {
     ImageView image;
     TextView text;
     DatabaseHelper db;
+    Cache cache;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +47,18 @@ public class ActivitySplash extends AppCompatActivity {
         Handler handler = new Handler();
         handler.postDelayed(() -> {
             db = new DatabaseHelper(ActivitySplash.this); /// create database before moving to the main screen
-                Intent intent;
+            cache = new Cache(ActivitySplash.this);  // create cache handler
+            String ads_json;
+            try {
+                ads_json = new ServerRequest(ActivitySplash.this).execute(Settings.CONNECTION_TYPES.POST,"page",Integer.toString(1), Settings.URLS.URL_ADS).get(); /// Download ads
+                cache.saveSomething(ads_json,"ads.ser",false);   /// save them in cache
+                Log.e("ADS",ads_json);
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            Intent intent;
                 if(db.getUserId()==null) {
                     intent = new Intent(ActivitySplash.this, ActivityLogin.class);
                 }
@@ -60,4 +78,6 @@ public class ActivitySplash extends AppCompatActivity {
         text = findViewById(R.id.text);
         text.startAnimation(logoanimation);
     }
+
+
 }

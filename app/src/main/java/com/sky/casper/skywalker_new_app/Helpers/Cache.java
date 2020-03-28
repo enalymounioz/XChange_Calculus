@@ -66,7 +66,125 @@ public class Cache {
         return f.delete();
     }
 
-    public File fileFromUri(Uri contentUri, String displayName){
+    /* Save an object */
+    public boolean saveSomething(Object obj, String name, boolean checkExist){ //// name must contain ".ser"
+        File f = new File(ctx.getCacheDir().getAbsolutePath()+"/"+name);
+        if(f.exists() && checkExist){ /// check existance of object
+            Object tempObj = this.getSomething(name);
+            if(tempObj!=null && tempObj.equals(obj)){ // if exists an equla object return
+                return true;
+            }
+        }
+        else if(f.exists()){  // if not force delete to the file an save the object from scratch
+            f.delete();
+        }
+
+
+        try {
+            f.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            FileOutputStream fos = new FileOutputStream(f.getAbsolutePath());
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(obj);
+            oos.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return false;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        return true;
+    }
+
+    public Object getSomething(String name){  /// get an object
+        File f = new File(ctx.getCacheDir().getAbsolutePath()+"/"+name);
+        try {
+            FileInputStream fis = new FileInputStream(f.getAbsolutePath());
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            Object tempObj = (Object) ois.readObject();
+            ois.close();
+            return tempObj;
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public boolean saveAd(String jsonAd, String name){  /// Save ad to cache
+        String folders = ctx.getCacheDir().getAbsolutePath()+"/";
+        String filePath = folders + name;
+        File f = new File(filePath); /// make the file
+        if(!f.exists()){
+            try {
+                f.createNewFile();  /// create file if not exists
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        else{
+            String temp = "";
+            Scanner scanner = null;
+            try {
+                scanner = new Scanner(f);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            while (scanner.hasNextLine()) {
+                temp += scanner.nextLine();
+            }
+            if(temp.equals(jsonAd)){
+                return true;
+            }
+        }
+
+        try {
+            FileWriter fw =  new FileWriter(filePath); //// write the token into the file
+            BufferedWriter bw =  new BufferedWriter(fw);
+            bw.write(jsonAd);
+            Log.e("JSONADFILE",jsonAd+" WRITE");
+
+            if (bw != null)
+                bw.close();
+
+            if (fw != null)
+                fw.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        return true;
+    }
+
+
+    public String getAd(String name){  //// get ad from cache
+        File f = new File(ctx.getCacheDir().getAbsolutePath()+"/"+name);
+        if(f.exists()){ /// read the file
+            String temp = "";
+            Scanner scanner = null;
+            try {
+                scanner = new Scanner(f);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            while (scanner.hasNextLine()) {
+                temp += scanner.nextLine();
+            }
+            return temp;
+        }
+        else{
+            return null;
+        }
+    }
+
+    public File fileFromUri(Uri contentUri, String displayName){   //// translate a Uri to file and save in cache
         int fbyte,buffersize,cbuffer;
         int maxbuffer = 1024*1024;
         try {

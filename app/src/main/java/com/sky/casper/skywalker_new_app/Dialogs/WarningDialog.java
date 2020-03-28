@@ -6,11 +6,13 @@ import android.content.DialogInterface;
 
 import com.sky.casper.skywalker_new_app.R;
 
+
+/*This class appears a waning dialog with answers (yes or no) or without answer (just ok button)*/
 public class WarningDialog {
     String message;
-    boolean yesOrNo;
+    boolean yesOrNo;  // contains answers or not
     Context context;
-    AsyncDialogAnswer response;
+    AsyncDialogAnswer response;  /// where this dialog must appear this might be a fragment or an activity
 
     public interface AsyncDialogAnswer{
         void warningResponse(String answ);
@@ -25,7 +27,7 @@ public class WarningDialog {
     }
 
     public void showDialog(){
-        if(yesOrNo){
+        if(yesOrNo){  /// with answers
             DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
@@ -42,7 +44,7 @@ public class WarningDialog {
                             break;
                     }
                     if(response!=null){
-                        response.warningResponse(answer);
+                        response.warningResponse(answer); /// return the answer where the activity or the fragment has to handle it
                     }
                 }
             };
@@ -50,7 +52,7 @@ public class WarningDialog {
             builder.setMessage(message).setPositiveButton(context.getResources().getString(R.string.yes), dialogClickListener)
                     .setNegativeButton(context.getResources().getString(R.string.no), dialogClickListener).show();
         }
-        else{
+        else{   // without answers
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
             builder.setMessage(message)
                     .setCancelable(false)

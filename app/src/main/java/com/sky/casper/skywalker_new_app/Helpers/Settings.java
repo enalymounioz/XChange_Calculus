@@ -148,6 +148,42 @@ public class Settings {
         public static String DATABASE_ERROR = "error_db";
     }
 
+
+    public static class ADS{ /// Useful info for for decodind and encoding and sending server request or recving server's answer
+        public static final String AD_SMALL_TYPE = "small_advert";
+        public static final String AD_TYPE = "advert";
+        public static final String TITLE = "Title";
+        public static final String TEXT = "Text";
+        public static final String LOGO = "Logo";
+        public static final String ID = "Id";
+        public static final String EMPTYPE = "EmpType";
+        public static final String LOCATION = "Perioxi";
+        public static final String PUBLISH_DATE = "PublishDate";
+        public static final String NAME = "Name";
+        public static final String CLIENT_ID = "ClientId";
+        public static final String IS_ANONYMOUS = "IsAnonymous";
+        public static final String CLIENT_NAME = "ClientName";
+        public static final String FULL_TXT = "FullText";
+        public static final String LINK = "Link";
+        public static final String AD_CODE = "AdCode";
+        public static final String TOTAL_PAGES = "TotalPages";
+        public static final String TOTAL_ADS = "TotalAds";
+        public static final String START_ADS = "FromAds";
+        public static final String END_ADS = "ToAds";
+        public static final String PAGE = "Page";
+        public static final String SEO_URL = "seoUrl";
+        public static final String FULL_TITLE = "FullTitle";
+        public static final String ANONYMOUS_TITLE = "AnonymousTitle";
+        public static final String GDPR_INFO = "GdprInfo";
+        public static final String GDPR_RESPO = "GdprResponsibility";
+        public static final String STATUS_ANONYMOUS = "anonymous";
+//        public static final String [] CONTEXT_MENU = Skywalker.getContext().getResources().getStringArray(R.array.context_menu_items);
+//        public static final String [] CONTEXT_SAVE_MENU = Skywalker.getContext().getResources().getStringArray(R.array.save_search_menu);
+        public static final String HAS_QUESTIONS = "HasQuestions";
+        public static final String [] ANSWER_TYPES = {"radio", "checkbox", "textarea", "advcheckbox"};
+        public static final String [] DURATION_MAIL = {"3 Ημέρες","7 Ημέρες","14 Ημέρες","Κάθε Μήνα","Ποτέ"};
+    }
+
     public static class JOB_CATEGORIES {
         public static final String CATEGORY_TYPE = "categories";
         public static final String SUBCATEGORY_TYPE = "subcategories";
@@ -583,6 +619,11 @@ public class Settings {
         String nfdNormalizedString = Normalizer.normalize(str, Normalizer.Form.NFD);
         Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
         return pattern.matcher(nfdNormalizedString).replaceAll("");
+    }
+
+
+    public static String parseHtml(String reg){
+        return reg.replaceAll("\\<.*?>","");
     }
 
 }

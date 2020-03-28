@@ -385,6 +385,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         myDataBase.delete(TABLE_SETTINGS, USER_ID + "=?" ,new String[]{ id });
     }
 
+    /// Get all Data from a specific type such as category or subcategory data
     public Cursor getAllData(String type){
 //        SQLiteDatabase myDataBase = this.getWritableDatabase();
         Cursor res=null;
@@ -434,6 +435,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
+    /// Get data with their parents data for example subcategory data have category as parent so a specific category has a list of specific subacategory data
     public Map<String, List<Type>> getTypesAndParents(String db_type){
         Cursor res = this.getAllData(db_type);
         Type type;
@@ -455,6 +457,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return parentHash;
     }
 
+    /// E.g. Category is primary type because it has no parent type
     public List<Type> getPrimaryTypes(String db_type){
         Cursor res = this.getAllData(db_type);
         List<Type> listType = new ArrayList<>();

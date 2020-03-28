@@ -45,18 +45,18 @@ public class AcademicFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment
-      View view = inflater.inflate(R.layout.fragment_academic, container, false);
+        View view = inflater.inflate(R.layout.fragment_academic, container, false);
 
         recyclerView = view.findViewById(R.id.recyclerViewAcademic);
-        cache = new Cache(getActivity());
-        profile = cache.getCVProfile();
-        db = new DatabaseHelper(getActivity());
-        if(profile == null){
-            Settings.getCandidateDetails();
+        cache = new Cache(getActivity()); // create cache handler
+        profile = cache.getCVProfile(); /// get profile from cache
+        db = new DatabaseHelper(getActivity()); // create database handler
+        if(profile == null){ // if profile not exist in cache, download it from server
+            Settings.getCandidateDetails(); /// Get the profile
             profile = cache.getCVProfile();
         }
-        ListAdapter listAdapter = new ListAdapter(profile,this,db);
-        recyclerView.setAdapter(listAdapter);
+        ListAdapter listAdapter = new ListAdapter(profile,this,db); /// construct he adapter
+        recyclerView.setAdapter(listAdapter);  // set the adapter to th recycler view
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
 

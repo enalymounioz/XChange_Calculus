@@ -1,8 +1,11 @@
 package com.sky.casper.skywalker_new_app.Helpers;
 
+import android.util.Log;
 import android.util.Pair;
 
 import com.google.gson.JsonObject;
+import com.sky.casper.skywalker_new_app.Models.Advert;
+import com.sky.casper.skywalker_new_app.Models.PageInfo;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -63,7 +66,7 @@ public class JsonHelper {
         return new Pair(otherValues,arrayInfo);
     }
 
-    public String[] decodeBioUrls(){
+    public String[] decodeBioUrls(){   /// decode resumes'  url
         String url1,url2,url3;
         String[] bios = new String[3];
         try {
@@ -127,5 +130,60 @@ public class JsonHelper {
             e.printStackTrace();
             return false;
         }
+    }
+
+    public Advert[] decodeAdverts(boolean no_anonymous) { /// decode ads from json string
+        Advert[] result = null;
+        boolean anonymous;
+        try {
+            JSONArray jsonArray = jsonArray = jsonObject.getJSONArray("Items");
+            int size = jsonArray.length();
+            result = new Advert[size];
+            for (int i = 0; i < size; i++) {
+                JSONObject obj = jsonArray.getJSONObject(i);
+                String title = obj.getString(Settings.ADS.TITLE);
+                String text = obj.getString(Settings.ADS.TEXT);
+                String img = obj.getString(Settings.ADS.LOGO);
+                String id = obj.getString(Settings.ADS.ID);
+                String empT = obj.getString(Settings.ADS.EMPTYPE);
+                String region = obj.getString(Settings.ADS.LOCATION);
+                String date = obj.getString(Settings.ADS.PUBLISH_DATE);
+                String name = obj.getString(Settings.ADS.NAME);
+                String client = obj.getString(Settings.ADS.CLIENT_ID);
+                String isAnonymous = obj.getString(Settings.ADS.IS_ANONYMOUS);
+                String clientName = obj.getString(Settings.ADS.CLIENT_NAME);
+                String anonymuos_title = obj.getString(Settings.ADS.ANONYMOUS_TITLE);
+                if (isAnonymous.equals("1")) {
+                    anonymous = true;
+                } else {
+                    anonymous = false;
+                }
+                if (anonymous && no_anonymous) {
+                    continue;
+                }
+//                text = parseText(text);
+//                region = parseHtml(region);
+                Log.e("JSONAD", i + "");
+                result[i] = new Advert(text, img, title, id, empT, region, date, client, name, anonymous, clientName, null, anonymuos_title);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
+    public PageInfo decodePagedsInfo(){  /// decode page info from a json string
+        int total_pages=0,total_objs=0,from=0,to=0,curr_page=0;
+        try {
+            total_pages=jsonObject.getInt(Settings.ADS.TOTAL_PAGES);
+            total_objs=jsonObject.getInt(Settings.ADS.TOTAL_ADS);
+            from=jsonObject.getInt(Settings.ADS.START_ADS);
+            to=jsonObject.getInt(Settings.ADS.END_ADS);
+            curr_page=jsonObject.getInt(Settings.ADS.PAGE);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return new PageInfo(total_pages,total_objs,curr_page,from,to);
     }
 }
