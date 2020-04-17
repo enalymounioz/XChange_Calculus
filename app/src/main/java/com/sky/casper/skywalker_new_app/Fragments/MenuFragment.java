@@ -13,6 +13,11 @@ import android.widget.TextView;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.gridlayout.widget.GridLayout;
+
+import com.sky.casper.skywalker_new_app.Helpers.Cache;
+import com.sky.casper.skywalker_new_app.Helpers.DatabaseHelper;
+import com.sky.casper.skywalker_new_app.Helpers.Settings;
+import com.sky.casper.skywalker_new_app.Models.CVProfile;
 import com.sky.casper.skywalker_new_app.R;
 import interfaces.ICommunicationFragments;
 
@@ -43,6 +48,8 @@ public class MenuFragment extends Fragment {
     private ICommunicationFragments interfaceCommunicationFragments;
     private TextView textNickName,textWelcome;
     private ImageView imageAvatar;
+    private DatabaseHelper db;
+    private Cache cache;
 
     public MenuFragment() {
         // Required empty public constructor
@@ -93,6 +100,18 @@ public class MenuFragment extends Fragment {
         textNickName=vista.findViewById(R.id.textNickName);
         imageAvatar=vista.findViewById(R.id.avatarImage);
         imageAvatar.setImageResource(R.drawable.app_logo);
+
+        db = new DatabaseHelper(getActivity());
+        cache = new Cache(getActivity());
+        if(db.getUserId()!=null){
+            CVProfile profile = cache.getCVProfile();
+            if(profile == null){
+                Settings.getCandidateDetails();
+                profile = cache.getCVProfile();
+            }
+            textNickName.setText(profile.getName()); /// show user name
+        }
+
         eventsMenu();
 
         return vista;

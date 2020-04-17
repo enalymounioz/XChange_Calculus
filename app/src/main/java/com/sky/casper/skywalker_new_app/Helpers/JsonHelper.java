@@ -26,7 +26,11 @@ public class JsonHelper {
     }
 
     public String getStatus() throws JSONException {
-        return jsonObject.getString("Status");
+        try {
+            return jsonObject.getString("Status");
+        }catch (JSONException e){
+            return jsonObject.getString("status");
+        }
     }
 
     public String getMessage() throws JSONException {

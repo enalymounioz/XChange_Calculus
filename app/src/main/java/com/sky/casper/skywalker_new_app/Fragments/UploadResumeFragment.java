@@ -5,10 +5,12 @@ import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
+import android.opengl.Visibility;
 import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,6 +22,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +33,7 @@ import com.sky.casper.skywalker_new_app.Helpers.DatabaseHelper;
 import com.sky.casper.skywalker_new_app.Helpers.JsonHelper;
 import com.sky.casper.skywalker_new_app.Helpers.ServerRequest;
 import com.sky.casper.skywalker_new_app.Helpers.Settings;
+import com.sky.casper.skywalker_new_app.Models.CVProfile;
 import com.sky.casper.skywalker_new_app.R;
 
 import org.json.JSONException;
@@ -51,6 +55,8 @@ public class UploadResumeFragment extends Fragment implements ServerRequest.Asyn
     private String displayName,path,postName="CvMob";
     private boolean uploadFile;
     private Cache cache;
+    private AppCompatCheckBox public_cvs;
+
     public UploadResumeFragment() {
         // Required empty public constructor
     }
@@ -65,6 +71,7 @@ public class UploadResumeFragment extends Fragment implements ServerRequest.Asyn
         recyclerView = view.findViewById(R.id.recyclerViewUploadCV);
         fileChoose = view.findViewById(R.id.button_upload);
         fileSave = view.findViewById(R.id.save_bio);
+        public_cvs = view.findViewById(R.id.checkbox_public);
 
         cv_title = view.findViewById(R.id.textView_upload_cv);
         uploadFile = false; // flag to upload file, this is important for server response handler
@@ -72,6 +79,23 @@ public class UploadResumeFragment extends Fragment implements ServerRequest.Asyn
         cache = new Cache(getActivity()); /// create cache handler
         bioUrls = new String[3];  /// contains urls of resumes
         numBios = 0;
+
+
+        CVProfile profile = cache.getCVProfile();
+        if(profile == null){
+            Settings.getCandidateDetails();
+            profile = cache.getCVProfile();
+        }
+
+        public_cvs.setChecked( profile.getPrivacy(Settings.BIO_INFO.BioPermissions.AllowCvs) == null ? false : profile.getPrivacy(Settings.BIO_INFO.BioPermissions.AllowCvs)); /// set privacy value
+
+        public_cvs.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {  /// when the user changes the privacy value then a server request will be called to change tht on server
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                new ServerRequest(getActivity(),UploadResumeFragment.this).execute(Settings.CONNECTION_TYPES.POST, "Id",db.getUserId(),"Token",cache.getServerToken(),
+                        "Attribute",Settings.BIO_INFO.BioPermissions.AllowCvs, "Visibility", isChecked ? "1" : "0",Settings.URLS.CHANGE_PRIVACY);
+            }
+        });
 
         getBios();  /// download the available resume urls from server
         selectFile(); /// select a file from the device
@@ -168,6 +192,25 @@ public class UploadResumeFragment extends Fragment implements ServerRequest.Asyn
 
 //                        recyclerView.notify();
                         }
+                    }
+                }
+                else if(jsonHelper.containsAttribute("status")){ /// change public privacy flag
+                    if(jsonHelper.getStatus().toLowerCase().equals("success")){
+                        Toast.makeText(getActivity(),this.getResources().getString(R.string.success_changes_privacy),Toast.LENGTH_LONG).show();
+
+                        CVProfile profile = cache.getCVProfile();
+                        if(profile == null){
+                            Settings.getCandidateDetails();
+                            profile = cache.getCVProfile();
+                        }
+
+                        profile.setPrivacy(Settings.BIO_INFO.BioPermissions.AllowCvs,public_cvs.isChecked());
+
+                        cache.saveProfile(profile);
+                    }
+                    else{
+                        public_cvs.setChecked(!public_cvs.isChecked());
+                        Toast.makeText(getActivity(),this.getResources().getString(R.string.general_error),Toast.LENGTH_LONG).show();
                     }
                 }
                 else {   //// Get resumes' url

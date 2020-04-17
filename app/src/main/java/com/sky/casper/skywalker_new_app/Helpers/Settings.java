@@ -75,6 +75,7 @@ public class Settings {
         public static final String URL_SOCIAL_LOGIN = MyServer + "elGR/mobile-api/register-social";
         public static final String UPLOAD_BIO_URL_DISCONN = MyServer + "elGR/mobile-api/upload-bio-disconnected";
         public static final String LOGIN_CANDIDATE = MyServer + "elGR/mobile-api/candidate-login-id";
+        public static final String CHANGE_PRIVACY = MyServer + "elGR/mobile-api/test-privacy";
         public static final String BIOS_URL = MyServer + "elGR/mobile-api/get-bios";
         public static final String UPLOAD_BIO_URL_CONN = MyServer + "elGR/mobile-api/upload-bio-connected";
         public static final String SEND_BIO_CONN_URL = MyServer + "elGR/mobile-api/send-bio-to-ad";

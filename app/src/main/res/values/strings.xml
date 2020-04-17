@@ -134,6 +134,7 @@
     <string name="all_checked">Privacy on</string>
     <string name="all_unchecked">Privacy off</string>
     <string name="edit_privacy">Edit your Public Profile</string>
+    <string name="success_changes_privacy">Privacy changed successfully!</string>
 
     <string name="public_permissions">Public</string>
     <string name="private_permissions">Private</string>

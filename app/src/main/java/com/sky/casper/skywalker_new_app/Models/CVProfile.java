@@ -60,6 +60,14 @@ public class CVProfile implements Serializable { //// cv profile is separated in
         return this.privacies;
     }
 
+    public String getName(){
+        return this.pInfo.getName();
+    }
+
+    public Boolean getPrivacy(String attr){
+        return this.privacies.get(attr);
+    }
+
     public List<BioInfo.BioAttributes> getAcademic(){
         return new ArrayList<BioInfo.BioAttributes>(){{
             addAll(bInfo.bioDetails[3]);
@@ -715,6 +723,10 @@ public class CVProfile implements Serializable { //// cv profile is separated in
             this.videoUrl = details.get(Settings.PersonalInfo.CV_VIDEO);
 
 
+        }
+
+        public String getName() {
+            return name;
         }
     }
 }
